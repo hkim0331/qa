@@ -3,18 +3,31 @@
     [ataraxy.core :as ataraxy]
     [ataraxy.response :as response]
     [integrant.core :as ig]
+    [qa.boundary.questions :as questions]
     [qa.view.page :refer [question-new-page]]
     [ring.util.response :refer [redirect]]
     [taoensso.timbre :as timbre :refer [debug]]))
+
+(defn get-nick
+  "request ヘッダの id 情報を文字列で返す。
+   FIXME: develop ではエラーでも nobody を返したいが。"
+  [req]
+  (try
+    (name (get-in req [:session :identity]))
+    (catch Exception e (debug "get-nick" (.getMessage e)))
+    (finally "nobody")))
 
 (defmethod ig/init-key :qa.handler.core/question-new [_ _]
  (fn [_]
   (question-new-page)))
 
-(defmethod ig/init-key :qa.handler.core/question-create [_ _]
- (fn [{[_ params] :ataraxy/result}]
-   (debug "question-create" params)
-   [::response/ok "question-create"]))
+(defmethod ig/init-key :qa.handler.core/question-create [_ {:keys [db]}]
+ (fn [{[_ params] :ataraxy/result :as req}]
+   (let [nick (get-nick req)
+         question (get params "question")]
+     (debug "question-create" "nick" nick "question" question)
+     (questions/create db nick question)
+     [::response/ok "question-create"])))
 
 (defmethod ig/init-key :qa.handler.core/question [_ _]
   (fn [{[_ params] :ataraxy/result}]
