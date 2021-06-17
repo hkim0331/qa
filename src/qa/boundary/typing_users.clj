@@ -19,7 +19,7 @@
   (let [ret (query
              (get-connection db-spec)
              ["select * from users where nick=?" nick]
-             :builder-fn rs/as-unqualified-lower-maps)]
+             {:builder-fn rs/as-unqualified-lower-maps})]
      (debug "find-user-by-nick" ret)
      (-> ret first)))
 

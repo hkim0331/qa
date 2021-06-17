@@ -3,12 +3,13 @@
     [ataraxy.core :as ataraxy]
     [ataraxy.response :as response]
     [integrant.core :as ig]
+    [qa.view.page :refer [question-new-page]]
     [ring.util.response :refer [redirect]]
     [taoensso.timbre :as timbre :refer [debug]]))
 
 (defmethod ig/init-key :qa.handler.core/question-new [_ _]
  (fn [_]
-  [::response/ok "question-new"]))
+  (question-new-page)))
 
 (defmethod ig/init-key :qa.handler.core/question-create [_ _]
  (fn [{[_ params] :ataraxy/result}]

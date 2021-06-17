@@ -2,7 +2,8 @@
  (:require
   [ataraxy.response :as response]
   [hiccup.page :refer [html5]]
-  [hiccup.form :refer [form-to text-field password-field submit-button label]]
+  [hiccup.form :refer [form-to text-field password-field submit-button
+                       label text-area file-upload]]
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -30,9 +31,22 @@
 (defn login-page []
   (page
     [:h2 "QA: Login"]
+    [:p "tp.melt と同じやつ。"]
     (form-to
       [:post "/login"]
       (anti-forgery-field)
       (text-field {:placeholder "ニックネーム"} "nick")
       (password-field {:placeholder "パスワード"} "password")
       (submit-button "login"))))
+
+(defn question-new-page []
+ (page
+  [:h2 "QA: Create a Question"]
+  (form-to {:enctype "multipart/form-data"}
+           [:post "/q"]
+           (anti-forgery-field)
+           (text-area "question")
+           [:br]
+           (file-upload "file")
+           [:br]
+           (submit-button "submit"))))
