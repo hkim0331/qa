@@ -3,6 +3,7 @@
   :url "http://example.com/FIXME"
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.10.3"]
+                 [com.github.seancorfield/next.jdbc "1.2.659"]
                  [buddy/buddy-auth "3.0.1"]
                  [duct/core "0.8.0"]
                  [duct/module.ataraxy "0.3.0"]
