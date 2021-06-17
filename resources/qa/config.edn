@@ -3,7 +3,6 @@
 
   :duct.router/ataraxy
   {:middleware {:auth #ig/ref :qa.middleware/auth}
-   
    :routes
    {[:get "/example"] [:qa.handler/example]
 
@@ -30,14 +29,15 @@
     [:get  "/a/" id] [:qa.handler.core/answer ^:int id]
     [:get  "/as"] [:qa.handler.core/answers]}}
 
-  ;; using ex-typing's database.
+
   :qa.middleware/auth {}
 
   :qa.handler/example {:db #ig/ref :duct.database/sql}
 
-  :qa.handler.core/login {}
-  :qa.handler.core/login-post {:db #ig/ref :duct.database/sql}
-  :qa.handler.core/logout {}
+  ;; using ex-typing's database.
+  :qa.handler.auth/login {}
+  :qa.handler.auth/login-post {:db #ig/ref :duct.database/sql}
+  :qa.handler.auth/logout {}
 
   :qa.handler.core/question-new {}
   :qa.handler.core/question-create {:db #ig/ref :duct.database/sql}
