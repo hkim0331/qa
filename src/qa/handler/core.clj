@@ -4,7 +4,7 @@
     [ataraxy.response :as response]
     [integrant.core :as ig]
     [qa.boundary.questions :as questions]
-    [qa.view.page :refer [question-new-page]]
+    [qa.view.page :refer [question-new-page question-edit-page]]
     [ring.util.response :refer [redirect]]
     [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -29,10 +29,12 @@
      (questions/create db nick question)
      [::response/ok "question-create"])))
 
-(defmethod ig/init-key :qa.handler.core/question [_ _]
-  (fn [{[_ params] :ataraxy/result}]
-   (debug "question" params)
-   [::response/ok "question"]))
+(defmethod ig/init-key :qa.handler.core/question [_ {:keys [db]}]
+  (fn [{[_ n] :ataraxy/result}]
+    (debug ":qa.handler.core/question" n)
+    (let [ret (questions/fetch db (Integer/parseInt n))]
+      (debug "ret" ret)
+      (question-edit-page ret))))
 
 (defmethod ig/init-key :qa.handler.core/questions [_ _]
   (fn [_]

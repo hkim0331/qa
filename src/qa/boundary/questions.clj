@@ -16,13 +16,8 @@
 (extend-protocol Questions
   duct.database.sql.Boundary
   (create [db nick question]
-   (debug "nick" nick "question" question)
-   (let [ret (sql/insert! (ds db)
-                          :questions
-                          {:nick nick :q question})]
-     (debug "create" ret)
-     ret))
-
-  (fetch [db n])
-
+    (debug "nick" nick "question" question)
+    (sql/insert! (ds db :questions {:nick nick :q question})))
+  (fetch [db n]
+    (sql/get-by-id (ds db) :questions n bf))
   (fetch-all [db]))

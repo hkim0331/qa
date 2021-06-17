@@ -18,7 +18,7 @@
     [:post "/q" {params :multipart-params}]
     [:qa.handler.core/question-create params]
 
-    [:get  "/q/" id] [:qa.handler.core/question ^:int id]
+    [:get  "/q/" n] [:qa.handler.core/question ^:int n]
     [:get  "/qs"] [:qa.handler.core/questions]
 
     [:get  "/a"] [:qa.handler.core/answer-new]
@@ -26,7 +26,7 @@
     [:post "/a" {params :form-params}]
     [:qa.handler.core/answer-create params]
 
-    [:get  "/a/" id] [:qa.handler.core/answer ^:int id]
+    [:get  "/a/" n] [:qa.handler.core/answer ^:int n]
     [:get  "/as"] [:qa.handler.core/answers]}}
 
 

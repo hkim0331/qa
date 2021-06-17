@@ -50,3 +50,7 @@
            (file-upload "file")
            [:br]
            (submit-button "submit"))))
+
+(defn question-edit-page [& more]
+ (page
+  [:h2 "under construction"]))

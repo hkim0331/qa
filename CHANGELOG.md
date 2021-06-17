@@ -4,6 +4,7 @@
 - test をきちんと書けるように。
 - ログインできる。
 - middleware
+- test で duct.database/sql を捕まえたいぞ。
 
 ## 0.1.0
 - ex-typing のデータで認証する。
