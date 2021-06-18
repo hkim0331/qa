@@ -53,7 +53,7 @@
 (defmethod ig/init-key :qa.handler.core/answer-create [_ {:keys [db]}]
   (fn [{[_ {:strs [q_id answer]}] :ataraxy/result :as req}]
     (let [nick (get-nick req)]
-      (answers/create db q_id nick answer)
+      (answers/create db (Integer/parseInt q_id) nick answer)
       [::response/found (str "/as/" q_id)])))
 
 (defmethod ig/init-key :qa.handler.core/answer [_ {:keys [db]}]
