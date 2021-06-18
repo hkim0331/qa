@@ -6,7 +6,7 @@
     [qa.boundary.answers :as answers]
     [qa.boundary.questions :as questions]
     [qa.view.page :refer [question-new-page question-edit-page questions-page
-                          answers-page]]
+                          answers-page answer-page]]
     [ring.util.response :refer [redirect]]
     [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -53,10 +53,11 @@
     (debug "answer-create" params)
     [(::response/ok "answer-create")]))
 
-(defmethod ig/init-key :qa.handler.core/answer [_ _]
-  (fn [{[_ params] :ataraxy/result}]
-    (debug "answer" params)
-    [::response/ok "answer"]))
+(defmethod ig/init-key :qa.handler.core/answer [_ {:keys [db]}]
+  (fn [{[_ n] :ataraxy/result :as req}]
+    (debug "answer" n)
+    (let [q (questions/fetch db n)]
+      (answer-page (get-nick req) q))))
 
 ;; /as/3
 (defmethod ig/init-key :qa.handler.core/answers [_ {:keys [db]}]

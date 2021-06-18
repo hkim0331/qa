@@ -3,7 +3,7 @@
   [ataraxy.response :as response]
   [hiccup.page :refer [html5]]
   [hiccup.form :refer [form-to text-field password-field submit-button
-                       label text-area file-upload]]
+                       label text-area file-upload hidden-field]]
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -91,7 +91,7 @@
   (page
    [:h2 "QA: Answers"]
    [:p "いいねができるように。"]
-   [:p (str (:q q))]
+   [:p (:q q)]
    (for [a answers]
      [:div
       [:p (str (:a a))]])
@@ -99,3 +99,20 @@
    [:p [:a {:href (str "/a/" (:id q))
             :class "btn btn-primary btn-sm"}
         "answer"]]))
+
+(defn answer-page [nick q]
+  (debug q)
+  (page
+   [:h2 "QA: Please, " nick, "!"]
+   [:p (:q q)]
+   [:h4 "your answer:"]
+   (form-to {:enctype "multipart/form-data"}
+            [:post "/a"]
+            (anti-forgery-field)
+            (hidden-field "q_id" (:id q))
+            (text-area {:id "answer"} "answer")
+            [:br]
+            [:div (label "file" "(必要なら)") (file-upload "file")]
+            [:br]
+            (submit-button "submit"))))
+
