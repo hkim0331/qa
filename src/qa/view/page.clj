@@ -39,6 +39,23 @@
       [:hr]
       "hkimura, " version "."]])])
 
+(defn index-page []
+ (page
+   [:h2 "QA"]
+   [:audio {:src "sounds/sorry-dave.mp3"
+            :autoplay "autoplay"
+            :controls "controls"}]
+   [:div {:class "row"}
+    [:div {:class "col-2"}
+     [:img {:src "images/odyssey.jpg" :id "odyssey"}]]
+    [:div {:class "col-10"}
+     [:ul
+      [:li "聞いたことは忘れる。"]
+      [:li "やったことは覚える。"]
+      [:li "人に教えたことは身に付く。"]]]]
+   [:p]
+   [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "go!"]]))
+
 (defn login-page []
   (page
     [:h2 "QA: Login"]

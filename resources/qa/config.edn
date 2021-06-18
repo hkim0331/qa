@@ -6,6 +6,8 @@
    :routes
    {[:get "/example"] [:qa.handler/example]
 
+    [:get "/"] [:qa.handler.core/index]
+
     [:get "/login"] [:qa.handler.auth/login]
 
     [:post "/login" {params :form-params}]
@@ -33,6 +35,8 @@
   :qa.middleware/auth {}
 
   :qa.handler/example {:db #ig/ref :duct.database/sql}
+
+  :qa.handler.core/index {}
 
   ;; using ex-typing's database.
   :qa.handler.auth/login {}
