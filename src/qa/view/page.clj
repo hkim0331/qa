@@ -7,6 +7,8 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
+(def version "0.2.0")
+
 (defn page [& contents]
   [::response/ok
    (html5
@@ -29,12 +31,13 @@
       [:p]
       [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
       [:hr]
-      "hkimura."]])])
+      "hkimura, " version "."]])])
 
 (defn login-page []
   (page
     [:h2 "QA: Login"]
-    [:p "tp.melt と同じやつ。"]
+    [:p {:class "red"} "例によってオープン戦。来週から本番？"]
+    [:p "tp.melt と同じやつで。"]
     (form-to
       [:post "/login"]
       (anti-forgery-field)
@@ -45,14 +48,16 @@
 (defn question-new-page []
  (page
   [:h2 "QA: Create a Question"]
+  [:p "具体的な質問じゃないと回答つけづらいだろう。"
+   "短すぎる質問も長すぎる質問と同じく受信しない。"]
   (form-to {:enctype "multipart/form-data"}
            [:post "/q"]
            (anti-forgery-field)
            (text-area {:id "question"} "question")
            [:br]
-           (file-upload "file")
+           [:div (label "file" "まだプログラムしてない") (file-upload "file")]
            [:br]
-           (submit-button "submit"))))
+           (submit-button  {:class "btn btn-primary btn-sm"}　"submit"))))
 
 (defn question-edit-page [& more]
  (page
@@ -91,10 +96,13 @@
   (page
    [:h2 "QA: Answers"]
    [:p "いいねができるように。"]
-   [:p (:q q)]
+   [:h4 (:nick q) "さんの質問"]
+   [:p {:class "question"} (:q q)]
    (for [a answers]
      [:div
-      [:p (str (:a a))]])
+      [:p {:class "nick"} "from " (:nick a) ","]
+      [:p {:class "answer"} (str (:a a))]
+      [:p {:class "good"} [:a {:href "/good"} "いいね"] " まだ動作しません"]])
    [:p]
    [:p [:a {:href (str "/a/" (:id q))
             :class "btn btn-primary btn-sm"}
@@ -114,5 +122,5 @@
             [:br]
             [:div (label "file" "(必要なら)") (file-upload "file")]
             [:br]
-            (submit-button "submit"))))
+            (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 

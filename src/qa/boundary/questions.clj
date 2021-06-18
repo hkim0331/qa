@@ -18,7 +18,9 @@
     (sql/insert! (ds db) :questions {:nick nick :q question}))
 
   (fetch [db n]
-    (sql/get-by-id (ds db) :questions n bf))
+    (let [ret (sql/get-by-id (ds db) :questions n bf)]
+     (debug "ret" ret)
+     ret))
 
   (fetch-all [db]
     (sql/query (ds db) ["select * from questions"] bf)))
