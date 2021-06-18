@@ -1,7 +1,7 @@
 (ns qa.view.page
  (:require
   [ataraxy.response :as response]
-  [clojure.string :refer [replace]]
+  [clojure.string :as str]
   [hiccup.page :refer [html5]]
   [hiccup.form :refer [form-to text-field password-field submit-button
                        label text-area file-upload hidden-field]]
@@ -13,7 +13,7 @@
 (defn escape-html
   "文字列 s 中のすべての < を &lt; でリプレース。"
   [s]
-  (replace s #"<" "&lt;"))
+  (str/replace s #"<" "&lt;"))
 
 (defn page [& contents]
   [::response/ok
