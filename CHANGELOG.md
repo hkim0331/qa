@@ -8,6 +8,8 @@
 - docker? docker-compose? docker してた方が開発が楽か？
 - 回答を表示できる。
 
+## - 2021-06-18
+- style.css -> styles.css
 
 ## 0.1.1 - 2021-06-18
 - initdb.d/{up,down}.bb で initdb.d/*.sql をリプレース。

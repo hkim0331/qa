@@ -27,12 +27,12 @@
          question (get params "question")]
      (debug "question-create" "nick" nick "question" question)
      (questions/create db nick question)
-     [::response/ok "question-create"])))
+     [::response/found "/qs"])))
 
 (defmethod ig/init-key :qa.handler.core/question [_ {:keys [db]}]
   (fn [{[_ n] :ataraxy/result}]
     (debug ":qa.handler.core/question" n)
-    (let [ret (questions/fetch db (Integer/parseInt n))]
+    (let [ret (questions/fetch db n)]
       (debug "ret" ret)
       (question-edit-page ret))))
 
