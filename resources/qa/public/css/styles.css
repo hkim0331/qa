@@ -1,2 +1,7 @@
 textarea#question {width: 90%; background: #ffc;}
 textarea#answer   {width: 90%; background: #cfc;}
+
+p.question {}
+p.nick     {font-weight: bold;}
+p.answer   {margin-left: 1em;}
+p.good     {margin-left: 1em;}
