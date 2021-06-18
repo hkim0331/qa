@@ -23,7 +23,7 @@
 
     [:get  "/a"] ^:auth [:qa.handler.core/answer-new]
 
-    [:post "/a" {params :form-params}]
+    [:post "/a" {params :multipart-params}]
     [:qa.handler.core/answer-create params]
 
     [:get  "/a/"  n] ^:auth [:qa.handler.core/answer  ^int n]

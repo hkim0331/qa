@@ -44,14 +44,17 @@
     (let [ret (questions/fetch-all db)]
      (questions-page ret))))
 
+;;; answer/answers
+
 (defmethod ig/init-key :qa.handler.core/answer-new [_ _]
   (fn [_]
      [::response/ok "answer-new"]))
 
-(defmethod ig/init-key :qa.handler.core/answer-create [_ _]
-  (fn [{[_ params] :ataraxy/result}]
-    (debug "answer-create" params)
-    [(::response/ok "answer-create")]))
+(defmethod ig/init-key :qa.handler.core/answer-create [_ {:keys [db]}]
+  (fn [{[_ {:strs [q_id answer]}] :ataraxy/result :as req}]
+    (let [nick (get-nick req)]
+      (answers/create db (Integer/parseInt q_id) nick answer)
+      [::response/found (str "/as/" q_id)])))
 
 (defmethod ig/init-key :qa.handler.core/answer [_ {:keys [db]}]
   (fn [{[_ n] :ataraxy/result :as req}]
