@@ -5,8 +5,9 @@
     [integrant.core :as ig]
     [qa.boundary.answers :as answers]
     [qa.boundary.questions :as questions]
-    [qa.view.page :refer [question-new-page question-edit-page questions-page
-                          answers-page answer-page]]
+    [qa.view.page :refer [question-new-page question-edit-page
+                          questions-page answers-page answer-page
+                          index-page]]
     [ring.util.response :refer [redirect]]
     [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -18,6 +19,10 @@
     (name (get-in req [:session :identity]))
     (catch Exception e (debug "get-nick" (.getMessage e)))
     (finally "nobody")))
+
+(defmethod ig/init-key :qa.handler.core/index [_ _]
+ (fn [_]
+  (index-page)))
 
 (defmethod ig/init-key :qa.handler.core/question-new [_ _]
  (fn [_]

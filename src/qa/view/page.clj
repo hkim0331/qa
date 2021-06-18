@@ -1,13 +1,19 @@
 (ns qa.view.page
  (:require
   [ataraxy.response :as response]
+  [clojure.string :as str]
   [hiccup.page :refer [html5]]
   [hiccup.form :refer [form-to text-field password-field submit-button
                        label text-area file-upload hidden-field]]
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.2.0")
+(def version "0.2.2")
+
+(defn escape-html
+  "文字列 s 中のすべての < を &lt; でリプレース。"
+  [s]
+  (str/replace s #"<" "&lt;"))
 
 (defn page [& contents]
   [::response/ok
@@ -33,6 +39,23 @@
       [:hr]
       "hkimura, " version "."]])])
 
+(defn index-page []
+ (page
+   [:h2 "QA"]
+   [:audio {:src "sounds/sorry-dave.mp3"
+            :autoplay "autoplay"
+            :controls "controls"}]
+   [:div {:class "row"}
+    [:div {:class "col-2"}
+     [:img {:src "images/odyssey.jpg" :id "odyssey"}]]
+    [:div {:class "col-10"}
+     [:ul
+      [:li "聞いたことは忘れる。"]
+      [:li "やったことは覚える。"]
+      [:li "人に教えたことは身に付く。"]]]]
+   [:p]
+   [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "go!"]]))
+
 (defn login-page []
   (page
     [:h2 "QA: Login"]
@@ -55,7 +78,7 @@
            (anti-forgery-field)
            (text-area {:id "question"} "question")
            [:br]
-           [:div (label "file" "まだプログラムしてない") (file-upload "file")]
+           [:div (label "file" "(まだプログラムしてない)") (file-upload "file")]
            [:br]
            (submit-button  {:class "btn btn-primary btn-sm"}　"submit"))))
 
@@ -86,7 +109,7 @@
   [:p "質問をクリックしたら回答ページへ飛ぶ。"]
   (into [:ol]
         (for [q qs]
-          [:li (str (ss 20 (:q q))
+          [:li (str (escape-html (ss 20 (:q q)))
                     " by " (:nick q)
                     " at " (st (:ts q)))
                [:a {:href (str "/as/" (:id q))} " 👉"]]))
@@ -97,11 +120,11 @@
    [:h2 "QA: Answers"]
    [:p "いいねができるように。"]
    [:h4 (:nick q) "さんの質問"]
-   [:p {:class "question"} (:q q)]
+   [:p {:class "question"} (escape-html (:q q))]
    (for [a answers]
      [:div
       [:p {:class "nick"} "from " (:nick a) ","]
-      [:p {:class "answer"} (str (:a a))]
+      [:p {:class "answer"} (escape-html (:a a))]
       [:p {:class "good"} [:a {:href "/good"} "いいね"] " まだ動作しません"]])
    [:p]
    [:p [:a {:href (str "/a/" (:id q))
@@ -112,7 +135,7 @@
   (debug q)
   (page
    [:h2 "QA: Please, " nick, "!"]
-   [:p (:q q)]
+   [:p (escape-html (:q q))]
    [:h4 "your answer:"]
    (form-to {:enctype "multipart/form-data"}
             [:post "/a"]
