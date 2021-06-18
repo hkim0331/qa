@@ -20,11 +20,14 @@
       :crossorigin "anonymous"}]
     [:link
      {:rel "stylesheet"
+      :type "text/css"
       :href "/css/style.css"}]
     [:title "QA"]
     [:body
      [:div {:class "container"}
        contents
+      [:p]
+      [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
       [:hr]
       "hkimura."]])])
 
@@ -53,4 +56,13 @@
 
 (defn question-edit-page [& more]
  (page
-  [:h2 "under construction"]))
+  [:h2 "under construction"]
+  [:p "このページは q の修正画面になる。"]))
+
+(defn questions-page [qs]
+ (debug "qs" qs)
+ (page
+  [:h2 "QA: Questions"]
+  (into [:ol]
+        (for [q qs]
+          [:li (str (:q q) (:ts q))]))))

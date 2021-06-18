@@ -4,7 +4,7 @@
     [ataraxy.response :as response]
     [integrant.core :as ig]
     [qa.boundary.questions :as questions]
-    [qa.view.page :refer [question-new-page question-edit-page]]
+    [qa.view.page :refer [question-new-page question-edit-page questions-page]]
     [ring.util.response :refer [redirect]]
     [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -36,10 +36,11 @@
       (debug "ret" ret)
       (question-edit-page ret))))
 
-(defmethod ig/init-key :qa.handler.core/questions [_ _]
+(defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [_]
     (debug "questions")
-    [::response/ok "questions"]))
+    (let [ret (questions/fetch-all db)]
+     (questions-page ret))))
 
 (defmethod ig/init-key :qa.handler.core/answer-new [_ _]
   (fn [_]

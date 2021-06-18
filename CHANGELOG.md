@@ -2,13 +2,17 @@
 
 ## Unreleased
 - test をきちんと書けるように。
-- ログインできる。
 - middleware
 - test で duct.database/sql を捕まえたいぞ。
 - github
+- docker? docker-compose? docker してた方が開発が楽か？
+- 回答を表示できる。
+
 
 ## 0.1.1 - 2021-06-18
 - initdb.d/{up,down}.bb で initdb.d/*.sql をリプレース。
+- ログインできる。
+- ページのボトムに logout ボタン。
 
 ## 0.1.0 - 2021-06-17
 - ex-typing のデータで認証する。
