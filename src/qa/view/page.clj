@@ -86,3 +86,16 @@
                     " at " (st (:ts q)))
                [:a {:href (str "/as/" (:id q))} " 👉"]]))
   [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
+
+(defn answers-page [q answers]
+  (page
+   [:h2 "QA: Answers"]
+   [:p "いいねができるように。"]
+   [:p (str (:q q))]
+   (for [a answers]
+     [:div
+      [:p (str (:a a))]])
+   [:p]
+   [:p [:a {:href (str "/a/" (:id q))
+            :class "btn btn-primary btn-sm"}
+        "answer"]]))

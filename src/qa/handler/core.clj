@@ -5,7 +5,8 @@
     [integrant.core :as ig]
     [qa.boundary.answers :as answers]
     [qa.boundary.questions :as questions]
-    [qa.view.page :refer [question-new-page question-edit-page questions-page]]
+    [qa.view.page :refer [question-new-page question-edit-page questions-page
+                          answers-page]]
     [ring.util.response :refer [redirect]]
     [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -57,8 +58,10 @@
     (debug "answer" params)
     [::response/ok "answer"]))
 
+;; /as/3
 (defmethod ig/init-key :qa.handler.core/answers [_ {:keys [db]}]
-  (fn [req]
-    (debug ":qa.handler.core/answers" "req" req)
-    (let [answers [answers/find-by-keys db 1]])
-    [::response/ok "answers"]))
+  (fn [{[_ n] :ataraxy/result}]
+    (debug ":qa.handler.core/answers" n)
+    (let [q (questions/fetch db n)
+          answers (answers/find-by-keys db n)]
+      (answers-page q answers))))
