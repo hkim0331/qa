@@ -3,6 +3,7 @@
     [ataraxy.core :as ataraxy]
     [ataraxy.response :as response]
     [integrant.core :as ig]
+    [qa.boundary.answers :as answers]
     [qa.boundary.questions :as questions]
     [qa.view.page :refer [question-new-page question-edit-page questions-page]]
     [ring.util.response :refer [redirect]]
@@ -56,7 +57,8 @@
     (debug "answer" params)
     [::response/ok "answer"]))
 
-(defmethod ig/init-key :qa.handler.core/answers [_ _]
-  (fn [_]
-    (debug "questions")
+(defmethod ig/init-key :qa.handler.core/answers [_ {:keys [db]}]
+  (fn [req]
+    (debug ":qa.handler.core/answers" "req" req)
+    (let [answers [answers/find-by-keys db 1]])
     [::response/ok "answers"]))

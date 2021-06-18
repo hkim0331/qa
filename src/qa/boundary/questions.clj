@@ -1,9 +1,7 @@
 (ns qa.boundary.questions
   (:require
    [duct.database.sql]
-   [environ.core :refer [env]]
-   [next.jdbc :refer [get-connection]]
-   [next.jdbc.result-set :as rs]
+   #_[environ.core :refer [env]]
    [next.jdbc.sql :as sql]
    [qa.boundary.utils :refer [ds bf]]
    [taoensso.timbre :refer [debug]]))
