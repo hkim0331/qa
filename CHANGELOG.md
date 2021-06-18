@@ -2,13 +2,15 @@
 
 ## Unreleased
 - test をきちんと書けるように。
-- middleware
 - test で duct.database/sql を捕まえたいぞ。
 - github
 - docker? docker-compose? docker してた方が開発が楽か？
-- 回答を表示できる。
+- イメージファイルをアップロードできる。
 
-## 
+
+## 0.2.0 - 2021-06-18
+- 回答を投稿できる。
+- 回答を表示できる。
 
 ## 0.1.3 - 2021-06-18
 - style.css -> styles.css
@@ -19,6 +21,7 @@
 - /as/:n エンドポイント。
 
 ## 0.1.1 - 2021-06-18
+- middleware　auth をセット。
 - initdb.d/{up,down}.bb で initdb.d/*.sql をリプレース。
 - ログインできる。
 - ページのボトムに logout ボタン。
