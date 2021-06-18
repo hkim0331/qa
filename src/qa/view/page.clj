@@ -20,11 +20,14 @@
       :crossorigin "anonymous"}]
     [:link
      {:rel "stylesheet"
-      :href "/css/style.css"}]
+      :type "text/css"
+      :href "/css/styles.css"}]
     [:title "QA"]
     [:body
      [:div {:class "container"}
        contents
+      [:p]
+      [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
       [:hr]
       "hkimura."]])])
 
@@ -45,7 +48,7 @@
   (form-to {:enctype "multipart/form-data"}
            [:post "/q"]
            (anti-forgery-field)
-           (text-area "question")
+           (text-area {:id "question"} "question")
            [:br]
            (file-upload "file")
            [:br]
@@ -53,4 +56,46 @@
 
 (defn question-edit-page [& more]
  (page
-  [:h2 "under construction"]))
+  [:h2 "under construction"]
+  [:p "このページは q の修正画面になる。"]))
+
+;;FIXME: htmlはエスケープしなくちゃ。
+(defn ss
+ "文字列 s の n 文字以降を '...' でリプレースした文字列を返す。
+  文字列長さが n に満たない時はそのまま文字列を返す。"
+  [n s]
+  (if (< (count s) n)
+    s
+    (str (subs s 0 n) "...")))
+
+(defn st
+ "時刻表示を短くする。関数名は iso でもいいかも。
+  引数 tm は time オブジェクト。"
+  [tm]
+  (subs (str tm) 0 10)) ; hh:mm:ss を入れるなら s/10/19/
+
+(defn questions-page [qs]
+ (debug "qs" qs)
+ (page
+  [:h2 "QA: Questions"]
+  [:p "質問をクリックしたら回答ページへ飛ぶ。"]
+  (into [:ol]
+        (for [q qs]
+          [:li (str (ss 20 (:q q))
+                    " by " (:nick q)
+                    " at " (st (:ts q)))
+               [:a {:href (str "/as/" (:id q))} " 👉"]]))
+  [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
+
+(defn answers-page [q answers]
+  (page
+   [:h2 "QA: Answers"]
+   [:p "いいねができるように。"]
+   [:p (str (:q q))]
+   (for [a answers]
+     [:div
+      [:p (str (:a a))]])
+   [:p]
+   [:p [:a {:href (str "/a/" (:id q))
+            :class "btn btn-primary btn-sm"}
+        "answer"]]))

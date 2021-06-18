@@ -2,26 +2,27 @@
   (:require [clojure.test :refer [deftest testing is]]
             [integrant.core :as ig]
             [ring.mock.request :as mock]
-            [qa.handler.core :as core]))
+            [qa.handler.core :refer :all]))
 
-;; (defn db []
-;;   (-> system (ig/find-derived-1 :duct.database/sql) val :spec))
+;; DB が関係して来た時、duct の枠組みはテストしにくくないか？
+;; (deftest questions-test
+;;   (testing "/qs returns page"
+;;     (let [handler (ig/init-key :qa.handler.core/questions {db})])))
 
-;; (defn q [sql]
-;;   (jdbc/query (db) sql))
-
-(deftest smoke-test
-  (testing "login page exists"
-    (let [handler  (ig/init-key :qa.handler.core/login {})
-          response (handler (mock/request :get "/login"))]
-      (is (= :ataraxy.response/ok (first response)) "response ok"))))
-
-(deftest smoke-test-2
+(deftest question-test
   (testing "question-new-page exists"
     (let [handler  (ig/init-key :qa.handler.core/question-new {})
           response (handler (mock/request :get "/q"))]
       (is (= :ataraxy.response/ok (first response)) "response ok"))))
 
-;; (deftest db-test
-;;   (testing "insert questions"
-;;    (let)))
+(deftest get-nick-test
+  (testing "get-nick returns nick?"
+    (let [req (mock/request :get "/q")
+          req2 (assoc-in req [:session :identity] (keyword "val"))]
+      (is (= nil (get-nick req)))
+      (is (= "val" (get-nick req2))))))
+
+;; DB が絡むテストはどう書く？
+;; (deftest questios-test
+;;  (testing "questions returns page"
+;;    (let [handler (ig/init-key :qa.handler.core/questions {db})])))

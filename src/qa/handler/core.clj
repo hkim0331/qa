@@ -3,8 +3,10 @@
     [ataraxy.core :as ataraxy]
     [ataraxy.response :as response]
     [integrant.core :as ig]
+    [qa.boundary.answers :as answers]
     [qa.boundary.questions :as questions]
-    [qa.view.page :refer [question-new-page question-edit-page]]
+    [qa.view.page :refer [question-new-page question-edit-page questions-page
+                          answers-page]]
     [ring.util.response :refer [redirect]]
     [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -27,19 +29,20 @@
          question (get params "question")]
      (debug "question-create" "nick" nick "question" question)
      (questions/create db nick question)
-     [::response/ok "question-create"])))
+     [::response/found "/qs"])))
 
 (defmethod ig/init-key :qa.handler.core/question [_ {:keys [db]}]
   (fn [{[_ n] :ataraxy/result}]
     (debug ":qa.handler.core/question" n)
-    (let [ret (questions/fetch db (Integer/parseInt n))]
+    (let [ret (questions/fetch db n)]
       (debug "ret" ret)
       (question-edit-page ret))))
 
-(defmethod ig/init-key :qa.handler.core/questions [_ _]
+(defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [_]
     (debug "questions")
-    [::response/ok "questions"]))
+    (let [ret (questions/fetch-all db)]
+     (questions-page ret))))
 
 (defmethod ig/init-key :qa.handler.core/answer-new [_ _]
   (fn [_]
@@ -55,7 +58,10 @@
     (debug "answer" params)
     [::response/ok "answer"]))
 
-(defmethod ig/init-key :qa.handler.core/answers [_ _]
-  (fn [_]
-    (debug "questions")
-    [::response/ok "answers"]))
+;; /as/3
+(defmethod ig/init-key :qa.handler.core/answers [_ {:keys [db]}]
+  (fn [{[_ n] :ataraxy/result}]
+    (debug ":qa.handler.core/answers" n)
+    (let [q (questions/fetch db n)
+          answers (answers/find-by-keys db n)]
+      (answers-page q answers))))

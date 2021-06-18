@@ -19,7 +19,7 @@
   (fn [{[_ {:strs [nick password]}] :ataraxy/result}]
     ;;(debug "login-post" nick password)
     (if (auth? nick password)
-      (-> (redirect "/")
+      (-> (redirect "/qs")
           (assoc-in [:session :identity] (keyword nick))) ; keyword の必要性
       [::response/found "/login"])))
 
