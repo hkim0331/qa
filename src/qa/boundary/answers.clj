@@ -7,15 +7,15 @@
    [taoensso.timbre :refer [debug]]))
 
 (defprotocol Answers
-  (create [db nick question])
+  (create [db q-id nick answer])
   (find-one [db n])
   (find-by-keys [db n]))
 
 (extend-protocol Answers
   duct.database.sql.Boundary
-  (create [db nick question]
-    (debug "nick" nick "question" question)
-    (sql/insert! (ds db) :answers {:nick nick :q question}))
+  (create [db q-id nick answer]
+    (debug "q_id" q-id "nick" nick "answer" answer)
+    (sql/insert! (ds db) :answers {:q_id q-id :nick nick :a answer}))
 
   (find-one [db n]
     (sql/get-by-id (ds db) :answers n bf))
