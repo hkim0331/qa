@@ -163,4 +163,3 @@
             [:div (label "file" "(必要なら)") (file-upload "file")]
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
-
