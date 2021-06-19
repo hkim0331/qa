@@ -9,7 +9,8 @@
 (defprotocol Answers
   (create [db q-id nick answer])
   (find-one [db n])
-  (find-by-keys [db n]))
+  (find-by-keys [db n])
+  (update-answer! [db map n]))
 
 (extend-protocol Answers
   duct.database.sql.Boundary
@@ -21,4 +22,7 @@
     (sql/get-by-id (ds db) :answers n bf))
 
   (find-by-keys [db n]
-    (sql/find-by-keys (ds db) :answers {:q_id n} bf)))
+    (sql/find-by-keys (ds db) :answers {:q_id n} bf))
+
+  (update-answer! [db map n]
+    (sql/update! (ds db) :answers map {:id n})))

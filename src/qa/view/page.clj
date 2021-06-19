@@ -5,10 +5,11 @@
   [hiccup.page :refer [html5]]
   [hiccup.form :refer [form-to text-field password-field submit-button
                        label text-area file-upload hidden-field]]
+  ;[qa.handler.core :refer [goods]]
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.3.0-SNAPSHOT")
+(def version "0.3.0")
 
 (defn escape-html
   "文字列 s 中のすべての < を &lt; でリプレース。"
@@ -58,10 +59,11 @@
    [:div
     [:ul
      [:li {:class "red"} "例によってオープン戦。6/23から本番。"]
+     [:li "今ある質問は先々週の mt.melt に届いたメッセージから採った。"]
      [:li "回答しやすい質問をする練習と、"]
      [:li "回答できる質問には回答する練習。"]
      [:li "語尾だけ丁寧、意味不明な質問・回答はよくない。"]
-     [:li "「いいね」付いた回答にはボーナス。（まだプログラムしてない 6/19）"]
+     [:li "「いいね」付いた回答にはボーナス。"]
      [:li "「いいね」付けた人と、質問出した人にもちょっとだけボーナス。"]
      [:li "イメージのアップロードは、「いいね」の後にプログラムの予定。"]]]
    [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "Go!"]]))
@@ -119,15 +121,20 @@
   (subs (str tm) 0 19))
 
 (defn questions-page [qs]
- (debug "qs" qs)
- (page
-  [:h2 "QA: Questions"]
-  [:p "👉 のクリックで回答ページへ。"　[:a {:href "/"} "注意事項"]]
-  (into [:ol]
-        (for [q qs]
-          [:li (escape-html (ss 20 (:q q)))
-               [:a {:href (str "/as/" (:id q))} " 👉"]]))
-  [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
+  ;; FIXME: もう少しコンサイスなデバッグメッセージ
+  ;;(debug "qs" qs)
+  (page
+   [:h2 "QA: Questions"]
+   [:p "👉 のクリックで回答ページへ。"　[:a {:href "/"} "注意事項"]]
+   (into [:ol]
+         (for [q qs]
+           [:li (escape-html (ss 20 (:q q)))
+                [:a {:href (str "/as/" (:id q))} " 👉"]]))
+   [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
+
+(defn goods
+  [n]
+  (repeat n "👍"))
 
 (defn answers-page [q answers]
   (page
@@ -138,9 +145,9 @@
    (for [a answers]
      [:div
       [:p [:span {:class "nick"} (:nick a)] "'s answer "
-          (date-time (:ts a)) ","]
+       (date-time (:ts a)) ","]
       [:p {:class "answer"} (escape-html (:a a))]
-      [:p {:class "good"} [:a {:href "/good"} "いいね"] " まだ動作しません"]])
+      [:p [:a {:href (str "/good/" (:id a))} (goods (:g a))]]])
    [:p]
    [:p [:a {:href (str "/a/" (:id q))
             :class "btn btn-primary btn-sm"}
