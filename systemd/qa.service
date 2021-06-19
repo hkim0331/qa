@@ -2,11 +2,11 @@
 Description=question and answers for hkimura literacy classes
 
 [Service]
+EnvironmentFile=/home/ubuntu/qa/env
 WorkingDirectory=/home/ubuntu/qa
-EnvironmentFile=/home/ubuntu/qa/.env
 ExecStart=/bin/sh start
 ExecStop=/bin/sh stop
-TimeOutSec=300
+TimeoutSec=300
 Type=simple
 User=ubuntu
 

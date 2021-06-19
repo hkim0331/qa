@@ -53,7 +53,7 @@
      [:img {:src "images/odyssey.jpg" :id "odyssey"}] [:br]
      [:p {:class "sm"} "2001年宇宙の旅"]]
     [:div {:class "col-9"}
-      [:p "聞いたことは忘れる。"　[:br]
+      [:p "聞いたことは忘れる。" [:br]
           "やったことは覚える。" [:br]
           "人に教えたことは身に付く。"]]]
    [:div
@@ -94,7 +94,7 @@
            [:br]
            [:div (label "file" "(まだプログラムしてない)") (file-upload "file")]
            [:br]
-           (submit-button  {:class "btn btn-primary btn-sm"}　"submit"))))
+           (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn question-edit-page
   "このページは q の修正画面になる。"
@@ -125,7 +125,7 @@
   ;;(debug "qs" qs)
   (page
    [:h2 "QA: Questions"]
-   [:p "👉 のクリックで回答ページへ。"　[:a {:href "/"} "注意事項"]]
+   [:p "👉 のクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
    (into [:ol]
          (for [q qs]
            [:li (escape-html (ss 20 (:q q)))
