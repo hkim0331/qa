@@ -58,6 +58,7 @@
    [:div
     [:ul
      [:li {:class "red"} "例によってオープン戦。6/23から本番。"]
+     [:li "今ある質問は先々週の mt.melt に届いたメッセージから採った。"]
      [:li "回答しやすい質問をする練習と、"]
      [:li "回答できる質問には回答する練習。"]
      [:li "語尾だけ丁寧、意味不明な質問・回答はよくない。"]
@@ -119,15 +120,16 @@
   (subs (str tm) 0 19))
 
 (defn questions-page [qs]
- (debug "qs" qs)
- (page
-  [:h2 "QA: Questions"]
-  [:p "👉 のクリックで回答ページへ。"　[:a {:href "/"} "注意事項"]]
-  (into [:ol]
-        (for [q qs]
-          [:li (escape-html (ss 20 (:q q)))
-               [:a {:href (str "/as/" (:id q))} " 👉"]]))
-  [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
+  ;; FIXME: もう少しコンサイスなデバッグメッセージ
+  ;;(debug "qs" qs)
+  (page
+   [:h2 "QA: Questions"]
+   [:p "👉 のクリックで回答ページへ。"　[:a {:href "/"} "注意事項"]]
+   (into [:ol]
+         (for [q qs]
+           [:li (escape-html (ss 20 (:q q)))
+                [:a {:href (str "/as/" (:id q))} " 👉"]]))
+   [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
 
 (defn answers-page [q answers]
   (page
@@ -163,4 +165,3 @@
             [:div (label "file" "(必要なら)") (file-upload "file")]
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
-
