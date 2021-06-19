@@ -5,6 +5,7 @@
   [hiccup.page :refer [html5]]
   [hiccup.form :refer [form-to text-field password-field submit-button
                        label text-area file-upload hidden-field]]
+  ;[qa.handler.core :refer [goods]]
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -131,6 +132,10 @@
                 [:a {:href (str "/as/" (:id q))} " 👉"]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
 
+(defn goods
+  [n]
+  (repeat n "👍"))
+
 (defn answers-page [q answers]
   (page
    [:h2 "QA: Answers"]
@@ -140,9 +145,9 @@
    (for [a answers]
      [:div
       [:p [:span {:class "nick"} (:nick a)] "'s answer "
-          (date-time (:ts a)) ","]
+       (date-time (:ts a)) ","]
       [:p {:class "answer"} (escape-html (:a a))]
-      [:p {:class "good"} [:a {:href "/good"} "いいね"] " まだ動作しません"]])
+      [:p [:a {:href (str "/good/" (:id a))} (goods (:g a))]]])
    [:p]
    [:p [:a {:href (str "/a/" (:id q))
             :class "btn btn-primary btn-sm"}
