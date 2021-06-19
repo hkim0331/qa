@@ -1,4 +1,4 @@
 #!/bin/sh
-PORT=3003 DATABASE_URL='jdbc:postgresql://localhost/qa?user=qa&password=password' java -jar qa.jar > log/qa.log
+PORT=3002 DATABASE_URL='jdbc:postgresql://localhost/qa?user=et&password=pass' java -jar fp.jar > log/qa.log
 
 
