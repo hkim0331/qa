@@ -26,6 +26,7 @@
    q_id integer references questions(id),
    nick varchar(8),
    a text,
+   g int default 1,
    ts timestamp default current_timestamp)"])
 
 (pg/execute! db ["create table goods (

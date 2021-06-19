@@ -29,8 +29,9 @@
     [:qa.handler.core/answer-create params]
 
     [:get  "/a/"  n] ^:auth [:qa.handler.core/answer  ^int n]
-    [:get  "/as/" n] ^:auth [:qa.handler.core/answers ^int n]}}
+    [:get  "/as/" n] ^:auth [:qa.handler.core/answers ^int n]
 
+    [:get "/good/" a-id] ^:auth [:qa.handler.core/good ^int a-id]}}
 
   :qa.middleware/auth {}
 
@@ -51,7 +52,9 @@
   :qa.handler.core/answer-new {}
   :qa.handler.core/answer-create {:db #ig/ref :duct.database/sql}
   :qa.handler.core/answer        {:db #ig/ref :duct.database/sql}
-  :qa.handler.core/answers       {:db #ig/ref :duct.database/sql}}
+  :qa.handler.core/answers       {:db #ig/ref :duct.database/sql}
+
+  :qa.handler.core/good {:db #ig/ref :duct.database/sql}}
 
  :duct.profile/dev   #duct/include "dev"
  :duct.profile/local #duct/include "local"
