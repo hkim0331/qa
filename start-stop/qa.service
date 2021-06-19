@@ -2,7 +2,7 @@
 Description=question and answers for hkimura literacy classes
 
 [Service]
-EnvironmentFile=/home/ubuntu/qa/env
+EnvironmentFile=/home/ubuntu/qa/.env
 WorkingDirectory=/home/ubuntu/qa
 ExecStart=/bin/sh start
 ExecStop=/bin/sh stop
