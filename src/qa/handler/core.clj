@@ -1,6 +1,6 @@
 (ns qa.handler.core
   (:require
-   [ataraxy.core :as ataraxy]
+   #_[ataraxy.core :as ataraxy]
    [ataraxy.response :as response]
    [integrant.core :as ig]
    [qa.boundary.answers :as answers]
@@ -9,7 +9,7 @@
    [qa.view.page :refer [question-new-page question-edit-page
                          questions-page answers-page answer-page
                          index-page]]
-   [ring.util.response :refer [redirect]]
+   #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
 (defn get-nick
@@ -53,7 +53,7 @@
 ;;;
 ;;; answer/answers
 ;;;
-
+　
 (defmethod ig/init-key :qa.handler.core/answer-new [_ _]
   (fn [_]
     [::response/ok "answer-new"]))
