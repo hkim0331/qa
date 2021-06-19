@@ -30,6 +30,8 @@
      {:rel "stylesheet"
       :type "text/css"
       :href "/css/styles.css"}]
+    [:script {:type "text/javascript"}
+     "function ok() {return window.confirm('OK?');}"]
     [:title "QA"]
     [:body
      [:div {:class "container"}
@@ -46,10 +48,10 @@
             :autoplay "autoplay"
             :controls "controls"}]
    [:div {:class "row"}
-    [:div {:class "col-2"}
+    [:div {:class "col-3"}
      [:img {:src "images/odyssey.jpg" :id "odyssey"}] [:br]
      [:p {:class "sm"} "2001年宇宙の旅"]]
-    [:div {:class "col-10"}
+    [:div {:class "col-9"}
       [:p "聞いたことは忘れる。"　[:br]
           "やったことは覚える。" [:br]
           "人に教えたことは身に付く。"]]]
@@ -59,14 +61,16 @@
      [:li "回答しやすい質問をする練習と、"]
      [:li "回答できる質問には回答する練習。"]
      [:li "語尾だけ丁寧、意味不明な質問・回答はよくない。"]
-     [:li "「いいね」着いた回答にはボーナス。（まだプログラムしてない 6/19）"]
+     [:li "「いいね」付いた回答にはボーナス。（まだプログラムしてない 6/19）"]
+     [:li "「いいね」付けた人と、質問出した人にもちょっとだけボーナス。"]
      [:li "イメージのアップロードは、「いいね」の後にプログラムの予定。"]]]
-   [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "go!"]]))
+   [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "Go!"]]))
 
 (defn login-page []
   (page
     [:h2 "QA: Login"]
-    [:p "tp.melt と同じやつで。"]
+    [:p "tp.melt と同じやつで。"
+     [:a {:href "/"} "注意事項"]]
     (form-to
       [:post "/login"]
       (anti-forgery-field)
@@ -78,8 +82,10 @@
  (page
   [:h2 "QA: Create a Question"]
   [:p "具体的な質問じゃないと回答つけづらい。"
-   "短すぎる質問も長すぎる質問と同じく受信しない。"]
-  (form-to {:enctype "multipart/form-data"}
+   "短すぎる質問も長すぎる質問と同じく受信しない。"
+   [:a {:href "/"} "注意事項"]]
+  (form-to {:enctype "multipart/form-data"
+            :onsubmit "return ok()"}
            [:post "/q"]
            (anti-forgery-field)
            (text-area {:id "question"} "question")
@@ -116,7 +122,7 @@
  (debug "qs" qs)
  (page
   [:h2 "QA: Questions"]
-  [:p "👉 のクリックで回答ページへ。"]
+  [:p "👉 のクリックで回答ページへ。"　[:a {:href "/"} "注意事項"]]
   (into [:ol]
         (for [q qs]
           [:li (escape-html (ss 20 (:q q)))
@@ -126,6 +132,7 @@
 (defn answers-page [q answers]
   (page
    [:h2 "QA: Answers"]
+   [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (escape-html (:q q))]
    (for [a answers]
@@ -143,9 +150,11 @@
   (debug q)
   (page
    [:h2 "QA: Please, " nick, "!"]
+   [:p [:a {:href "/"} "注意事項"]]
    [:p (escape-html (:q q))]
    [:h4 "your answer:"]
-   (form-to {:enctype "multipart/form-data"}
+   (form-to {:enctype "multipart/form-data"
+             :onsubmit "return ok()"}
             [:post "/a"]
             (anti-forgery-field)
             (hidden-field "q_id" (:id q))
