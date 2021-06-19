@@ -86,5 +86,5 @@
          g (:g ans)]
      (debug "from" from "a-id" a-id "g" g)
      (answers/update-answer! db {:g (inc g)} a-id)
-     ;(goods/create! db a-id from)
-     [::response/ok "good"])))
+     (goods/create! db a-id from)
+     [::response/ok "good job. ブラウザのバックで戻って再読み込みしてください。"])))
