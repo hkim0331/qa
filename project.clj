@@ -1,4 +1,4 @@
-(defproject qa "0.3.0"
+(defproject qa "0.3.1"
   :description "qa system for my literacy classes"
   :url "http://example.com/FIXME"
   :min-lein-version "2.0.0"
