@@ -17,8 +17,7 @@
 
 (defmethod ig/init-key :qa.handler.auth/login-post [_ _]
   (fn [{[_ {:strs [nick password]}] :ataraxy/result}]
-    ;;(debug "login-post" nick password)
-    (if (auth? nick password)
+    (if (and (seq nick) (auth? nick password))
       (-> (redirect "/qs")
           (assoc-in [:session :identity] (keyword nick))) ; keyword の必要性
       [::response/found "/login"])))

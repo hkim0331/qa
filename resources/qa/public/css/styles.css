@@ -1,7 +1,13 @@
 textarea#question {width: 90%; background: #ffc;}
 textarea#answer   {width: 90%; background: #cfc;}
 
-p.question {}
-p.nick     {font-weight: bold;}
+img#odyssey {width: 100%;}
+
+p.question {font-size: larger;}
 p.answer   {margin-left: 1em;}
 p.good     {margin-left: 1em;}
+
+span.nick  {font-weight: bold;}
+
+.red { color: red;}
+.sm {font-size: small;}

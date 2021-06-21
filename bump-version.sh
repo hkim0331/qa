@@ -10,3 +10,5 @@ if [ -x "${HOMEBREW_PREFIX}/bin/gsed" ]; then
 fi
 
 ${SED} -E -i "s/^\(defproject (.+) .+/(defproject \1 \"$1\"/" project.clj
+
+${SED} -E -i "s/^\(def version .*/(def version \"$1\")/" src/qa/view/page.clj

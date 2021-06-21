@@ -7,8 +7,29 @@
 - docker? docker-compose? docker してた方が開発が楽か？
 - イメージファイルをアップロードできる。
 - 短すぎる質問をリジェクト。
-- app.melt で動かす。
-- page.clj の version を bump-versionup で書き換えてない。
+- 「いいね」の集計ページを設ける
+
+## 0.3.2 - 2021-06-19
+- systemd
+- 全角スペースを page.clj から剥ぎ取る。時々、zenkaku は全角スペースを表示しない。
+
+## 0.3.1 - 2021-06-19
+- ログインにバグ。ニックネームが "" の学生がある。
+  アカウント作成時にはじかなくちゃ。=> ex-typing
+
+## 0.3.0 - 2021-06-19
+- いろんなメッセージは index に移動する。
+- 注意事項("/")をリンク。
+- submit に confirm
+- qa.melt で動作確認。
+- いいねを実装する。
+
+## 0.2.2 - 2021-06-18
+- "/" の扱い。index へ飛ばして、2001 年宇宙の旅とする。
+- html をエスケープする。
+- page.clj の version を bump-versionup で書き換える。
+- サウンドを自動再生する。firefox 以外は自動再生が許されていない。
+  https://gray-code.com/javascript/auto-play-the-audio/
 
 ## 0.2.1 - 2021-06-18
 - qa.melt にデプロイ。オープン戦開始。
