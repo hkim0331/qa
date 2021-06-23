@@ -1,9 +1,9 @@
 [Unit]
-Description=question and answers for hkimura literacy classes
+Description=typing exercise for hkimura literacy classes
 
 [Service]
-EnvironmentFile=/home/ubuntu/qa/env
-WorkingDirectory=/home/ubuntu/qa
+EnvironmentFile=/home/ubuntu/ex-typing/.env
+WorkingDirectory=/home/ubuntu/ex-typing
 ExecStart=/bin/sh start
 ExecStop=/bin/sh stop
 TimeoutSec=300

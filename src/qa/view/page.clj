@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.3.2")
+(def version "0.3.3")
 
 (defn escape-html
   "文字列 s 中のすべての < を &lt; でリプレース。"
@@ -58,14 +58,12 @@
           "人に教えたことは身に付く。"]]]
    [:div
     [:ul
-     [:li {:class "red"} "例によってオープン戦。6/23から本番。"]
-     [:li "今ある質問は先々週の mt.melt に届いたメッセージから採った。"]
      [:li "回答しやすい質問をする練習と、"]
      [:li "回答できる質問には回答する練習。"]
      [:li "語尾だけ丁寧、意味不明な質問・回答はよくない。"]
      [:li "「いいね」付いた回答にはボーナス。"]
      [:li "「いいね」付けた人と、質問出した人にもちょっとだけボーナス。"]
-     [:li "イメージのアップロードは、「いいね」の後にプログラムの予定。"]]]
+     [:li "イメージのアップロードはこの後プログラムの予定。"]]]
    [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "Go!"]]))
 
 (defn login-page []
