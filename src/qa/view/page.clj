@@ -124,7 +124,7 @@
   (page
    [:h2 "QA: Questions"]
    [:p "👉 のクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
-   (into [:ol]
+   (into [:ol {:reversed "reversed"}]
          (for [q qs]
            [:li (escape-html (ss 20 (:q q)))
                 [:a {:href (str "/as/" (:id q))} " 👉"]]))

@@ -23,4 +23,4 @@
      ret))
 
   (fetch-all [db]
-    (sql/query (ds db) ["select * from questions"] bf)))
+    (sql/query (ds db) ["select * from questions order by id desc"] bf)))
