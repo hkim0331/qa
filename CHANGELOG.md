@@ -11,7 +11,8 @@
 - <br> 復活させる
 
 ## 0.4.0-SNAPSHOT - 2021-07-01
--
+- [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]
+
 
 ## 0.3.4 - 2021-06-28
 ### Changed
