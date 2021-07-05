@@ -8,6 +8,14 @@
 - イメージファイルをアップロードできる。
 - 短すぎる質問をリジェクト。
 - 「いいね」の集計ページ
+- <br> 復活させる
+- find-by-key, :order-by option
+
+
+## 0.4.0 - 2021-07-05
+- [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]
+- /qs 回答の表示順。jdbc/query でかけるのだが、jdbc/find-by-keys で書けない。
+
 
 ## 0.3.4 - 2021-06-28
 ### Changed

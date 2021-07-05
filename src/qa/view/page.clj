@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.3.4")
+(def version "0.4.0")
 
 (defn escape-html
   "文字列 s 中のすべての < を &lt; でリプレース。"
@@ -149,7 +149,8 @@
    [:p]
    [:p [:a {:href (str "/a/" (:id q))
             :class "btn btn-primary btn-sm"}
-        "answer"]]))
+        "answer"]]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]))
 
 (defn answer-page [nick q]
   (debug q)
