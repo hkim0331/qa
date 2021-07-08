@@ -9,7 +9,12 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.4.1")
+(def version "0.4.2")
+
+(defn unescape-br
+  "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
+  [s]
+  (str/replace s #"&lt;br" "<br"))
 
 (defn escape-html
   "文字列 s 中のすべての < を &lt; でリプレース。"
@@ -126,7 +131,7 @@
    [:p "👉 のクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
-           [:li (escape-html (ss 20 (:q q)))
+           [:li (escape-html (ss 28 (:q q)))
                 [:a {:href (str "/as/" (:id q))} " 👉"]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
 
@@ -144,7 +149,7 @@
      [:div
       [:p [:span {:class "nick"} (:nick a)] "'s answer "
        (date-time (:ts a)) ","]
-      [:p {:class "answer"} (escape-html (:a a))]
+      [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
       [:p [:a {:href (str "/good/" (:id a))} (goods (:g a))]]])
    [:p]
    [:p [:a {:href (str "/a/" (:id q))
