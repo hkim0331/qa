@@ -7,7 +7,9 @@
 - docker? docker-compose? docker してた方が開発が楽か？
 - イメージファイルをアップロードできる。
 - 短すぎる質問をリジェクト。
+- 「いいね」の集計ページ
 - find-by-key, :order-by option
+
 
 ## 0.4.2 - 2021-07-08
 ### Added
@@ -68,7 +70,7 @@
 - /as/:n エンドポイント。
 
 ## 0.1.1 - 2021-06-18
-- middleware　auth をセット。
+- middleware auth をセット。
 - initdb.d/{up,down}.bb で initdb.d/*.sql をリプレース。
 - ログインできる。
 - ページのボトムに logout ボタン。
