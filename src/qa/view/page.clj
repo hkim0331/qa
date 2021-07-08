@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.4.3")
+(def version "0.4.3.2")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -106,12 +106,10 @@
    [:h2 "under construction"]))
 
 (defn ss
- "文字列 s の n 文字以降を '...' でリプレースした文字列を返す。
-  文字列長さが n に満たない時はそのまま文字列を返す。"
+ "文字列 s の n 文字以降を切り詰めた文字列を返す。
+  文字列長さが n に満たない時はそのまま。"
   [n s]
-  (if (< (count s) n)
-    s
-    (str (subs s 0 n) "...")))
+  (subs s 0 (min n (count s))))
 
 (defn date
  "時刻表示を短くする。
@@ -128,12 +126,14 @@
   ;;(debug "qs" qs)
   (page
    [:h2 "QA: Questions"]
-   [:p "ニックネームのクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
+   [:p "👉 のクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
-           [:li (escape-html (ss 28 (:q q)))
+           [:li [:span {:class "skyblue"} (:nick q)]
+                " "
+                (escape-html (ss 28 (:q q)))
                 [:a {:href (str "/as/" (:id q))}
-                    (:nick q)]]))
+                    " 👉"]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
 
 (defn goods
