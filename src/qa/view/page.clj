@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.4.3.2")
+(def version "0.4.4")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -129,7 +129,7 @@
    [:p "👉 のクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
-           [:li [:span {:class "skyblue"} (:nick q)]
+           [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
                 " "
                 (escape-html (ss 28 (:q q)))
                 [:a {:href (str "/as/" (:id q))}

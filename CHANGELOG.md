@@ -10,7 +10,8 @@
 - 「いいね」の集計ページ
 - find-by-key, :order-by option
 
-## 0.4.4-SNAPSHOT
+## 0.4.4 - 2021-07-08
+### Added
 - qa のページ、nick をクリックで goods の send/get を表示
 
 ## 0.4.3.2 - 2021-07-08
