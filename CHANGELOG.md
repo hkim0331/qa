@@ -11,6 +11,9 @@
 - <br> 復活させる
 - find-by-key, :order-by option
 
+## 0.4.1 - 2021-07-08
+### Added
+- /admin, /admin-goods 誰が good したかを表示する。
 
 ## 0.4.0 - 2021-07-05
 - [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]

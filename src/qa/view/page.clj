@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.4.0")
+(def version "0.4.1")
 
 (defn escape-html
   "文字列 s 中のすべての < を &lt; でリプレース。"
