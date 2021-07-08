@@ -15,7 +15,7 @@
 
 ## 0.4.3.2 - 2021-07-08
 - qa.view.page/ss
-  nick question link とする。
+  nick question link の順とする。
 
 ## 0.4.3.1 - 2021-07-08
 ### Changed
