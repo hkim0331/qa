@@ -100,3 +100,7 @@
    (let [goods (goods/find-goods db (Integer. n))]
      (debug "goods:" goods)
      (goods-page goods))))
+
+(defmethod ig/init-key :qa.handler.core/my-goods [_ {:keys [db]}]
+  (fn [{param :ataraxy/result}]
+    [::response/ok (str param)]))

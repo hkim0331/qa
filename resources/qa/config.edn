@@ -33,6 +33,8 @@
 
     [:get "/good/" a-id] ^:auth [:qa.handler.core/good ^int a-id]
 
+    [:get "/my-goods/" nick] [:qa.handler.core/my-goods nick]
+
     [:get "/admin"] ^:auth [:qa.handler.core/admin]
     [:post "/admin/goods" {params :form-params}] [:qa.handler.core/admin-goods params]}}
 
@@ -58,7 +60,8 @@
   :qa.handler.core/answers       {:db #ig/ref :duct.database/sql}
 
   :qa.handler.core/good {:db #ig/ref :duct.database/sql}
-
+  :qa.handler.core/my-goods {:db #ig/ref :duct.database/sql}
+  
   ;; prevent goods duplicates
   :qa.handler.core/admin {}
   :qa.handler.core/admin-goods {:db #ig/ref :duct.database/sql}}
