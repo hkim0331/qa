@@ -10,6 +10,19 @@
 - 「いいね」の集計ページ
 - find-by-key, :order-by option
 
+## 0.4.4-SNAPSHOT
+- qa のページ、nick をクリックで goods の send/get を表示
+
+## 0.4.3.2 - 2021-07-08
+- qa.view.page/ss
+  nick question link とする。
+
+## 0.4.3.1 - 2021-07-08
+### Changed
+- qa.view.page/ss
+    "文字列 s の n 文字以降を '👉' でリプレースした文字列を返す。
+     文字列長さが n に満たない時は文字列に'👉'を足す。"
+
 ## 0.4.3 - 2021-07-08
 ### Changed
 - ニックネームをクリックで QA ページへ。
