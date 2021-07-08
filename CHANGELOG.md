@@ -9,6 +9,25 @@
 - 短すぎる質問をリジェクト。
 - 「いいね」の集計ページを設ける
 - BUG /as: 「いいね」をつけると表示順が変化する時がある。
+- 「いいね」の集計ページ
+- <br> 復活させる
+- find-by-key, :order-by option
+
+## 0.4.1 - 2021-07-08
+### Added
+- /admin, /admin-goods 誰が good したかを表示する。
+
+## 0.4.0 - 2021-07-05
+- [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]
+- /qs 回答の表示順。jdbc/query でかけるのだが、jdbc/find-by-keys で書けない。
+
+
+## 0.3.4 - 2021-06-28
+### Changed
+- /qs の並びを新着順に変更。
+
+## 0.3.3 - 2021-06-23
+- オープン戦終了。page.clj から必要のない li を削除。
 
 ## 0.3.2 - 2021-06-19
 - systemd

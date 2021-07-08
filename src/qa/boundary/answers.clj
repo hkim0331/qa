@@ -22,7 +22,14 @@
     (sql/get-by-id (ds db) :answers n bf))
 
   (find-by-keys [db n]
-    (sql/find-by-keys (ds db) :answers {:q_id n} bf))
+    ;; (sql/find-by-keys
+    ;;  (ds db)
+    ;;  :answers
+    ;;  {:q_id n :order-by [[:id :asc]]}
+    ;;  bf))
+   (sql/query (ds db)
+              ["select * from answers where q_id=? order by id" n]
+              bf))
 
   (update-answer! [db map n]
     (sql/update! (ds db) :answers map {:id n})))
