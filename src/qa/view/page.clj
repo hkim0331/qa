@@ -137,7 +137,7 @@
 (defn answers-page [q answers]
   (page
    [:h2 "QA: Answers"]
-   [:p [:a {:href "/"} "注意事項"]]
+   [:p [:a {:href "/"} "注意事項"] "・" [:a {:href "/admin"} "Admin"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (escape-html (:q q))]
    (for [a answers]
@@ -169,3 +169,23 @@
             [:div (label "file" "(必要なら)") (file-upload "file")]
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
+
+(defn admin-page []
+  (page
+    [:h2 "QA Admin"]
+    [:p "who goods?"]
+    (form-to
+      [:post "/admin/goods"]
+      (anti-forgery-field)
+      "good " (text-field {:id "n" :size 3} "n")
+      " "
+      (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
+
+(defn goods-page [goods]
+  (page
+   [:h2 "QA: goods"]
+   [:table
+     (for [g goods]
+       [:tr
+        [:td (:nick g)]
+        [:td (date-time (:ts g))]])]))

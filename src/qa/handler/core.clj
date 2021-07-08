@@ -8,7 +8,7 @@
    [qa.boundary.questions :as questions]
    [qa.view.page :refer [question-new-page question-edit-page
                          questions-page answers-page answer-page
-                         index-page]]
+                         index-page admin-page goods-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -88,3 +88,15 @@
      (answers/update-answer! db {:g (inc g)} a-id)
      (goods/create! db a-id from)
      [::response/ok "good job. ブラウザのバックで戻って再読み込みしてください。"])))
+
+(defmethod ig/init-key :qa.handler.core/admin [_ _]
+ (fn [req]
+   (if (= (get-nick req) "hkimura")
+    (admin-page)
+    [::response/forbidden "access denied"])))
+
+(defmethod ig/init-key :qa.handler.core/admin-goods [_ {:keys [db]}]
+ (fn [{[_ {:strs [n]}] :ataraxy/result}]
+   (let [goods (goods/find-goods db (Integer. n))]
+     (debug "goods:" goods)
+     (goods-page goods))))
