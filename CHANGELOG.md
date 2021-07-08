@@ -7,9 +7,11 @@
 - docker? docker-compose? docker してた方が開発が楽か？
 - イメージファイルをアップロードできる。
 - 短すぎる質問をリジェクト。
-- 「いいね」の集計ページ
-- <br> 復活させる
 - find-by-key, :order-by option
+
+## 0.4.2 - 2021-07-08
+### Added
+- unwscape-br answer でのみ、<br> 復活させる。
 
 ## 0.4.1 - 2021-07-08
 ### Added
