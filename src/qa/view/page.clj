@@ -128,11 +128,12 @@
   ;;(debug "qs" qs)
   (page
    [:h2 "QA: Questions"]
-   [:p "👉 のクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
+   [:p "ニックネームのクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
            [:li (escape-html (ss 28 (:q q)))
-                [:a {:href (str "/as/" (:id q))} " 👉"]]))
+                [:a {:href (str "/as/" (:id q))}
+                    (:nick q)]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
 
 (defn goods
