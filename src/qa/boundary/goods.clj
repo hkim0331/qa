@@ -7,10 +7,13 @@
    [qa.boundary.utils :refer [ds]]
    [taoensso.timbre :refer [debug]]))
 
+(def ^:private bfn {:builder-fn rs/as-unqualified-lower-maps})
+
 (defprotocol Goods
   (create! [db a-id nick])
   (find-goods [db a-id])
-  (find-goods-by-nick [db nick]))
+  (count-sent [db nick])
+  (count-received [db nick]))
 
 (extend-protocol Goods
   duct.database.sql.Boundary
@@ -24,10 +27,25 @@
     (let [ret (sql/find-by-keys
                (ds db)
                :goods {:a_id a-id}
-               {:builder-fn rs/as-unqualified-lower-maps})]
+               bfn)]
       (debug "find-goods" ret)
       ret))
-  
-  (find-goods-by-nick
-   [db nick]
-   (let [sent (sql/find-)])))
+
+  (count-sent
+    [db nick]
+    (let [ret (sql/query
+               (ds db)
+               ["select count(*) from goods where nick=?" nick]
+               bfn)]
+      (debug "sent" ret)
+      (:count (first ret))))
+
+  (count-received
+    [db nick]
+    (let [ret (sql/query
+               (ds db)
+               ["select count(*) from goods
+                inner join answers on answers.id=goods.a_id
+                where answers.nick=?" nick])]
+      (debug "reveived" ret)
+      (:count (first ret)))))

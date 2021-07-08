@@ -102,5 +102,8 @@
      (goods-page goods))))
 
 (defmethod ig/init-key :qa.handler.core/my-goods [_ {:keys [db]}]
-  (fn [{param :ataraxy/result}]
-    [::response/ok (str param)]))
+  (fn [{[_ nick] :ataraxy/result}]
+    (let [sent (goods/count-sent db nick)
+          received (goods/count-received db nick)]
+      [::response/ok
+       (str nick ": " sent "/" received)])))
