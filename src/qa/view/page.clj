@@ -9,7 +9,12 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.3.2")
+(def version "0.4.3")
+
+(defn unescape-br
+  "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
+  [s]
+  (str/replace s #"&lt;br" "<br"))
 
 (defn escape-html
   "文字列 s 中のすべての < を &lt; でリプレース。"
@@ -58,14 +63,12 @@
           "人に教えたことは身に付く。"]]]
    [:div
     [:ul
-     [:li {:class "red"} "例によってオープン戦。6/23から本番。"]
-     [:li "今ある質問は先々週の mt.melt に届いたメッセージから採った。"]
      [:li "回答しやすい質問をする練習と、"]
      [:li "回答できる質問には回答する練習。"]
      [:li "語尾だけ丁寧、意味不明な質問・回答はよくない。"]
      [:li "「いいね」付いた回答にはボーナス。"]
      [:li "「いいね」付けた人と、質問出した人にもちょっとだけボーナス。"]
-     [:li "イメージのアップロードは、「いいね」の後にプログラムの予定。"]]]
+     [:li "イメージのアップロードはこの後プログラムの予定。"]]]
    [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "Go!"]]))
 
 (defn login-page []
@@ -125,11 +128,12 @@
   ;;(debug "qs" qs)
   (page
    [:h2 "QA: Questions"]
-   [:p "👉 のクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
-   (into [:ol]
+   [:p "ニックネームのクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
+   (into [:ol {:reversed "reversed"}]
          (for [q qs]
-           [:li (escape-html (ss 20 (:q q)))
-                [:a {:href (str "/as/" (:id q))} " 👉"]]))
+           [:li (escape-html (ss 28 (:q q)))
+                [:a {:href (str "/as/" (:id q))}
+                    (:nick q)]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
 
 (defn goods
@@ -139,19 +143,20 @@
 (defn answers-page [q answers]
   (page
    [:h2 "QA: Answers"]
-   [:p [:a {:href "/"} "注意事項"]]
+   [:p [:a {:href "/"} "注意事項"] "・" [:a {:href "/admin"} "Admin"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (escape-html (:q q))]
    (for [a answers]
      [:div
       [:p [:span {:class "nick"} (:nick a)] "'s answer "
        (date-time (:ts a)) ","]
-      [:p {:class "answer"} (escape-html (:a a))]
+      [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
       [:p [:a {:href (str "/good/" (:id a))} (goods (:g a))]]])
    [:p]
    [:p [:a {:href (str "/a/" (:id q))
             :class "btn btn-primary btn-sm"}
-        "answer"]]))
+        "answer"]]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]))
 
 (defn answer-page [nick q]
   (debug q)
@@ -170,3 +175,23 @@
             [:div (label "file" "(必要なら)") (file-upload "file")]
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
+
+(defn admin-page []
+  (page
+    [:h2 "QA Admin"]
+    [:p "who goods?"]
+    (form-to
+      [:post "/admin/goods"]
+      (anti-forgery-field)
+      "good " (text-field {:id "n" :size 3} "n")
+      " "
+      (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
+
+(defn goods-page [goods]
+  (page
+   [:h2 "QA: goods"]
+   [:table
+     (for [g goods]
+       [:tr
+        [:td (:nick g)]
+        [:td (date-time (:ts g))]])]))
