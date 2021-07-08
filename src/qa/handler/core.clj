@@ -100,3 +100,10 @@
    (let [goods (goods/find-goods db (Integer. n))]
      (debug "goods:" goods)
      (goods-page goods))))
+
+(defmethod ig/init-key :qa.handler.core/my-goods [_ {:keys [db]}]
+  (fn [{[_ nick] :ataraxy/result}]
+    (let [sent (goods/count-sent db nick)
+          received (goods/count-received db nick)]
+      [::response/ok
+       (str nick ": " sent "/" received)])))
