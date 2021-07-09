@@ -33,9 +33,9 @@
 
     [:get "/good/" a-id] ^:auth [:qa.handler.core/good ^int a-id]
 
-    [:get "/my-goods/" nick] [:qa.handler.core/my-goods nick]
+    [:get "/my-goods/" nick] ^:auth [:qa.handler.core/my-goods nick]
 
-    [:get "/recents"] [:qa.handler.core/recents]
+    [:get "/recents"] ^:auth [:qa.handler.core/recents]
 
     [:get "/admin"] ^:auth [:qa.handler.core/admin]
     [:post "/admin/goods" {params :form-params}] [:qa.handler.core/admin-goods params]}}

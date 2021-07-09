@@ -9,6 +9,10 @@
 - 短すぎる質問をリジェクト。
 - find-by-key, :order-by option
 
+## 0.4.5.3 - 2021-07-09
+### Added
+-- /recents と /my-goods に auth.
+
 ## 0.4.5.2 - 2021-07-09
 ### Addded
 - escape-html を /recents に。
