@@ -10,7 +10,8 @@
   (create [db q-id nick answer])
   (find-one [db n])
   (find-by-keys [db n])
-  (update-answer! [db map n]))
+  (update-answer! [db map n])
+  (find-recents [db n]))
 
 (extend-protocol Answers
   duct.database.sql.Boundary
@@ -32,4 +33,9 @@
               bf))
 
   (update-answer! [db map n]
-    (sql/update! (ds db) :answers map {:id n})))
+    (sql/update! (ds db) :answers map {:id n}))
+
+  (find-recents [db n]
+   (sql/query (ds db)
+              ["select * from answers order by id desc limit ?" n]
+              bf)))
