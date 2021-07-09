@@ -113,4 +113,4 @@
 ;; recent n mins?
 (defmethod ig/init-key :qa.handler.core/recents [_ {:keys [db]}]
   (fn [_]
-    (recents-page (answers/find-recents db 20))))
+    (recents-page (answers/find-recents db 40))))
