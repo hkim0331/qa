@@ -10,6 +10,10 @@
 - 「いいね」の集計ページ
 - find-by-key, :order-by option
 
+## 0.4.4.1 - 2021-07-09
+### Changed
+- qa.views.page/answers-page Admin を赤で。
+
 ## 0.4.4 - 2021-07-08
 ### Added
 - qa のページ、nick をクリックで goods の send/get を表示

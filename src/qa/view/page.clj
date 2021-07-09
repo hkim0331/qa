@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.4.4")
+(def version "0.4.4.1")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -143,7 +143,9 @@
 (defn answers-page [q answers]
   (page
    [:h2 "QA: Answers"]
-   [:p [:a {:href "/"} "注意事項"] "・" [:a {:href "/admin"} "Admin"]]
+   [:p [:a {:href "/"} "注意事項"]
+       "・"
+       [:a {:href "/admin" :class "red"} "Admin"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (escape-html (:q q))]
    (for [a answers]
