@@ -21,6 +21,22 @@
   [s]
   (str/replace s #"<" "&lt;"))
 
+(defn ss
+  "文字列 s の n 文字以降を切り詰めた文字列を返す。
+  文字列長さが n に満たない時はそのまま。"
+  [n s]
+  (subs s 0 (min n (count s))))
+
+(defn date
+  "時刻表示を短くする。
+  引数 tm は time オブジェクト。"
+  [tm]
+  (subs (str tm) 0 10))
+
+(defn date-time
+  [tm]
+  (subs (str tm) 0 19))
+
 (defn page [& contents]
   [::response/ok
    (html5
@@ -105,28 +121,18 @@
   (page
    [:h2 "under construction"]))
 
-(defn ss
- "文字列 s の n 文字以降を切り詰めた文字列を返す。
-  文字列長さが n に満たない時はそのまま。"
-  [n s]
-  (subs s 0 (min n (count s))))
 
-(defn date
- "時刻表示を短くする。
-  引数 tm は time オブジェクト。"
-  [tm]
-  (subs (str tm) 0 10))
-
-(defn date-time
-  [tm]
-  (subs (str tm) 0 19))
 
 (defn questions-page [qs]
   ;; FIXME: もう少しコンサイスなデバッグメッセージ
   ;;(debug "qs" qs)
   (page
    [:h2 "QA: Questions"]
-   [:p "👉 のクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
+   [:p
+    "👉 のクリックで回答ページへ。"
+    [:a {:href "/"} "注意事項"]
+    "・"
+    [:a {:href "/recents"} "最近の回答"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
            [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
@@ -197,3 +203,14 @@
        [:tr
         [:td (:nick g)]
         [:td (date-time (:ts g))]])]))
+
+(defn recents-page [answers]
+  (page
+   [:h2 "QA: recent answers"]
+   [:ol
+    (for [a answers]
+      [:li (:nick a)
+           " "
+           [:a {:href (str "/as/" (:id a))} (ss 20 (:a a))]
+           " "
+           (date-time (:ts a))])]))

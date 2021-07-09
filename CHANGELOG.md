@@ -9,6 +9,10 @@
 - 短すぎる質問をリジェクト。
 - 「いいね」の集計ページ
 - find-by-key, :order-by option
+- recent-answers
+
+
+## 0.4.5-SNAPSHOT - 2021-07-09
 
 ## 0.4.4.1 - 2021-07-09
 ### Changed

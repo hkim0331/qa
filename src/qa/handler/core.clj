@@ -8,7 +8,8 @@
    [qa.boundary.questions :as questions]
    [qa.view.page :refer [question-new-page question-edit-page
                          questions-page answers-page answer-page
-                         index-page admin-page goods-page]]
+                         index-page admin-page goods-page
+                         recents-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -107,3 +108,9 @@
           received (goods/count-received db nick)]
       [::response/ok
        (str nick ": " sent "/" received)])))
+
+;; recent n items? or
+;; recent n mins?
+(defmethod ig/init-key :qa.handler.core/recents [_ {:keys [db]}]
+  (fn [_]
+    (recents-page (answers/find-recents db 20))))
