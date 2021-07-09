@@ -143,7 +143,9 @@
 (defn answers-page [q answers]
   (page
    [:h2 "QA: Answers"]
-   [:p [:a {:href "/"} "注意事項"] "・" [:a {:href "/admin"} "Admin"]]
+   [:p [:a {:href "/"} "注意事項"]
+       "・"
+       [:a {:href "/admin" :class "red"} "Admin"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (escape-html (:q q))]
    (for [a answers]
