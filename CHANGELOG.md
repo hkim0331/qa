@@ -9,6 +9,10 @@
 - 短すぎる質問をリジェクト。
 - find-by-key, :order-by option
 
+## 0.4.5.2 - 2021-07-09
+### Addded
+- escape-html を /recents に。
+
 ## 0.4.5.1 - 2021-07-09
 ### Bugfix of 0.4.5
 - 引数は id ではない。q-id を持っていかないと。
