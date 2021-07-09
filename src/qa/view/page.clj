@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.4.5")
+(def version "0.4.5.1")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -211,6 +211,6 @@
     (for [a answers]
       [:li (:nick a)
            " "
-           [:a {:href (str "/as/" (:id a))} (ss 20 (:a a))]
+           [:a {:href (str "/as/" (:q_id a))} (ss 20 (:a a))]
            " "
            (date-time (:ts a))])]))
