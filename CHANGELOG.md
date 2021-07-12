@@ -9,6 +9,15 @@
 - 短すぎる質問をリジェクト。
 - find-by-key, :order-by option
 
+## 0.4.6 - 2021-07-12
+### Changed
+- /as answers-page 注意事項に右の Admin やめて、hkimura ユーザにだけ、
+  goods の右に who?
+- /my-goods から questions/answers, sent/received を表示。
+### added
+- boundary/answers/count-my-answers
+- boundary/questions/count-my-questions
+
 ## 0.4.5.3 - 2021-07-09
 ### Added
 -- /recents と /my-goods に auth.
