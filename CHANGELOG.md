@@ -9,6 +9,11 @@
 - 短すぎる質問をリジェクト。
 - find-by-key, :order-by option
 
+
+## 0.4.6.1 - 2021-07-12
+### Changed
+- question も <br> で改行。/as ね。
+
 ## 0.4.6 - 2021-07-12
 ### Changed
 - /as answers-page 注意事項に右の Admin やめて、hkimura ユーザにだけ、

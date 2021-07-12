@@ -121,8 +121,6 @@
   (page
    [:h2 "under construction"]))
 
-
-
 (defn questions-page [qs]
   ;; FIXME: もう少しコンサイスなデバッグメッセージ
   ;;(debug "qs" qs)
@@ -151,7 +149,7 @@
    [:h2 "QA: Answers"]
    [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
-   [:p {:class "question"} (escape-html (:q q))]
+   [:p {:class "question"} (unescape-br (escape-html (:q q)))]
    (for [a answers]
      (let [goods (goods (:g a))]
        [:div
