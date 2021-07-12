@@ -146,20 +146,22 @@
   [n]
   (repeat n "👍"))
 
-(defn answers-page [q answers]
+(defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
-   [:p [:a {:href "/"} "注意事項"]
-       "・"
-       [:a {:href "/admin" :class "red"} "Admin"]]
+   [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (escape-html (:q q))]
    (for [a answers]
-     [:div
-      [:p [:span {:class "nick"} (:nick a)] "'s answer "
-       (date-time (:ts a)) ","]
-      [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
-      [:p [:a {:href (str "/good/" (:id a))} (goods (:g a))]]])
+     (let [goods (goods (:g a))]
+       [:div
+        [:p [:span {:class "nick"} (:nick a)] "'s answer "
+         (date-time (:ts a)) ","]
+        [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
+        [:p [:a {:href (str "/good/" (:id a))} goods]
+            (when (= nick "hkimura")
+              [:a {:href (str "/who-goods/" (:id a)) :class "red"}
+                  " Admin"])]]))
    [:p]
    [:p [:a {:href (str "/a/" (:id q))
             :class "btn btn-primary btn-sm"}

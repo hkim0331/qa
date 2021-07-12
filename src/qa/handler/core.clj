@@ -73,11 +73,11 @@
 
 ;; /as/3 のように呼ばれる。
 (defmethod ig/init-key :qa.handler.core/answers [_ {:keys [db]}]
-  (fn [{[_ n] :ataraxy/result}]
+  (fn [{[_ n] :ataraxy/result :as req}]
     (debug ":qa.handler.core/answers" n)
     (let [q (questions/fetch db n)
           answers (answers/find-by-keys db n)]
-      (answers-page q answers))))
+      (answers-page q answers (get-nick req)))))
 
 ;; goods と answers の二つを書き換えないと。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]
@@ -101,6 +101,11 @@
    (let [goods (goods/find-goods db (Integer. n))]
      (debug "goods:" goods)
      (goods-page goods))))
+
+(defmethod ig/init-key :qa.handler.core/who-goods [_ {:keys [db]}]
+  (fn [{[_ n] :ataraxy/result}]
+    (let [goods (goods/find-goods db (Integer/parseInt n))]
+      (goods-page goods))))
 
 (defmethod ig/init-key :qa.handler.core/my-goods [_ {:keys [db]}]
   (fn [{[_ nick] :ataraxy/result}]
