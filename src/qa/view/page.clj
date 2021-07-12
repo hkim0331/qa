@@ -161,7 +161,7 @@
         [:p [:a {:href (str "/good/" (:id a))} goods]
             (when (= nick "hkimura")
               [:a {:href (str "/who-goods/" (:id a)) :class "red"}
-                  " Admin"])]]))
+                  " who?"])]]))
    [:p]
    [:p [:a {:href (str "/a/" (:id q))
             :class "btn btn-primary btn-sm"}

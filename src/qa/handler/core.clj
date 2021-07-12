@@ -109,10 +109,12 @@
 
 (defmethod ig/init-key :qa.handler.core/my-goods [_ {:keys [db]}]
   (fn [{[_ nick] :ataraxy/result}]
-    (let [sent (goods/count-sent db nick)
-          received (goods/count-received db nick)]
+    (let [s (goods/count-sent db nick)
+          r (goods/count-received db nick)
+          q (questions/count-my-questions db nick)
+          a (answers/count-my-answers db nick)]
       [::response/ok
-       (str nick ": " sent "/" received)])))
+       (str nick ": q/a = " q "/" a ", s/r = " s "/" r)])))
 
 ;; recent n items? or
 ;; recent n mins?

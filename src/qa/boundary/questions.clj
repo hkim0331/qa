@@ -9,7 +9,8 @@
 (defprotocol Questions
   (create [db nick question])
   (fetch [db n])
-  (fetch-all [db]))
+  (fetch-all [db])
+  (count-my-questions [db nick]))
 
 (extend-protocol Questions
   duct.database.sql.Boundary
@@ -23,4 +24,12 @@
      ret))
 
   (fetch-all [db]
-    (sql/query (ds db) ["select * from questions order by id desc"] bf)))
+    (sql/query (ds db) ["select * from questions order by id desc"] bf))
+
+  (count-my-questions
+    [db nick]
+    (let [ret (sql/query
+               (ds db)
+               ["select count(*) from questions where nick=?" nick]
+               bf)]
+      (-> ret first :count))))
