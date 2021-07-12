@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.4.6")
+(def version "0.4.6.1")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -121,8 +121,6 @@
   (page
    [:h2 "under construction"]))
 
-
-
 (defn questions-page [qs]
   ;; FIXME: もう少しコンサイスなデバッグメッセージ
   ;;(debug "qs" qs)
@@ -151,7 +149,7 @@
    [:h2 "QA: Answers"]
    [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
-   [:p {:class "question"} (escape-html (:q q))]
+   [:p {:class "question"} (unescape-br (escape-html (:q q)))]
    (for [a answers]
      (let [goods (goods (:g a))]
        [:div
