@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.4.2")
+(def version "0.4.6")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -20,6 +20,22 @@
   "文字列 s 中のすべての < を &lt; でリプレース。"
   [s]
   (str/replace s #"<" "&lt;"))
+
+(defn ss
+  "文字列 s の n 文字以降を切り詰めた文字列を返す。
+  文字列長さが n に満たない時はそのまま。"
+  [n s]
+  (subs s 0 (min n (count s))))
+
+(defn date
+  "時刻表示を短くする。
+  引数 tm は time オブジェクト。"
+  [tm]
+  (subs (str tm) 0 10))
+
+(defn date-time
+  [tm]
+  (subs (str tm) 0 19))
 
 (defn page [& contents]
   [::response/ok
@@ -105,52 +121,47 @@
   (page
    [:h2 "under construction"]))
 
-(defn ss
- "文字列 s の n 文字以降を '...' でリプレースした文字列を返す。
-  文字列長さが n に満たない時はそのまま文字列を返す。"
-  [n s]
-  (if (< (count s) n)
-    s
-    (str (subs s 0 n) "...")))
 
-(defn date
- "時刻表示を短くする。
-  引数 tm は time オブジェクト。"
-  [tm]
-  (subs (str tm) 0 10))
-
-(defn date-time
-  [tm]
-  (subs (str tm) 0 19))
 
 (defn questions-page [qs]
   ;; FIXME: もう少しコンサイスなデバッグメッセージ
   ;;(debug "qs" qs)
   (page
    [:h2 "QA: Questions"]
-   [:p "👉 のクリックで回答ページへ。" [:a {:href "/"} "注意事項"]]
+   [:p
+    "👉 のクリックで回答ページへ。"
+    [:a {:href "/"} "注意事項"]
+    "・"
+    [:a {:href "/recents"} "最近の回答"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
-           [:li (escape-html (ss 28 (:q q)))
-                [:a {:href (str "/as/" (:id q))} " 👉"]]))
+           [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
+                " "
+                (escape-html (ss 28 (:q q)))
+                [:a {:href (str "/as/" (:id q))}
+                    " 👉"]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
 
 (defn goods
   [n]
   (repeat n "👍"))
 
-(defn answers-page [q answers]
+(defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
-   [:p [:a {:href "/"} "注意事項"] "・" [:a {:href "/admin"} "Admin"]]
+   [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (escape-html (:q q))]
    (for [a answers]
-     [:div
-      [:p [:span {:class "nick"} (:nick a)] "'s answer "
-       (date-time (:ts a)) ","]
-      [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
-      [:p [:a {:href (str "/good/" (:id a))} (goods (:g a))]]])
+     (let [goods (goods (:g a))]
+       [:div
+        [:p [:span {:class "nick"} (:nick a)] "'s answer "
+         (date-time (:ts a)) ","]
+        [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
+        [:p [:a {:href (str "/good/" (:id a))} goods]
+            (when (= nick "hkimura")
+              [:a {:href (str "/who-goods/" (:id a)) :class "red"}
+                  " who?"])]]))
    [:p]
    [:p [:a {:href (str "/a/" (:id q))
             :class "btn btn-primary btn-sm"}
@@ -194,3 +205,14 @@
        [:tr
         [:td (:nick g)]
         [:td (date-time (:ts g))]])]))
+
+(defn recents-page [answers]
+  (page
+   [:h2 "QA: recent answers"]
+   [:ol
+    (for [a answers]
+      [:li (:nick a)
+           " "
+           [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
+           " "
+           (date-time (:ts a))])]))

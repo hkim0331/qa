@@ -8,7 +8,8 @@
    [qa.boundary.questions :as questions]
    [qa.view.page :refer [question-new-page question-edit-page
                          questions-page answers-page answer-page
-                         index-page admin-page goods-page]]
+                         index-page admin-page goods-page
+                         recents-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -72,11 +73,11 @@
 
 ;; /as/3 のように呼ばれる。
 (defmethod ig/init-key :qa.handler.core/answers [_ {:keys [db]}]
-  (fn [{[_ n] :ataraxy/result}]
+  (fn [{[_ n] :ataraxy/result :as req}]
     (debug ":qa.handler.core/answers" n)
     (let [q (questions/fetch db n)
           answers (answers/find-by-keys db n)]
-      (answers-page q answers))))
+      (answers-page q answers (get-nick req)))))
 
 ;; goods と answers の二つを書き換えないと。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]
@@ -100,3 +101,23 @@
    (let [goods (goods/find-goods db (Integer. n))]
      (debug "goods:" goods)
      (goods-page goods))))
+
+(defmethod ig/init-key :qa.handler.core/who-goods [_ {:keys [db]}]
+  (fn [{[_ n] :ataraxy/result}]
+    (let [goods (goods/find-goods db (Integer/parseInt n))]
+      (goods-page goods))))
+
+(defmethod ig/init-key :qa.handler.core/my-goods [_ {:keys [db]}]
+  (fn [{[_ nick] :ataraxy/result}]
+    (let [s (goods/count-sent db nick)
+          r (goods/count-received db nick)
+          q (questions/count-my-questions db nick)
+          a (answers/count-my-answers db nick)]
+      [::response/ok
+       (str nick ": q/a = " q "/" a ", s/r = " s "/" r)])))
+
+;; recent n items? or
+;; recent n mins?
+(defmethod ig/init-key :qa.handler.core/recents [_ {:keys [db]}]
+  (fn [_]
+    (recents-page (answers/find-recents db 40))))

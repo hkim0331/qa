@@ -9,6 +9,53 @@
 - 短すぎる質問をリジェクト。
 - find-by-key, :order-by option
 
+## 0.4.6 - 2021-07-12
+### Changed
+- /as answers-page 注意事項に右の Admin やめて、hkimura ユーザにだけ、
+  goods の右に who?
+- /my-goods から questions/answers, sent/received を表示。
+### added
+- boundary/answers/count-my-answers
+- boundary/questions/count-my-questions
+
+## 0.4.5.3 - 2021-07-09
+### Added
+-- /recents と /my-goods に auth.
+
+## 0.4.5.2 - 2021-07-09
+### Addded
+- escape-html を /recents に。
+
+## 0.4.5.1 - 2021-07-09
+### Bugfix of 0.4.5
+- 引数は id ではない。q-id を持っていかないと。
+
+## 0.4.5 - 2021-07-09
+### Added
+- recent-answers
+
+## 0.4.4.1 - 2021-07-09
+### Changed
+- qa.views.page/answers-page Admin を赤で。
+
+## 0.4.4 - 2021-07-08
+### Added
+- qa のページ、nick をクリックで goods の send/get を表示
+
+## 0.4.3.2 - 2021-07-08
+- qa.view.page/ss
+  nick question link の順とする。
+
+## 0.4.3.1 - 2021-07-08
+### Changed
+- qa.view.page/ss
+    "文字列 s の n 文字以降を '👉' でリプレースした文字列を返す。
+     文字列長さが n に満たない時は文字列に'👉'を足す。"
+
+## 0.4.3 - 2021-07-08
+### Changed
+- ニックネームをクリックで QA ページへ。
+
 ## 0.4.2 - 2021-07-08
 ### Added
 - unwscape-br answer でのみ、<br> 復活させる。
@@ -68,7 +115,7 @@
 - /as/:n エンドポイント。
 
 ## 0.1.1 - 2021-06-18
-- middleware　auth をセット。
+- middleware auth をセット。
 - initdb.d/{up,down}.bb で initdb.d/*.sql をリプレース。
 - ログインできる。
 - ページのボトムに logout ボタン。
