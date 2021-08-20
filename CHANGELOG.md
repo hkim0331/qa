@@ -7,11 +7,12 @@
 - docker? docker-compose? docker してた方が開発が楽か？
 - イメージファイルをアップロードできる。
 - 短すぎる質問をリジェクト。
-- find-by-key, :order-by option
-- goods の表示、admin
-- answers を good sent/received に加える。
 
+## 0.5.1 - 2021-08-20
+- マージし直し、日本語解説のyoutube へのリンクに変更。
 
+## 0.5.0 - 2021-08-20
+- マージをミスった。
 
 ## 0.4.6.1 - 2021-07-12
 ### Changed

@@ -71,7 +71,7 @@
             :controls "controls"}]
    [:div {:class "row"}
     [:div {:class "col-3"}
-     [:a {:href "https://www.youtube.com/watch?v=hOlrxxPoyn4"}
+     [:a {:href "https://www.youtube.com/watch?v=JktXHKx3r20"}
       [:img {:src "images/odyssey.jpg" :id "odyssey"}]] [:br]
      [:p {:class "sm"} "2001年宇宙の旅"]]
     [:div {:class "col-9"}
