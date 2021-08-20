@@ -8,6 +8,9 @@
 - イメージファイルをアップロードできる。
 - 短すぎる質問をリジェクト。
 - find-by-key, :order-by option
+- goods の表示、admin
+- answers を good sent/received に加える。
+
 
 ## 0.4.5.3 - 2021-07-09
 ### Added
