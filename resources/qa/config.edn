@@ -37,6 +37,8 @@
 
     [:get "/recents"] ^:auth [:qa.handler.core/recents]
 
+    [:get "/who-goods/" n] ^:auth [:qa.handler.core/who-goods n]
+    
     [:get "/admin"] ^:auth [:qa.handler.core/admin]
     [:post "/admin/goods" {params :form-params}] [:qa.handler.core/admin-goods params]}}
 
@@ -60,6 +62,8 @@
   :qa.handler.core/answer-create {:db #ig/ref :duct.database/sql}
   :qa.handler.core/answer        {:db #ig/ref :duct.database/sql}
   :qa.handler.core/answers       {:db #ig/ref :duct.database/sql}
+
+  :qa.handler.core/who-goods {:db #ig/ref :duct.database/sql}
 
   :qa.handler.core/good {:db #ig/ref :duct.database/sql}
   :qa.handler.core/my-goods {:db #ig/ref :duct.database/sql}
