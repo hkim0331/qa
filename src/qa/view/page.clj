@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.4.5.3")
+(def version "0.5.0")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -71,7 +71,8 @@
             :controls "controls"}]
    [:div {:class "row"}
     [:div {:class "col-3"}
-     [:img {:src "images/odyssey.jpg" :id "odyssey"}] [:br]
+     [:a {:href "https://www.youtube.com/watch?v=hOlrxxPoyn4"}
+      [:img {:src "images/odyssey.jpg" :id "odyssey"}]] [:br]
      [:p {:class "sm"} "2001年宇宙の旅"]]
     [:div {:class "col-9"}
       [:p "聞いたことは忘れる。" [:br]
