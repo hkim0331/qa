@@ -9,10 +9,10 @@
 - 短すぎる質問をリジェクト。
 - find-by-key, :order-by option
 
-
 ## 0.4.6.1 - 2021-07-12
 ### Changed
 - question も <br> で改行。/as ね。
+- hkimura: q/a = 28/221, s/r = 81/1376 は a/q, r/s にして平常点に。
 
 ## 0.4.6 - 2021-07-12
 ### Changed
