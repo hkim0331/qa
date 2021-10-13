@@ -145,6 +145,7 @@
   [n]
   (repeat n "👍"))
 
+;;FIXME: 問題はここにある。
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
@@ -218,7 +219,7 @@
 
 (defn debug-page [q answers nick]
  (page
-  [:h2 "DEBUG"
-   [:p "q" (str q)]
-   [:p "answers" (str answers)]
-   [:p "nick" (str nick)]]))
+  [:h2 "DEBUG"]
+  [:p "q:" (str q)]
+  [:p "answers: " (str answers)]
+  [:p "nick: " (str nick)]))
