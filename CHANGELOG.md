@@ -1,7 +1,12 @@
 # Question and Answers
 
-## 0.6.0-SNAPSHOT
+## Unreleased
 - r99c で認証できるように。
+- github で。
+
+
+## 0.6.0-SNAPSHOT
+
 
 ## WAS (before 2021-10-13)
 
