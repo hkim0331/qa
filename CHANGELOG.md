@@ -4,6 +4,10 @@
 - improve looks
 - change article order
 
+## 0.6.2-SNAPSHOT
+まだ本番サーバーで投稿できない。
+開発PC では投稿できたはずだが？
+
 ## 0.6.1 - 2021-10-13
 - start to work as https://qa.melt.kyutech.ac.jp/
 - git rm --cached
