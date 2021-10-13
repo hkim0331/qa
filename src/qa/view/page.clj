@@ -215,3 +215,10 @@
            [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
            " "
            (date-time (:ts a))])]))
+
+(defn debug-page [q answers nick]
+ (page
+  [:h2 "DEBUG"
+   [:p "q" (str q)]
+   [:p "answers" (str answers)]
+   [:p "nick" (str nick)]]))

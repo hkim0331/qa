@@ -9,7 +9,7 @@
    [qa.view.page :refer [question-new-page question-edit-page
                          questions-page answers-page answer-page
                          index-page admin-page goods-page
-                         recents-page]]
+                         recents-page debug-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -78,8 +78,12 @@
   (fn [{[_ n] :ataraxy/result :as req}]
     (debug ":qa.handler.core/answers" n)
     (let [q (questions/fetch db n)
-          answers (answers/find-by-keys db n)]
-      (answers-page q answers (get-nick req)))))
+          answers (answers/find-by-keys db n)
+          nick (get-nick req)]
+      (debug "/as q:" q "nick:" nick "answers:" answers)
+      ;;これか？
+      ;;(answers-page q answers nick))))
+      (debug-page q answers nick))))
 
 ;; goods と answers の二つを書き換えないと。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]
