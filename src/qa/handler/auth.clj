@@ -1,6 +1,7 @@
 (ns qa.handler.auth
   (:require
    [ataraxy.response :as response]
+   [buddy.hashers :as hashers]
    [qa.boundary.typing-users :refer [find-user-by-nick]]
    [qa.view.page :refer [login-page]]
    [integrant.core :as ig]
@@ -13,7 +14,7 @@
 
 (defn auth? [nick password]
   (let [user (find-user-by-nick nick)]
-    (and (some? user) (= password (:password user)))))
+    (and (some? user) (hashers/check password (:password user)))))
 
 (defmethod ig/init-key :qa.handler.auth/login-post [_ _]
   (fn [{[_ {:strs [nick password]}] :ataraxy/result}]

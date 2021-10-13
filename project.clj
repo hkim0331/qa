@@ -2,7 +2,7 @@
   :description "qa system for my literacy classes"
   :url "https://qa.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
-  :dependencies [[buddy/buddy-hasher "1.8.1"]
+  :dependencies [[buddy/buddy-hashers "1.8.1"]
                  [org.clojure/clojure "1.10.3"]
                  [com.github.seancorfield/next.jdbc "1.2.659"]
                  [buddy/buddy-auth "3.0.1"]
