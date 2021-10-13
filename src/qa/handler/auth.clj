@@ -6,7 +6,7 @@
    [qa.view.page :refer [login-page]]
    [integrant.core :as ig]
    [ring.util.response :refer [redirect]]
-   #_[taoensso.timbre :as timbre :refer [debug]]))
+   [taoensso.timbre :as timbre :refer [debug]]))
 
 (defmethod ig/init-key :qa.handler.auth/login [_ _]
   (fn [_]

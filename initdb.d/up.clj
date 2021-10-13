@@ -20,13 +20,13 @@
 (pg/execute! db ["create table questions (
    id serial primary key,
    q text,
-   nick varchar(8),
+   nick varchar(20),
    ts timestamp default current_timestamp)"])
 
 (pg/execute! db ["create table answers (
    id serial primary key,
    q_id integer references questions(id),
-   nick varchar(8),
+   nick varchar(20),
    a text,
    g int default 1,
    ts timestamp default current_timestamp)"])
@@ -35,6 +35,6 @@
    id serial primary key,
    q_id integer references questions(id) default null,
    a_id integer references answers(id) default null,
-   nick varchar(8),
+   nick varchar(20),
    ts timestamp default current_timestamp)"])
 
