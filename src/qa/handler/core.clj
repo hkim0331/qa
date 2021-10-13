@@ -13,6 +13,8 @@
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
+(timbre/set-level! :debug)
+
 (defn get-nick
   "request ヘッダの id 情報を文字列で返す。
    FIXME: develop ではエラーでも nobody を返したいが。"
