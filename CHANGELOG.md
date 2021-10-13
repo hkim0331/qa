@@ -1,11 +1,14 @@
 # Question and Answers
 
 ## Unreleased
+- improve looks
+- change article order
 
-
+## 0.6.1 - 2021-10-13
+- start to work as https://qa.melt.kyutech.ac.jp/
 
 ## 0.6.0 - 2021-10-13
-- r99c で認証できるように。
+- r99c で認証できる。
 - github で再開。
 
 
