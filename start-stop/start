@@ -1,4 +1,0 @@
-#!/bin/sh
-PORT=3002 \
-DATABASE_URL='jdbc:postgresql://localhost/qa?user=et&password=pass' \
-java -jar gs.jar >> log/gs.log

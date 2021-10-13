@@ -2,8 +2,8 @@
 Description=typing exercise for hkimura literacy classes
 
 [Service]
-ExecStart=/bin/sh start
-ExecStop=/bin/sh stop
+ExecStart=/bin/sh start.sh
+ExecStop=/bin/sh stop.sh
 TimeoutSec=300
 Type=simple
 User=ubuntu
