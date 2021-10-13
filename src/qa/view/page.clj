@@ -5,6 +5,7 @@
   [hiccup.page :refer [html5]]
   [hiccup.form :refer [form-to text-field password-field submit-button
                        label text-area file-upload hidden-field]]
+  [hiccup.util :refer [escape-html]]
   ;[qa.handler.core :refer [goods]]
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
@@ -16,10 +17,11 @@
   [s]
   (str/replace s #"&lt;br" "<br"))
 
-(defn escape-html
-  "文字列 s 中のすべての < を &lt; でリプレース。"
-  [s]
-  (str/replace s #"<" "&lt;"))
+;; use hiccup.util/escape-html instead
+;; (defn escape-html
+;;   "文字列 s 中のすべての < を &lt; でリプレース。"
+;;   [s]
+;;   (str/replace s #"<" "&lt;"))
 
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
@@ -146,6 +148,7 @@
   (repeat n "👍"))
 
 ;;FIXME: 問題はここにある。
+;;怪しいのは date-time, escape/unescape あたり。
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
