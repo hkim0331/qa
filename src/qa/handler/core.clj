@@ -114,7 +114,7 @@
           q (questions/count-my-questions db nick)
           a (answers/count-my-answers db nick)]
       [::response/ok
-       (str nick ": q/a = " q "/" a ", s/r = " s "/" r)])))
+       (str "<h2>"nick ": A/Q = " a "/" q ", recv/sent = " r "/" s "</h2>")])))
 
 ;; recent n items? or
 ;; recent n mins?

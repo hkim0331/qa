@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.5.1")
+(def version "0.6.0")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -91,7 +91,7 @@
 (defn login-page []
   (page
     [:h2 "QA: Login"]
-    [:p "tp.melt と同じやつで。"
+    [:p "r99.melt と同じやつで。"
      [:a {:href "/"} "注意事項"]]
     (form-to
       [:post "/login"]

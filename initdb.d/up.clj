@@ -2,7 +2,7 @@
 
 ;; pods 必要なライブラリがあれば読む。
 (require '[babashka.pods :as pods])
-(pods/load-pod 'org.babashka/postgresql "0.0.4")
+(pods/load-pod 'org.babashka/postgresql "0.0.8")
 (require '[pod.babashka.postgresql :as pg])
 
 ;; pods にないライブラリは、自力で読む。
@@ -11,7 +11,9 @@
 (require '[environ.core :refer [env]])
 
 (def db {:dbtype   "postgresql"
-         :dbname   "qa"
+         :host     (env :qa-host)
+         :dbname   (env :qa-db)
+         :port     (env :qa-port)
          :user     (env :qa-user)
          :password (env :qa-password)})
 
