@@ -9,7 +9,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.6.1")
+(def version "0.6.2")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -145,6 +145,7 @@
   [n]
   (repeat n "👍"))
 
+;;FIXME: 問題はここにある。
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
@@ -215,3 +216,10 @@
            [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
            " "
            (date-time (:ts a))])]))
+
+(defn debug-page [q answers nick]
+ (page
+  [:h2 "DEBUG"]
+  [:p "q:" (str q)]
+  [:p "answers: " (str answers)]
+  [:p "nick: " (str nick)]))
