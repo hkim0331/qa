@@ -91,7 +91,7 @@
 (defn login-page []
   (page
     [:h2 "QA: Login"]
-    [:p "tp.melt と同じやつで。"
+    [:p "r99.melt と同じやつで。"
      [:a {:href "/"} "注意事項"]]
     (form-to
       [:post "/login"]

@@ -2,7 +2,7 @@
   (:require
    [ataraxy.response :as response]
    [buddy.hashers :as hashers]
-   [qa.boundary.typing-users :refer [find-user-by-nick]]
+   [qa.boundary.users :refer [find-user-by-nick]]
    [qa.view.page :refer [login-page]]
    [integrant.core :as ig]
    [ring.util.response :refer [redirect]]
