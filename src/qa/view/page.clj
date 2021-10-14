@@ -29,15 +29,19 @@
   [n s]
   (subs s 0 (min n (count s))))
 
-(defn date
-  "時刻表示を短くする。
-  引数 tm は time オブジェクト。"
-  [tm]
-  (subs (str tm) 0 10))
+;; (defn date
+;;   "時刻表示を短くする。
+;;   引数 tm は time オブジェクト。"
+;;   [tm]
+;;   (subs (str tm) 0 10))
 
-(defn date-time
-  [tm]
-  (subs (str tm) 0 19))
+(def date identity)
+
+;; (defn date-time
+;;   [tm]
+;;   (subs (str tm) 0 19))
+
+(def date-time identity)
 
 (defn page [& contents]
   [::response/ok
