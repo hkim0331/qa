@@ -5,21 +5,23 @@
   [hiccup.page :refer [html5]]
   [hiccup.form :refer [form-to text-field password-field submit-button
                        label text-area file-upload hidden-field]]
+  [hiccup.util :refer [escape-html]]
   ;[qa.handler.core :refer [goods]]
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.6.2")
+(def version "0.6.3")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
   [s]
   (str/replace s #"&lt;br" "<br"))
 
-(defn escape-html
-  "文字列 s 中のすべての < を &lt; でリプレース。"
-  [s]
-  (str/replace s #"<" "&lt;"))
+;; use hiccup.util/escape-html instead
+;; (defn escape-html
+;;   "文字列 s 中のすべての < を &lt; でリプレース。"
+;;   [s]
+;;   (str/replace s #"<" "&lt;"))
 
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
@@ -36,6 +38,7 @@
 (defn date-time
   [tm]
   (subs (str tm) 0 19))
+
 
 (defn page [& contents]
   [::response/ok
@@ -146,12 +149,14 @@
   (repeat n "👍"))
 
 ;;FIXME: 問題はここにある。
+;;怪しいのは date-time, escape/unescape あたり。
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
    [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (unescape-br (escape-html (:q q)))]
+
    (for [a answers]
      (let [goods (goods (:g a))]
        [:div
@@ -162,9 +167,9 @@
             (when (= nick "hkimura")
               [:a {:href (str "/who-goods/" (:id a)) :class "red"}
                   " who?"])]]))
+
    [:p]
-   [:p [:a {:href (str "/a/" (:id q))
-            :class "btn btn-primary btn-sm"}
+   [:p [:a {:href (str "/a/" (:id q)) :class "btn btn-primary btn-sm"}
         "answer"]]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]))
 
@@ -216,10 +221,3 @@
            [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
            " "
            (date-time (:ts a))])]))
-
-(defn debug-page [q answers nick]
- (page
-  [:h2 "DEBUG"]
-  [:p "q:" (str q)]
-  [:p "answers: " (str answers)]
-  [:p "nick: " (str nick)]))
