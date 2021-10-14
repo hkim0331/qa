@@ -91,12 +91,10 @@
    (let [from (get-nick req)
          ans (answers/find-one db a-id)
          g (:g ans)]
-     ;;(debug "from" from "a-id" a-id "g" g)
      (when-not (goods/found? db a-id from)
        (answers/update-answer! db {:g (inc g)} a-id)
        (goods/create! db a-id from))
      [::response/found (str "/as/" a-id)])))
-     ;;[::response/ok "good job. ブラウザのバックで戻って再読み込みしてください。"])))
 
 (defmethod ig/init-key :qa.handler.core/admin [_ _]
  (fn [req]
