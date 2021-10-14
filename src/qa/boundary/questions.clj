@@ -24,7 +24,8 @@
      ret))
 
   (fetch-all [db]
-    (sql/query (ds db) ["select * from questions order by id desc"] bf))
+    ;; CHANGED: 
+    (sql/query (ds db) ["select * from questions order by id asc"] bf))
 
   (count-my-questions
     [db nick]

@@ -10,18 +10,12 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.6.3")
+(def version "0.6.6")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
   [s]
   (str/replace s #"&lt;br" "<br"))
-
-;; use hiccup.util/escape-html instead
-;; (defn escape-html
-;;   "文字列 s 中のすべての < を &lt; でリプレース。"
-;;   [s]
-;;   (str/replace s #"<" "&lt;"))
 
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
@@ -133,7 +127,7 @@
     [:a {:href "/"} "注意事項"]
     "・"
     [:a {:href "/recents"} "最近の回答"]]
-   (into [:ol {:reversed "reversed"}]
+   (into [:ol]
          (for [q qs]
            [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
                 " "
@@ -146,8 +140,6 @@
   [n]
   (repeat n "👍"))
 
-;;FIXME: 問題はここにある。
-;;怪しいのは date-time, escape/unescape あたり。
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
