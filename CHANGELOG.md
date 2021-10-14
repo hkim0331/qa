@@ -2,6 +2,7 @@
 
 ## Unreleased
 - debug level
+- bug: <br>から後ろを表示できてない。
 
 
 ## 0.6.7 - 2021-10-14
