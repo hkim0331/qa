@@ -36,13 +36,11 @@
     [:get "/recents"] ^:auth [:qa.handler.core/recents]
 
     [:get "/who-goods/" n] ^:auth [:qa.handler.core/who-goods n]
-    
+
     [:get "/admin"] ^:auth [:qa.handler.core/admin]
     [:post "/admin/goods" {params :form-params}] [:qa.handler.core/admin-goods params]}}
 
   :qa.middleware/auth {}
-
-  :qa.handler/example {:db #ig/ref :duct.database/sql}
 
   :qa.handler.core/index {}
 
