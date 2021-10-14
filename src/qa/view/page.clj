@@ -147,8 +147,6 @@
   [n]
   (repeat n "👍"))
 
-;;FIXME: 問題はここにある。
-;;怪しいのは date-time, escape/unescape あたり。
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
