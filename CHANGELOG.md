@@ -4,7 +4,12 @@
 - improve looks
 - destination of redirect after goods button
 
+## 0.6.6 - 2021-10-14
+### Changed
+- textarea height: 100px;
+
 ## 0.6.5 - 2021-10-14
+### Changed
 - resumeed article order. old -> new
 
 ## 0.6.3 - 2021-10-14
