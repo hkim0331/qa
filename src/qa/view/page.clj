@@ -17,12 +17,6 @@
   [s]
   (str/replace s #"&lt;br" "<br"))
 
-;; use hiccup.util/escape-html instead
-;; (defn escape-html
-;;   "文字列 s 中のすべての < を &lt; でリプレース。"
-;;   [s]
-;;   (str/replace s #"<" "&lt;"))
-
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
   文字列長さが n に満たない時はそのまま。"
@@ -133,7 +127,7 @@
     [:a {:href "/"} "注意事項"]
     "・"
     [:a {:href "/recents"} "最近の回答"]]
-   (into [:ol {:reversed "reversed"}]
+   (into [:ol]
          (for [q qs]
            [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
                 " "
