@@ -10,7 +10,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.6.6")
+(def version "0.6.7-SNAPSHOT")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -176,8 +176,6 @@
             (anti-forgery-field)
             (hidden-field "q_id" (:id q))
             (text-area {:id "answer"} "answer")
-            [:br]
-            [:div (label "file" "(必要なら)") (file-upload "file")]
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 

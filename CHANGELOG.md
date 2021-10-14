@@ -1,8 +1,14 @@
 # Question and Answers
 
 ## Unreleased
-- improve looks
-- destination of redirect after goods button
+- debug level
+- prevend meaningless lots of goods.
+
+## 0.6.7-SNAPSHOT
+### Removed
+- 「必要なら」の行を消す。
+### Changed
+- after pushing good button, returns back to the original page.
 
 ## 0.6.6 - 2021-10-14
 ### Changed

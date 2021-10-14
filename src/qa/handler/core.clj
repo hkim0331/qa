@@ -85,16 +85,18 @@
       (answers-page q answers nick))))
       ;;(debug-page q answers nick))))
 
-;; goods と answers の二つを書き換えないと。
+;; goods と answers の二つを書き換える。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]
   (fn [{[_ a-id] :ataraxy/result :as req}]
    (let [from (get-nick req)
          ans (answers/find-one db a-id)
          g (:g ans)]
-     (debug "from" from "a-id" a-id "g" g)
-     (answers/update-answer! db {:g (inc g)} a-id)
-     (goods/create! db a-id from)
-     [::response/ok "good job. ブラウザのバックで戻って再読み込みしてください。"])))
+     ;;(debug "from" from "a-id" a-id "g" g)
+     (when-not (goods/found? db a-id from)
+       (answers/update-answer! db {:g (inc g)} a-id)
+       (goods/create! db a-id from))
+     [::response/found (str "/as/" a-id)])))
+     ;;[::response/ok "good job. ブラウザのバックで戻って再読み込みしてください。"])))
 
 (defmethod ig/init-key :qa.handler.core/admin [_ _]
  (fn [req]
