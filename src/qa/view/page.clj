@@ -5,21 +5,17 @@
   [hiccup.page :refer [html5]]
   [hiccup.form :refer [form-to text-field password-field submit-button
                        label text-area file-upload hidden-field]]
+  [hiccup.util :refer [escape-html]]
   ;[qa.handler.core :refer [goods]]
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.6.1")
+(def version "0.6.7")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
   [s]
   (str/replace s #"&lt;br" "<br"))
-
-(defn escape-html
-  "文字列 s 中のすべての < を &lt; でリプレース。"
-  [s]
-  (str/replace s #"<" "&lt;"))
 
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
@@ -36,6 +32,7 @@
 (defn date-time
   [tm]
   (subs (str tm) 0 19))
+
 
 (defn page [& contents]
   [::response/ok
@@ -83,9 +80,9 @@
      [:li "回答しやすい質問をする練習と、"]
      [:li "回答できる質問には回答する練習。"]
      [:li "語尾だけ丁寧、意味不明な質問・回答はよくない。"]
-     [:li "「いいね」付いた回答にはボーナス。"]
-     [:li "「いいね」付けた人と、質問出した人にもちょっとだけボーナス。"]
-     [:li "イメージのアップロードはこの後プログラムの予定。"]]]
+     [:li "「👍」付いた回答にはボーナス。"]
+     [:li "「👍」付けた人と、質問出した人にもちょっとだけボーナス。"]
+     [:li "「👍」は一回答に一回だけです。"]]]
    [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "Go!"]]))
 
 (defn login-page []
@@ -112,8 +109,6 @@
            (anti-forgery-field)
            (text-area {:id "question"} "question")
            [:br]
-           [:div (label "file" "(まだプログラムしてない)") (file-upload "file")]
-           [:br]
            (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn question-edit-page
@@ -132,7 +127,7 @@
     [:a {:href "/"} "注意事項"]
     "・"
     [:a {:href "/recents"} "最近の回答"]]
-   (into [:ol {:reversed "reversed"}]
+   (into [:ol]
          (for [q qs]
            [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
                 " "
@@ -151,6 +146,7 @@
    [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (unescape-br (escape-html (:q q)))]
+
    (for [a answers]
      (let [goods (goods (:g a))]
        [:div
@@ -161,9 +157,9 @@
             (when (= nick "hkimura")
               [:a {:href (str "/who-goods/" (:id a)) :class "red"}
                   " who?"])]]))
+
    [:p]
-   [:p [:a {:href (str "/a/" (:id q))
-            :class "btn btn-primary btn-sm"}
+   [:p [:a {:href (str "/a/" (:id q)) :class "btn btn-primary btn-sm"}
         "answer"]]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]))
 
@@ -180,8 +176,6 @@
             (anti-forgery-field)
             (hidden-field "q_id" (:id q))
             (text-area {:id "answer"} "answer")
-            [:br]
-            [:div (label "file" "(必要なら)") (file-upload "file")]
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 

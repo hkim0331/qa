@@ -1,8 +1,34 @@
 # Question and Answers
 
 ## Unreleased
-- improve looks
-- change article order
+- debug level
+
+
+## 0.6.7 - 2021-10-14
+### Removed
+- 「必要なら」の行を消す。
+### Changed
+- after pushing good button, returns back to the original page.
+### Added
+- "「👍」は一回答に一回だけです。"
+
+## 0.6.6 - 2021-10-14
+### Changed
+- textarea height: 100px;
+
+## 0.6.5 - 2021-10-14
+### Changed
+- resumeed article order. old -> new
+
+## 0.6.3 - 2021-10-14
+### Fixed
+- 本番サーバで動かなかった理由はコードではなく、データベースのテーブルにあった。
+ answers テーブルにコラム g が欠落していた。
+ 教訓：古いマイグレーションコード（動作を確認できないやつ）を残すな、信じるな。
+
+## 0.6.2-SNAPSHOT
+まだ本番サーバーで回答ができない。開発PC ではできたはずだが？
+- hotfix 0.6.2 start
 
 ## 0.6.1 - 2021-10-13
 - start to work as https://qa.melt.kyutech.ac.jp/

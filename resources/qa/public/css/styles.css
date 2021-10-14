@@ -1,5 +1,5 @@
-textarea#question {width: 90%; background: #ffc;}
-textarea#answer   {width: 90%; background: #cfc;}
+textarea#question {width: 90%; height: 100px; background: #ffc;}
+textarea#answer   {width: 90%; height: 100px; background: #cfc;}
 
 img#odyssey {width: 100%;}
 

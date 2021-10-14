@@ -17,30 +17,30 @@
 (extend-protocol Answers
   duct.database.sql.Boundary
   (create [db q-id nick answer]
-    (debug "q_id" q-id "nick" nick "answer" answer)
+    (debug "q_id:" q-id "nick:" nick "answer:" answer)
     (sql/insert! (ds db) :answers {:q_id q-id :nick nick :a answer}))
 
   (find-one [db n]
     (sql/get-by-id (ds db) :answers n bf))
 
   (find-by-keys [db n]
-    ;; (sql/find-by-keys
-    ;;  (ds db)
-    ;;  :answers
-    ;;  {:q_id n :order-by [[:id :asc]]}
-    ;;  bf))
-    (sql/query (ds db)
-               ["select * from answers where q_id=? order by id" n]
-               bf))
+    (let [ret (sql/query (ds db)
+                         ["select * from answers where q_id=? order by id" n]
+                         bf)]
+      (debug "find-by-keys:" ret)
+      ret))
 
   (update-answer!
     [db map n]
-    (sql/update! (ds db) :answers map {:id n}))
+    (let [ret (sql/update! (ds db) :answers map {:id n})]
+      (debug "update-answer!" ret)
+      ret))
 
   (find-recents [db n]
     (sql/query (ds db)
                ["select * from answers order by id desc limit ?" n]
                bf))
+  
   (count-my-answers
     [db nick]
     (let [ret (sql/query

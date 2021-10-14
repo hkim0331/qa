@@ -11,6 +11,7 @@
 
 (defprotocol Goods
   (create! [db a-id nick])
+  (found? [db a-id nick])
   (find-goods [db a-id])
   (count-sent [db nick])
   (count-received [db nick]))
@@ -21,6 +22,14 @@
     [db a-id nick]
     (debug "create!" a-id nick)
     (sql/insert! (ds db) :goods {:a_id a-id :nick nick}))
+
+  (found?
+    [db a-id nick]
+    (let [ret (sql/find-by-keys
+               (ds db)
+               :goods
+               {:a_id a-id :nick nick})]
+      (boolean (seq ret))))
 
   (find-goods
     [db a-id]
