@@ -4,7 +4,7 @@
 - debug level
 
 
-## 0.6.7-SNAPSHOT
+## 0.6.7 - 2021-10-14
 ### Removed
 - 「必要なら」の行を消す。
 ### Changed
