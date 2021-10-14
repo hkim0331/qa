@@ -9,7 +9,7 @@
    [qa.view.page :refer [question-new-page question-edit-page
                          questions-page answers-page answer-page
                          index-page admin-page goods-page
-                         recents-page debug-page]]
+                         recents-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -82,8 +82,8 @@
           nick (get-nick req)]
       (debug "/as q:" q "nick:" nick "answers:" answers)
       ;;これか？
-      ;;(answers-page q answers nick))))
-      (debug-page q answers nick))))
+      (answers-page q answers nick))))
+      ;;(debug-page q answers nick))))
 
 ;; goods と answers の二つを書き換えないと。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]

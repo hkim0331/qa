@@ -10,7 +10,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.6.2")
+(def version "0.6.3")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -38,6 +38,7 @@
 (defn date-time
   [tm]
   (subs (str tm) 0 19))
+
 
 (defn page [& contents]
   [::response/ok
@@ -114,8 +115,6 @@
            (anti-forgery-field)
            (text-area {:id "question"} "question")
            [:br]
-           [:div (label "file" "(まだプログラムしてない)") (file-upload "file")]
-           [:br]
            (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn question-edit-page
@@ -153,6 +152,7 @@
    [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (unescape-br (escape-html (:q q)))]
+
    (for [a answers]
      (let [goods (goods (:g a))]
        [:div
@@ -163,9 +163,9 @@
             (when (= nick "hkimura")
               [:a {:href (str "/who-goods/" (:id a)) :class "red"}
                   " who?"])]]))
+
    [:p]
-   [:p [:a {:href (str "/a/" (:id q))
-            :class "btn btn-primary btn-sm"}
+   [:p [:a {:href (str "/a/" (:id q)) :class "btn btn-primary btn-sm"}
         "answer"]]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]))
 
@@ -217,10 +217,3 @@
            [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
            " "
            (date-time (:ts a))])]))
-
-(defn debug-page [q answers nick]
- (page
-  [:h2 "DEBUG"]
-  [:p "q:" (str q)]
-  [:p "answers: " (str answers)]
-  [:p "nick: " (str nick)]))
