@@ -115,8 +115,6 @@
            (anti-forgery-field)
            (text-area {:id "question"} "question")
            [:br]
-           [:div (label "file" "(まだプログラムしてない)") (file-upload "file")]
-           [:br]
            (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn question-edit-page
