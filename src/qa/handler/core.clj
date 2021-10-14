@@ -9,7 +9,7 @@
    [qa.view.page :refer [question-new-page question-edit-page
                          questions-page answers-page answer-page
                          index-page admin-page goods-page
-                         recents-page debug-page]]
+                         recents-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 

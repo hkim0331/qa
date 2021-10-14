@@ -159,6 +159,7 @@
    [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:p {:class "question"} (unescape-br (escape-html (:q q)))]
+
    (for [a answers]
      (let [goods (goods (:g a))]
        [:div
@@ -169,9 +170,9 @@
             (when (= nick "hkimura")
               [:a {:href (str "/who-goods/" (:id a)) :class "red"}
                   " who?"])]]))
+
    [:p]
-   [:p [:a {:href (str "/a/" (:id q))
-            :class "btn btn-primary btn-sm"}
+   [:p [:a {:href (str "/a/" (:id q)) :class "btn btn-primary btn-sm"}
         "answer"]]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]))
 
@@ -224,9 +225,9 @@
            " "
            (date-time (:ts a))])]))
 
-(defn debug-page [q answers nick]
- (page
-  [:h2 "DEBUG"]
-  [:p "q:" (str q)]
-  [:p "answers: " (str answers)]
-  [:p "nick: " (str nick)]))
+;; (defn debug-page [q answers nick]
+;;  (page
+;;   [:h2 "DEBUG"]
+;;   [:p "q:" (str q)]
+;;   [:p "answers: " (str answers)]
+;;   [:p "nick: " (str nick)]))
