@@ -4,6 +4,19 @@
 - improve looks
 - change article order
 
+## 0.6.5-SNAPSHOT
+
+
+## 0.6.3 - 2021-10-14
+### Fixed
+* 本番サーバで動かなかった理由はコードではなく、データベースのテーブルにあった。
+ answers テーブルにコラム g が欠落していた。
+ 教訓：古いマイグレーションコード（動作を確認できないやつ）を残すな、信じるな。
+
+## 0.6.2-SNAPSHOT
+まだ本番サーバーで回答ができない。開発PC ではできたはずだが？
+- hotfix 0.6.2 start
+
 ## 0.6.1 - 2021-10-13
 - start to work as https://qa.melt.kyutech.ac.jp/
 - git rm --cached

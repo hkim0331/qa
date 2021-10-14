@@ -4,9 +4,7 @@
   :duct.router/ataraxy
   {:middleware {:auth #ig/ref :qa.middleware/auth}
    :routes
-   {[:get "/example"] [:qa.handler/example]
-
-    [:get "/"] [:qa.handler.core/index]
+   {[:get "/"] [:qa.handler.core/index]
 
     [:get "/login"] [:qa.handler.auth/login]
 
