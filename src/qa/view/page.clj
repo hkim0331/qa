@@ -10,7 +10,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.6.2")
+(def version "0.6.3")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -29,19 +29,16 @@
   [n s]
   (subs s 0 (min n (count s))))
 
-;; (defn date
-;;   "時刻表示を短くする。
-;;   引数 tm は time オブジェクト。"
-;;   [tm]
-;;   (subs (str tm) 0 10))
+(defn date
+  "時刻表示を短くする。
+  引数 tm は time オブジェクト。"
+  [tm]
+  (subs (str tm) 0 10))
 
-(def date identity)
+(defn date-time
+  [tm]
+  (subs (str tm) 0 19))
 
-;; (defn date-time
-;;   [tm]
-;;   (subs (str tm) 0 19))
-
-(def date-time identity)
 
 (defn page [& contents]
   [::response/ok
@@ -224,10 +221,3 @@
            [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
            " "
            (date-time (:ts a))])]))
-
-;; (defn debug-page [q answers nick]
-;;  (page
-;;   [:h2 "DEBUG"]
-;;   [:p "q:" (str q)]
-;;   [:p "answers: " (str answers)]
-;;   [:p "nick: " (str nick)]))
