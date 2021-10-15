@@ -81,9 +81,7 @@
           answers (answers/find-by-keys db n)
           nick (get-nick req)]
       (debug "/as q:" q "nick:" nick "answers:" answers)
-      ;;これか？
       (answers-page q answers nick))))
-      ;;(debug-page q answers nick))))
 
 ;; goods と answers の二つを書き換える。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]
