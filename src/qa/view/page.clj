@@ -13,7 +13,7 @@
 (def version "0.7.0")
 
 (defn unescape-br
-  "文字列 s 中のすべての &lt;br&gt; を<br でリプレースバック。"
+  "文字列 s 中のすべての &lt;br&gt; を <br> でリプレースバック。"
   [s]
   (str/replace s #"&lt;br&gt;" "<br>"))
 
