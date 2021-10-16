@@ -10,7 +10,7 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.6.8")
+(def version "0.6.9")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
@@ -153,7 +153,7 @@
         [:p [:span {:class "nick"} (:nick a)] "'s answer "
          (date-time (:ts a)) ","]
         [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
-        [:p [:a {:href (str "/good/" (:id a))} goods]
+        [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
             (when (= nick "hkimura")
               [:a {:href (str "/who-goods/" (:id a)) :class "red"}
                   " who?"])]]))
