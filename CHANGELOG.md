@@ -2,7 +2,6 @@
 
 ## Unreleased
 - debug level
-- bug: <br>から後ろを表示できてない。
 - goods を押された時に「good は1回答につき、おひとりさま一発までです。」の表示
 - duct: (reset) できないのはなぜ？毎回 lein repl を立ち上げ直している。
 
@@ -11,6 +10,9 @@
 - html-escape を hiccup.core/html-escape に変更したために、
  それまで &lt; だけ見てればよかった unescape-br を
  &gt; も戻すようにしないとバランスが取れない。
+- app.melt に 0.7.1 プッシュしたが表示は 0.7.0 のまま。次のバージョンアップで直そう。
+### Changed
+- (timbre/set-level :info)
 
 ## 0.7.0 - 2021-10-16
 - goods テーブルの q_id コラムにデータを入れる。
