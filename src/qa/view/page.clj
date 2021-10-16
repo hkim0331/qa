@@ -153,7 +153,7 @@
         [:p [:span {:class "nick"} (:nick a)] "'s answer "
          (date-time (:ts a)) ","]
         [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
-        [:p [:a {:href (str "/good/" (:id a))} goods]
+        [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
             (when (= nick "hkimura")
               [:a {:href (str "/who-goods/" (:id a)) :class "red"}
                   " who?"])]]))

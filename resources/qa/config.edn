@@ -29,7 +29,9 @@
     [:get  "/a/"  n] ^:auth [:qa.handler.core/answer  ^int n]
     [:get  "/as/" n] ^:auth [:qa.handler.core/answers ^int n]
 
-    [:get "/good/" a-id] ^:auth [:qa.handler.core/good ^int a-id]
+    [:get "/good/" q-id "/" a-id]
+    ^:auth
+    [:qa.handler.core/good ^int q-id ^int a-id]
 
     [:get "/my-goods/" nick] ^:auth [:qa.handler.core/my-goods nick]
 
