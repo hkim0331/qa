@@ -91,9 +91,7 @@
          g (:g ans)]
      (when-not (goods/found? db a-id from)
        (answers/update-answer! db {:g (inc g)} a-id)
-       (goods/create! db a-id from))
-     ;;BUG here? not a-id, q-id is required.
-     (debug "req" req)
+       (goods/create! db q-id a-id from))
      [::response/found (str "/as/" q-id)])))
 
 (defmethod ig/init-key :qa.handler.core/admin [_ _]
