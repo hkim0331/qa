@@ -10,7 +10,7 @@
 (def ^:private bfn {:builder-fn rs/as-unqualified-lower-maps})
 
 (defprotocol Goods
-  (create! [db a-id nick])
+  (create! [db q-id a-id nick])
   (found? [db a-id nick])
   (find-goods [db a-id])
   (count-sent [db nick])
@@ -19,9 +19,9 @@
 (extend-protocol Goods
   duct.database.sql.Boundary
   (create!
-    [db a-id nick]
+    [db q-id a-id nick]
     (debug "create!" a-id nick)
-    (sql/insert! (ds db) :goods {:a_id a-id :nick nick}))
+    (sql/insert! (ds db) :goods {:q_id q-id :a_id a-id :nick nick}))
 
   (found?
     [db a-id nick]

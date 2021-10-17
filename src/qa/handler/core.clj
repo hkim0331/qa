@@ -13,7 +13,7 @@
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
-(timbre/set-level! :debug)
+(timbre/set-level! :info)
 
 (defn get-nick
   "request ヘッダの id 情報を文字列で返す。
@@ -85,14 +85,14 @@
 
 ;; goods と answers の二つを書き換える。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]
-  (fn [{[_ a-id] :ataraxy/result :as req}]
+  (fn [{[_ q-id a-id] :ataraxy/result :as req}]
    (let [from (get-nick req)
          ans (answers/find-one db a-id)
          g (:g ans)]
      (when-not (goods/found? db a-id from)
        (answers/update-answer! db {:g (inc g)} a-id)
-       (goods/create! db a-id from))
-     [::response/found (str "/as/" a-id)])))
+       (goods/create! db q-id a-id from))
+     [::response/found (str "/as/" q-id)])))
 
 (defmethod ig/init-key :qa.handler.core/admin [_ _]
  (fn [req]

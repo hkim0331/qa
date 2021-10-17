@@ -10,12 +10,12 @@
   [ring.util.anti-forgery :refer [anti-forgery-field]]
   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.6.8")
+(def version "0.7.0")
 
 (defn unescape-br
-  "文字列 s 中のすべての &lt;br を<br でリプレースバック。"
+  "文字列 s 中のすべての &lt;br&gt; を <br> でリプレースバック。"
   [s]
-  (str/replace s #"&lt;br" "<br"))
+  (str/replace s #"&lt;br&gt;" "<br>"))
 
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
@@ -32,7 +32,6 @@
 (defn date-time
   [tm]
   (subs (str tm) 0 19))
-
 
 (defn page [& contents]
   [::response/ok
@@ -134,7 +133,7 @@
                 (escape-html (ss 28 (:q q)))
                 [:a {:href (str "/as/" (:id q))}
                     " 👉"]]))
-   [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new"]]))
+   [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
   [n]
@@ -153,15 +152,15 @@
         [:p [:span {:class "nick"} (:nick a)] "'s answer "
          (date-time (:ts a)) ","]
         [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
-        [:p [:a {:href (str "/good/" (:id a))} goods]
+        [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
             (when (= nick "hkimura")
               [:a {:href (str "/who-goods/" (:id a)) :class "red"}
                   " who?"])]]))
 
    [:p]
    [:p [:a {:href (str "/a/" (:id q)) :class "btn btn-primary btn-sm"}
-        "answer"]]
-   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "questions"]]))
+        "your answer"]]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
 
 (defn answer-page [nick q]
   (debug q)

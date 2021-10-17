@@ -5,11 +5,13 @@
 
 docker が楽か、データベースの共有なんかをしない限り。
 
+## Developing
+
 lein run の前に、.env の内容を確認し、忘れずに、
 
   $ source .env
 
-すること。
+してから、開発継続すること。gitignore しているデータベース接続情報がある。
 
 # WAS (before 2021-10-13)
 
