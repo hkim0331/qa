@@ -4,6 +4,8 @@
 - debug level
 - goods を押された時に「good は1回答につき、おひとりさま一発までです。」の表示
 - duct: (reset) できないのはなぜ？毎回 lein repl を立ち上げ直している。
+- 本番でログがうるさすぎ。
+21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["select * from answers where q_id=? order by id" 10], :elapsed 1}
 
 ## 0.7.3 - 2021-10-25
 qa.melt でスタートしない。
