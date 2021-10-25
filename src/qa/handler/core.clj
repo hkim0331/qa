@@ -10,6 +10,7 @@
                          questions-page answers-page
                          index-page admin-page goods-page
                          recents-page]]
+                         ;;answer-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
