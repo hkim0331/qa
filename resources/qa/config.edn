@@ -1,7 +1,7 @@
 {:duct.profile/base
  {:duct.core/project-ns qa
 
-  :duct.server.http/jetty {:port 3030}
+  ;;:duct.server.http/jetty {:port 3003}
 
   :duct.router/ataraxy
   {:middleware {:auth #ig/ref :qa.middleware/auth}
