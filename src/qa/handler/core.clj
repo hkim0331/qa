@@ -7,7 +7,7 @@
    [qa.boundary.goods :as goods]
    [qa.boundary.questions :as questions]
    [qa.view.page :refer [question-new-page question-edit-page
-                         questions-page answers-page answer-page
+                         questions-page answers-page
                          index-page admin-page goods-page
                          recents-page]]
    #_[ring.util.response :refer [redirect]]
@@ -67,11 +67,11 @@
       (answers/create db (Integer/parseInt q_id) nick answer)
       [::response/found (str "/as/" q_id)])))
 
-(defmethod ig/init-key :qa.handler.core/answer [_ {:keys [db]}]
-  (fn [{[_ n] :ataraxy/result :as req}]
-    (debug "answer" n)
-    (let [q (questions/fetch db n)]
-      (answer-page (get-nick req) q))))
+;; (defmethod ig/init-key :qa.handler.core/answer [_ {:keys [db]}]
+;;   (fn [{[_ n] :ataraxy/result :as req}]
+;;     (debug "answer" n)
+;;     (let [q (questions/fetch db n)]
+;;       (answer-page (get-nick req) q))))
 
 ;; /as/3 のように呼ばれる。
 (defmethod ig/init-key :qa.handler.core/answers [_ {:keys [db]}]

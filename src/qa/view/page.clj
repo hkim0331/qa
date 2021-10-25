@@ -153,30 +153,40 @@
          (date-time (:ts a)) ","]
         [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
         [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
-            (when (= nick "hkimura")
-              [:a {:href (str "/who-goods/" (:id a)) :class "red"}
-                  " who?"])]]))
+         (when (= nick "hkimura")
+           [:a {:href (str "/who-goods/" (:id a)) :class "red"}
+            " who?"])]]))
 
+   [:p
+    (form-to {:enctype "multipart/form-data"
+              :onsubmit "return ok()"}
+             [:post "/a"]
+             (anti-forgery-field)
+             (hidden-field "q_id" (:id q))
+             (text-area {:id "answer"
+                         :placeholder "your comment please."}
+                        "answer")
+             [:br]
+             (submit-button {:class "btn btn-primary btn-sm"} "submit"))]
    [:p]
-   [:p [:a {:href (str "/a/" (:id q)) :class "btn btn-primary btn-sm"}
-        "your answer"]]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
 
-(defn answer-page [nick q]
-  (debug q)
-  (page
-   [:h2 "QA: Please, " nick, "!"]
-   [:p [:a {:href "/"} "注意事項"]]
-   [:p (escape-html (:q q))]
-   [:h4 "your answer:"]
-   (form-to {:enctype "multipart/form-data"
-             :onsubmit "return ok()"}
-            [:post "/a"]
-            (anti-forgery-field)
-            (hidden-field "q_id" (:id q))
-            (text-area {:id "answer"} "answer")
-            [:br]
-            (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
+;; no use? after 2021-10-25?
+;; (defn answer-page [nick q]
+;;   (debug q)
+;;   (page
+;;    [:h2 "QA: Please, " nick, "!"]
+;;    [:p [:a {:href "/"} "注意事項"]]
+;;    [:p (escape-html (:q q))]
+;;    [:h4 "your answer:"]
+;;    (form-to {:enctype "multipart/form-data"
+;;              :onsubmit "return ok()"}
+;;             [:post "/a"]
+;;             (anti-forgery-field)
+;;             (hidden-field "q_id" (:id q))
+;;             (text-area {:id "answer"} "answer")
+;;             [:br]
+;;             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn admin-page []
   (page
