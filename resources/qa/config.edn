@@ -1,6 +1,8 @@
 {:duct.profile/base
  {:duct.core/project-ns qa
 
+  :duct.server.http/jetty {:port 3030}
+
   :duct.router/ataraxy
   {:middleware {:auth #ig/ref :qa.middleware/auth}
    :routes
@@ -19,7 +21,7 @@
     [:qa.handler.core/question-create params]
 
     [:get  "/q/" n] ^:auth [:qa.handler.core/question ^int n]
-    [:get  "/qs"  ] ^:auth [:qa.handler.core/questions]
+    [:get  "/qs"] ^:auth [:qa.handler.core/questions]
 
     [:get  "/a"] ^:auth [:qa.handler.core/answer-new]
 
@@ -67,7 +69,7 @@
   :qa.handler.core/my-goods {:db #ig/ref :duct.database/sql}
 
   :qa.handler.core/recents {:db #ig/ref :duct.database/sql}
-  
+
   ;; prevent goods duplicates
   :qa.handler.core/admin {}
   :qa.handler.core/admin-goods {:db #ig/ref :duct.database/sql}}
