@@ -172,21 +172,21 @@
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
 
 ;; no use? after 2021-10-25?
-;; (defn answer-page [nick q]
-;;   (debug q)
-;;   (page
-;;    [:h2 "QA: Please, " nick, "!"]
-;;    [:p [:a {:href "/"} "注意事項"]]
-;;    [:p (escape-html (:q q))]
-;;    [:h4 "your answer:"]
-;;    (form-to {:enctype "multipart/form-data"
-;;              :onsubmit "return ok()"}
-;;             [:post "/a"]
-;;             (anti-forgery-field)
-;;             (hidden-field "q_id" (:id q))
-;;             (text-area {:id "answer"} "answer")
-;;             [:br]
-;;             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
+(defn answer-page [nick q]
+  (debug q)
+  (page
+   [:h2 "QA: Please, " nick, "!"]
+   [:p [:a {:href "/"} "注意事項"]]
+   [:p (escape-html (:q q))]
+   [:h4 "your answer:"]
+   (form-to {:enctype "multipart/form-data"
+             :onsubmit "return ok()"}
+            [:post "/a"]
+            (anti-forgery-field)
+            (hidden-field "q_id" (:id q))
+            (text-area {:id "answer"} "answer")
+            [:br]
+            (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn admin-page []
   (page
