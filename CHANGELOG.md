@@ -2,23 +2,57 @@
 
 ## Unreleased
 - debug level
-- bug: <br>から後ろを表示できてない。
-- 「good は1回答につき、おひとりさま一発までです。」
+- goods を押された時に「good は1回答につき、おひとりさま一発までです。」の表示
+- duct: (reset) できないのはなぜ？毎回 lein repl を立ち上げ直している。
+- 本番でログがうるさすぎ。
+21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["select * from answers where q_id=? order by id" 10], :elapsed 1}
 
+## 0.7.4 - 2021-10-26
+### Changed
+- reverse order of questions
+- replace 'who?' with '👍'
+
+
+## 0.7.3 - 2021-10-25
+qa.melt でスタートしない。
+### Fixed
+- 3030 ではなく、3003 だった。config.edn に
+  duct.server.http/jetty {:port 3003}
+  しておくと、環境変数 PORT よりも優先するのかな？そうとすれば説明つく。
+
+## 0.7.2 - 2021-10-25
+### Changed
+- デフォルトの jetty ポートを 3030。ローカル開発でぶつからないよう。
+- コメントを answers-page からつける。独立したページに飛ぶのをやめた。
+### Removed
+- 上によって、answer-page が必要なくなった。まだ消してない。該当箇所をコメントアウトしたのみ。
+
+## 0.7.1 - 2021-10-16
+### Fixed
+- html-escape を hiccup.core/html-escape に変更したために、
+ それまで &lt; だけ見てればよかった unescape-br を
+ &gt; も戻すようにしないとバランスが取れない。
+- app.melt に 0.7.1 プッシュしたが表示は 0.7.0 のまま。次のバージョンアップで直そう。
+### Changed
+- (timbre/set-level :info)
+
+## 0.7.0 - 2021-10-16
+- goods テーブルの q_id コラムにデータを入れる。
+- ボタンの変更。new -> new question, questions -> QA Top
 
 ## 0.6.9 - 2021-10-16
 ### Fixed
-* good bug fixed: 第3の方法で。エンドポイントを /goods/q/a に変更した。
+- 第3の方法で。エンドポイントを /goods/q/a に変更した。
 
 ## 0.6.8 - 2021-10-15
 いいねのリダイレクト先がずれてる。原因究明のためのバージョン。
 ### BUG
 /as に渡すべきは q-id なのに a-id を渡している。
-考えるフィックスは2つ。
-* (get-in req [:headers "referer"]) 中の文字列から参照すべき a-id を割り出す。
-* goods を呼ぶときに a-id を引数として追加する。
-変更がローカルですむ上か？正攻法は下だろう。
-もう一つ、goods テーブルには a-id も入れてるな。→ コラムはあっても、利用していない。
+考えるフィックスは3つ。
+- (get-in req [:headers "referer"]) 中の文字列から参照すべき a-id を割り出す。
+- goods を呼ぶときに a-id を引数として追加する。
+- もう一つ、goods テーブルには a-id も入れてるな。
+ 0.6.8 まではコラムはあっても、利用していない。
 
 
 ## 0.6.7 - 2021-10-14
