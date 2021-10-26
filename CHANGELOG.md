@@ -7,6 +7,12 @@
 - 本番でログがうるさすぎ。
 21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["select * from answers where q_id=? order by id" 10], :elapsed 1}
 
+## 0.7.4 - 2021-10-26
+### Changed
+- reverse order of questions
+- replace 'who?' with '👍'
+
+
 ## 0.7.3 - 2021-10-25
 qa.melt でスタートしない。
 ### Fixed
