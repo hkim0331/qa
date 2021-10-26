@@ -126,7 +126,7 @@
     [:a {:href "/"} "注意事項"]
     "・"
     [:a {:href "/recents"} "最近の回答"]]
-   (into [:ol]
+   (into [:ol {:reversed "reversed"}]
          (for [q qs]
            [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
                 " "
@@ -155,7 +155,7 @@
         [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
          (when (= nick "hkimura")
            [:a {:href (str "/who-goods/" (:id a)) :class "red"}
-            " who?"])]]))
+            " 👍"])]]))
 
    [:p
     (form-to {:enctype "multipart/form-data"
