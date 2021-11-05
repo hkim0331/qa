@@ -1,13 +1,15 @@
 # Question and Answers
 
 ## Unreleased
-- debug level
-- goods を押された時に「good は1回答につき、おひとりさま一発までです。」の表示
 - duct: (reset) できないのはなぜ？毎回 lein repl を立ち上げ直している。
 - 日本語文字の長さを 2, 英文字の長さを１として、qa.views.page/ss を定義し直し。
 - 本番でログがうるさすぎ。
 21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["select * from answers where q_id=? order by id" 10], :elapsed 1}
 
+
+## 0.7.5 - 2021-11-05
+### Added
+- ついた回答数を Q ごとに表示。
 
 ## 0.7.4 - 2021-10-26
 ### Changed
