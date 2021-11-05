@@ -1,16 +1,43 @@
 # Question and Answers
 
 ## Unreleased
-- debug level
-- bug: <br>から後ろを表示できてない。
-- goods を押された時に「good は1回答につき、おひとりさま一発までです。」の表示
 - duct: (reset) できないのはなぜ？毎回 lein repl を立ち上げ直している。
+- 日本語文字の長さを 2, 英文字の長さを１として、qa.views.page/ss を定義し直し。
+- 本番でログがうるさすぎ。
+21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["select * from answers where q_id=? order by id" 10], :elapsed 1}
 
-## 0.7.1 -2021-10-16
+
+## 0.7.5 - 2021-11-05
+### Added
+- ついた回答数を Q ごとに表示。
+
+## 0.7.4 - 2021-10-26
+### Changed
+- reverse order of questions
+- replace 'who?' with '👍'
+
+## 0.7.3 - 2021-10-25
+qa.melt でスタートしない。
+### Fixed
+- 3030 ではなく、3003 だった。config.edn に
+  duct.server.http/jetty {:port 3003}
+  しておくと、環境変数 PORT よりも優先するのかな？そうとすれば説明つく。
+
+## 0.7.2 - 2021-10-25
+### Changed
+- デフォルトの jetty ポートを 3030。ローカル開発でぶつからないよう。
+- コメントを answers-page からつける。独立したページに飛ぶのをやめた。
+### Removed
+- 上によって、answer-page が必要なくなった。まだ消してない。該当箇所をコメントアウトしたのみ。
+
+## 0.7.1 - 2021-10-16
 ### Fixed
 - html-escape を hiccup.core/html-escape に変更したために、
  それまで &lt; だけ見てればよかった unescape-br を
  &gt; も戻すようにしないとバランスが取れない。
+- app.melt に 0.7.1 プッシュしたが表示は 0.7.0 のまま。次のバージョンアップで直そう。
+### Changed
+- (timbre/set-level :info)
 
 ## 0.7.0 - 2021-10-16
 - goods テーブルの q_id コラムにデータを入れる。

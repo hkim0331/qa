@@ -1,8 +1,8 @@
-(ns qa.boudary.auth-test
-  (:require [clojure.test :refer [deftest testing is]]
-            [integrant.core :as ig]
-            [ring.mock.request :as mock]
-            [qa.handler.core :as core]))
+(ns qa.boudary.auth-test)
+  ;; (:require [clojure.test :refer [deftest testing is]]
+  ;;           [integrant.core :as ig]
+  ;;           [ring.mock.request :as mock]
+  ;;           [qa.handler.core :as core]))
 
 ;; (deftest smoke-test
 ;;   (testing "login page exists"
