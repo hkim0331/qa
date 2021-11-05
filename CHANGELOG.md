@@ -4,15 +4,16 @@
 - 本番でログがうるさすぎ。
 21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["select * from answers where q_id=? order by id" 10], :elapsed 1}
 - textarea の幅
-- pre で as is 表示に変更
 - wrap する？
 
-## 0.7.6-SNAPSHOT
+## 0.7.6 - 2021-11-05
 ### Removed
 - test/qa/auth_test.clj
 ### Changed
 - admin 用の "👍" を "&nbsp;"で Zoom 時にも見えなくする。
 - (reset) してもエラーが出なくなった。auth_test.clj の削除と lein clean の後。
+- p から pre で as is 表示に変更。
+  それに伴い、過去に入力してもらった<br>をリプレース後に表示。
 
 ## 0.7.5 - 2021-11-05
 ### Added

@@ -124,18 +124,17 @@
 (defn questions-page [qs cs]
   (page
    [:h2 "QA: Questions"]
-   [:p
-    "👉 のクリックで回答ページへ。"
-    [:a {:href "/"} "注意事項"]
-    "・"
-    [:a {:href "/recents"} "最近の回答"]]
+   [:p "👉 のクリックで回答ページへ。"
+       [:a {:href "/"} "注意事項"]
+       "・"
+       [:a {:href "/recents"} "最近の回答"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
            [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
-            " "
-            (escape-html (ss 28 (:q q)))
-            [:a {:href (str "/as/" (:id q))}]
-            (str " 👉(" (answer-count cs (:id q)) ")")]))
+                " "
+               (escape-html (ss 28 (:q q)))
+               [:a {:href (str "/as/" (:id q))}
+                   (str " 👉(" (answer-count cs (:id q)) ")")]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
