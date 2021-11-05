@@ -10,7 +10,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.7.5")
+(def version "0.7.6")
 
 (defn unescape-br
   "文字列 s 中のすべての &lt;br&gt; を <br> でリプレースバック。"
