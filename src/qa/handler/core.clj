@@ -14,7 +14,7 @@
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
-(timbre/set-level! :info)
+(timbre/set-level! :debug)
 
 (defn get-nick
   "request ヘッダの id 情報を文字列で返す。
@@ -51,8 +51,9 @@
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [_]
     (debug "questions")
-    (let [ret (questions/fetch-all db)]
-      (questions-page ret))))
+    (let [ret (questions/fetch-all db)
+          counts (answers/count-answers db)]
+      (questions-page ret counts))))
 
 ;;;
 ;;; answer/answers

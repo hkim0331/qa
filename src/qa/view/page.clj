@@ -116,9 +116,12 @@
   (page
    [:h2 "under construction"]))
 
-(defn questions-page [qs]
-  ;; FIXME: もう少しコンサイスなデバッグメッセージ
-  ;;(debug "qs" qs)
+(defn- answer-count [cs q_id]
+  (-> (filter #(= (:answers/q_id %) q_id) cs)
+      first
+      :count))
+
+(defn questions-page [qs cs]
   (page
    [:h2 "QA: Questions"]
    [:p
@@ -132,7 +135,7 @@
                 " "
                 (escape-html (ss 28 (:q q)))
                 [:a {:href (str "/as/" (:id q))}
-                    " 👉"]]))
+                    (str " 👉(" (answer-count cs (:id q)) ")")]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
