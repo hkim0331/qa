@@ -7,6 +7,8 @@ p.question {font-size: larger;}
 p.answer   {margin-left: 1em;}
 p.good     {margin-left: 1em;}
 
+pre.answer {margin-left: 1em;}
+
 span.nick  {font-weight: bold;}
 
 .red { color: red;}
