@@ -1,14 +1,14 @@
 (ns qa.view.page
- (:require
-  [ataraxy.response :as response]
-  [clojure.string :as str]
-  [hiccup.page :refer [html5]]
-  [hiccup.form :refer [form-to text-field password-field submit-button
-                       label text-area file-upload hidden-field]]
-  [hiccup.util :refer [escape-html]]
-  ;[qa.handler.core :refer [goods]]
-  [ring.util.anti-forgery :refer [anti-forgery-field]]
-  [taoensso.timbre :as timbre :refer [debug]]))
+  (:require
+   [ataraxy.response :as response]
+   [clojure.string :as str]
+   [hiccup.page :refer [html5]]
+   [hiccup.form :refer [form-to text-field password-field submit-button
+                        label text-area file-upload hidden-field]]
+   [hiccup.util :refer [escape-html]]
+   ;[qa.handler.core :refer [goods]]
+   [ring.util.anti-forgery :refer [anti-forgery-field]]
+   [taoensso.timbre :as timbre :refer [debug]]))
 
 (def version "0.7.5")
 
@@ -53,14 +53,14 @@
     [:title "QA"]
     [:body
      [:div {:class "container"}
-       contents
+      contents
       [:p]
       [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
       [:hr]
       "hkimura, " version "."]])])
 
 (defn index-page []
- (page
+  (page
    [:h2 "QA"]
    [:audio {:src "sounds/sorry-dave.mp3"
             :autoplay "autoplay"
@@ -71,9 +71,9 @@
       [:img {:src "images/odyssey.jpg" :id "odyssey"}]] [:br]
      [:p {:class "sm"} "2001年宇宙の旅"]]
     [:div {:class "col-9"}
-      [:p "聞いたことは忘れる。" [:br]
-          "やったことは覚える。" [:br]
-          "人に教えたことは身に付く。"]]]
+     [:p "聞いたことは忘れる。" [:br]
+      "やったことは覚える。" [:br]
+      "人に教えたことは身に付く。"]]]
    [:div
     [:ul
      [:li "回答しやすい質問をする練習と、"]
@@ -86,29 +86,29 @@
 
 (defn login-page []
   (page
-    [:h2 "QA: Login"]
-    [:p "r99.melt と同じやつで。"
-     [:a {:href "/"} "注意事項"]]
-    (form-to
-      [:post "/login"]
-      (anti-forgery-field)
-      (text-field {:placeholder "ニックネーム"} "nick")
-      (password-field {:placeholder "パスワード"} "password")
-      (submit-button "login"))))
+   [:h2 "QA: Login"]
+   [:p "r99.melt と同じやつで。"
+    [:a {:href "/"} "注意事項"]]
+   (form-to
+    [:post "/login"]
+    (anti-forgery-field)
+    (text-field {:placeholder "ニックネーム"} "nick")
+    (password-field {:placeholder "パスワード"} "password")
+    (submit-button "login"))))
 
 (defn question-new-page []
- (page
-  [:h2 "QA: Create a Question"]
-  [:p "具体的な質問じゃないと回答つけづらい。"
-   "短すぎる質問も長すぎる質問と同じく受信しない。"
-   [:a {:href "/"} "注意事項"]]
-  (form-to {:enctype "multipart/form-data"
-            :onsubmit "return ok()"}
-           [:post "/q"]
-           (anti-forgery-field)
-           (text-area {:id "question"} "question")
-           [:br]
-           (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
+  (page
+   [:h2 "QA: Create a Question"]
+   [:p "具体的な質問じゃないと回答つけづらい。"
+    "短すぎる質問も長すぎる質問と同じく受信しない。"
+    [:a {:href "/"} "注意事項"]]
+   (form-to {:enctype "multipart/form-data"
+             :onsubmit "return ok()"}
+            [:post "/q"]
+            (anti-forgery-field)
+            (text-area {:id "question"} "question")
+            [:br]
+            (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn question-edit-page
   "このページは q の修正画面になる。"
@@ -124,41 +124,46 @@
 (defn questions-page [qs cs]
   (page
    [:h2 "QA: Questions"]
-   [:p
-    "👉 のクリックで回答ページへ。"
-    [:a {:href "/"} "注意事項"]
-    "・"
-    [:a {:href "/recents"} "最近の回答"]]
+   [:p "👉 のクリックで回答ページへ。"
+       [:a {:href "/"} "注意事項"]
+       "・"
+       [:a {:href "/recents"} "最近の回答"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
            [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
                 " "
-                (escape-html (ss 28 (:q q)))
-                [:a {:href (str "/as/" (:id q))}
-                    (str " 👉(" (answer-count cs (:id q)) ")")]]))
+               (escape-html (ss 28 (:q q)))
+               [:a {:href (str "/as/" (:id q))}
+                   (str " 👉(" (answer-count cs (:id q)) ")")]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
   [n]
   (repeat n "👍"))
 
+;; 0.7.6, p ではなく pre でメッセージを表示したことに伴い、
+;; 過去に入れてもらった <br> を取り除く。
+(defn- my-escape-html [s]
+  (-> (str/replace s #"<br>" "")
+      escape-html))
+
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
    [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
-   [:p {:class "question"} (unescape-br (escape-html (:q q)))]
+   [:p {:class "question"} (my-escape-html (:q q))]
 
    (for [a answers]
      (let [goods (goods (:g a))]
        [:div
         [:p [:span {:class "nick"} (:nick a)] "'s answer "
          (date-time (:ts a)) ","]
-        [:p {:class "answer"} (unescape-br (escape-html (:a a)))]
+        [:pre {:class "answer"} (my-escape-html (:a a))]
         [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
          (when (= nick "hkimura")
            [:a {:href (str "/who-goods/" (:id a)) :class "red"}
-            " 👍"])]]))
+            " &nbsp; "])]]))
 
    [:p
     (form-to {:enctype "multipart/form-data"
@@ -174,42 +179,25 @@
    [:p]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
 
-;; no use? after 2021-10-25?
-;; (defn answer-page [nick q]
-;;   (debug q)
-;;   (page
-;;    [:h2 "QA: Please, " nick, "!"]
-;;    [:p [:a {:href "/"} "注意事項"]]
-;;    [:p (escape-html (:q q))]
-;;    [:h4 "your answer:"]
-;;    (form-to {:enctype "multipart/form-data"
-;;              :onsubmit "return ok()"}
-;;             [:post "/a"]
-;;             (anti-forgery-field)
-;;             (hidden-field "q_id" (:id q))
-;;             (text-area {:id "answer"} "answer")
-;;             [:br]
-;;             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
-
 (defn admin-page []
   (page
-    [:h2 "QA Admin"]
-    [:p "who goods?"]
-    (form-to
-      [:post "/admin/goods"]
-      (anti-forgery-field)
-      "good " (text-field {:id "n" :size 3} "n")
-      " "
-      (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
+   [:h2 "QA Admin"]
+   [:p "who goods?"]
+   (form-to)
+   [:post "/admin/goods"
+    (anti-forgery-field)
+    "good " (text-field {:id "n" :size 3} "n")
+    " "
+    (submit-button {:class "btn btn-primary btn-sm"} "submit")]))
 
 (defn goods-page [goods]
   (page
    [:h2 "QA: goods"]
    [:table
-     (for [g goods]
-       [:tr
-        [:td (:nick g)]
-        [:td (date-time (:ts g))]])]))
+    (for [g goods]
+      [:tr
+       [:td (:nick g)]
+       [:td (date-time (:ts g))]])]))
 
 (defn recents-page [answers]
   (page
@@ -217,7 +205,7 @@
    [:ol
     (for [a answers]
       [:li (:nick a)
-           " "
-           [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
-           " "
-           (date-time (:ts a))])]))
+       " "
+       [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
+       " "
+       (date-time (:ts a))])]))
