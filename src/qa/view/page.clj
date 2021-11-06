@@ -10,7 +10,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.7.6")
+(def version "0.7.7")
 
 ;; (defn unescape-br
 ;;   "文字列 s 中のすべての &lt;br&gt; を <br> でリプレースバック。"
@@ -106,10 +106,13 @@
              :onsubmit "return ok()"}
             [:post "/q"]
             (anti-forgery-field)
-            (text-area {:id "question"} "question")
+            (text-area {:id "question"
+                        :placeholder "1 行 60 文字になる前に改行しよう。"}
+                       "question")
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
+;; 必要か？別ブランチで消してみよう。
 (defn question-edit-page
   "このページは q の修正画面になる。"
   []
@@ -172,7 +175,7 @@
              (anti-forgery-field)
              (hidden-field "q_id" (:id q))
              (text-area {:id "answer"
-                         :placeholder "your comment please."}
+                         :placeholder "コメントは 1 行 60 文字以内で。"}
                         "answer")
              [:br]
              (submit-button {:class "btn btn-primary btn-sm"} "submit"))]
