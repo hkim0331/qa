@@ -3,8 +3,16 @@
 ## Unreleased
 - 本番でログがうるさすぎ。
 21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["select * from answers where q_id=? order by id" 10], :elapsed 1}
-- textarea の幅
 - wrap する？
+- まだ reset エラーは出る。
+
+
+## 0.7.7 - 2021-11-06
+### Changed
+- Q も pre で。
+- textarea の幅 100%
+- my-good は h2 やめて p
+
 
 ## 0.7.6 - 2021-11-05
 ### Removed

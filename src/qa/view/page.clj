@@ -12,10 +12,10 @@
 
 (def version "0.7.6")
 
-(defn unescape-br
-  "文字列 s 中のすべての &lt;br&gt; を <br> でリプレースバック。"
-  [s]
-  (str/replace s #"&lt;br&gt;" "<br>"))
+;; (defn unescape-br
+;;   "文字列 s 中のすべての &lt;br&gt; を <br> でリプレースバック。"
+;;   [s]
+;;   (str/replace s #"&lt;br&gt;" "<br>"))
 
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
@@ -23,11 +23,11 @@
   [n s]
   (subs s 0 (min n (count s))))
 
-(defn date
-  "時刻表示を短くする。
-  引数 tm は time オブジェクト。"
-  [tm]
-  (subs (str tm) 0 10))
+;; (defn date
+;;   "時刻表示を短くする。
+;;   引数 tm は time オブジェクト。"
+;;   [tm]
+;;   (subs (str tm) 0 10))
 
 (defn date-time
   [tm]
@@ -112,7 +112,7 @@
 
 (defn question-edit-page
   "このページは q の修正画面になる。"
-  [& more]
+  []
   (page
    [:h2 "under construction"]))
 
@@ -152,7 +152,7 @@
    [:h2 "QA: Answers"]
    [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
-   [:p {:class "question"} (my-escape-html (:q q))]
+   [:pre {:class "question"} (my-escape-html (:q q))]
 
    (for [a answers]
      (let [goods (goods (:g a))]
