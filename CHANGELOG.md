@@ -6,7 +6,11 @@
 - wrap する？
 - まだ reset エラーは出る。
 - question-edit-page は必要か？
+- .env を読まずに開発できる方法。
 
+## 0.7.8-SNAPSHOT
+### Changed
+- improved placeholder
 
 ## 0.7.7 - 2021-11-06
 ### Changed
