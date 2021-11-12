@@ -1,5 +1,5 @@
-textarea#question {width: 90%; height: 100px; background: #ffc;}
-textarea#answer   {width: 90%; height: 100px; background: #cfc;}
+textarea#question {width: 100%; height: 100px; background: #ffc;}
+textarea#answer   {width: 100%; height: 100px; background: #cfc;}
 
 img#odyssey {width: 100%;}
 
@@ -7,8 +7,11 @@ p.question {font-size: larger;}
 p.answer   {margin-left: 1em;}
 p.good     {margin-left: 1em;}
 
+pre.question {font-size: larger;}
+pre.answer   {margin-left: 1em;}
+
 span.nick  {font-weight: bold;}
 
-.red { color: red;}
-.sm {font-size: small;}
+.red     {color: red;}
+.sm      {font-size: small;}
 .skyblue {color: royalblue;}

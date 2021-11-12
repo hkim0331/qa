@@ -1,13 +1,31 @@
 # Question and Answers
 
 ## Unreleased
-- debug level
-- goods を押された時に「good は1回答につき、おひとりさま一発までです。」の表示
-- duct: (reset) できないのはなぜ？毎回 lein repl を立ち上げ直している。
-- 日本語文字の長さを 2, 英文字の長さを１として、qa.views.page/ss を定義し直し。
 - 本番でログがうるさすぎ。
 21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["select * from answers where q_id=? order by id" 10], :elapsed 1}
+- wrap する？
+- まだ reset エラーは出る。
+- question-edit-page は必要か？
 
+
+## 0.7.7 - 2021-11-06
+### Changed
+- Q も pre で。
+- textarea の幅 100%
+- my-good は h2 やめて p
+
+## 0.7.6 - 2021-11-05
+### Removed
+- test/qa/auth_test.clj
+### Changed
+- admin 用の "👍" を "&nbsp;"で Zoom 時にも見えなくする。
+- (reset) してもエラーが出なくなった。auth_test.clj の削除と lein clean の後。
+- p から pre で as is 表示に変更。
+  それに伴い、過去に入力してもらった<br>をリプレース後に表示。
+
+## 0.7.5 - 2021-11-05
+### Added
+- ついた回答数を Q ごとに表示。
 
 ## 0.7.4 - 2021-10-26
 ### Changed

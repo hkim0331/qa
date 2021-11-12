@@ -51,8 +51,9 @@
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [_]
     (debug "questions")
-    (let [ret (questions/fetch-all db)]
-      (questions-page ret))))
+    (let [ret (questions/fetch-all db)
+          counts (answers/count-answers db)]
+      (questions-page ret counts))))
 
 ;;;
 ;;; answer/answers
@@ -119,7 +120,7 @@
           q (questions/count-my-questions db nick)
           a (answers/count-my-answers db nick)]
       [::response/ok
-       (str "<h2>"nick ": A/Q = " a "/" q ", recv/sent = " r "/" s "</h2>")])))
+       (str "<p>"nick ": A/Q = " a "/" q ", recv/sent = " r "/" s "</p>")])))
 
 ;; recent n items? or
 ;; recent n mins?
