@@ -156,7 +156,8 @@
    [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:pre {:class "question"} (my-escape-html (:q q))]
-
+   [:hr]
+   [:h4 "Answers"]
    (for [a answers]
      (let [goods (goods (:g a))]
        [:div
@@ -175,7 +176,7 @@
              (anti-forgery-field)
              (hidden-field "q_id" (:id q))
              (text-area {:id "answer"
-                         :placeholder "コメントは 1 行 60 文字以内で。"}
+                         :placeholder "回答は 1 行 60 文字以内で。"}
                         "answer")
              [:br]
              (submit-button {:class "btn btn-primary btn-sm"} "submit"))]
