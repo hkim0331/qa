@@ -7,6 +7,10 @@
 - まだ reset エラーは出る。
 - question-edit-page は必要か？
 
+## 0.7.8 - 2021-11-12
+### Changed
+- answers-page の pre.font-size larger を medium に変更。
+- hr 引いて h4 Answer に変更。
 
 ## 0.7.7 - 2021-11-06
 ### Changed
