@@ -7,7 +7,7 @@ p.question {font-size: larger;}
 p.answer   {margin-left: 1em;}
 p.good     {margin-left: 1em;}
 
-pre.question {font-size: larger;}
+pre.question {font-size: medium;}
 pre.answer   {margin-left: 1em;}
 
 span.nick  {font-weight: bold;}
