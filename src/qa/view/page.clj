@@ -12,6 +12,18 @@
 
 (def version "0.7.8")
 
+;; from r99c.route.home/wrap
+(defn- wrap-aux
+  [n s]
+  (if (< (count s) n)
+    s
+    (str (subs s 0 n) "\n" (wrap-aux n (subs s n)))))
+
+(defn- wrap
+  "fold string `s` at column `n`"
+  [n s]
+  (str/join "\n" (map (partial wrap-aux n) (str/split-lines s))))
+
 ;; (defn unescape-br
 ;;   "文字列 s 中のすべての &lt;br&gt; を <br> でリプレースバック。"
 ;;   [s]
@@ -155,7 +167,7 @@
    [:h2 "QA: Answers"]
    [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
-   [:pre {:class "question"} (my-escape-html (:q q))]
+   [:pre {:class "question"} (my-escape-html (wrap 54 (:q q)))]
    [:hr]
    [:h4 "Answers"]
    (for [a answers]
@@ -163,7 +175,7 @@
        [:div
         [:p [:span {:class "nick"} (:nick a)] "'s answer "
          (date-time (:ts a)) ","]
-        [:pre {:class "answer"} (my-escape-html (:a a))]
+        [:pre {:class "answer"} (my-escape-html (wrap 66 (:a a)))]
         [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
          (when (= nick "hkimura")
            [:a {:href (str "/who-goods/" (:id a)) :class "red"}
