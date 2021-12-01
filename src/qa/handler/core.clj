@@ -41,12 +41,13 @@
       (questions/create db nick question)
       [::response/found "/qs"])))
 
+;; using?
 (defmethod ig/init-key :qa.handler.core/question [_ {:keys [db]}]
   (fn [{[_ n] :ataraxy/result}]
     (debug ":qa.handler.core/question" n)
     (let [ret (questions/fetch db n)]
       (debug "ret" ret)
-      (question-edit-page ret))))
+      (question-edit-page))))
 
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [_]
