@@ -8,8 +8,10 @@
 - question-edit-page は必要か？
 - .env を読まずに開発できる方法。
 
-## 0.7.8-SNAPSHOT
+## 0.7.8 - 2021-11-12
 ### Changed
+- answers-page の pre.font-size larger を medium に変更。
+- hr 引いて h4 Answer に変更。
 - improved placeholder
 
 ## 0.7.7 - 2021-11-06
