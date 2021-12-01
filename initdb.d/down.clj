@@ -1,4 +1,5 @@
 #!/usr/bin/env bb
+
 (require '[babashka.deps :as deps])
 (deps/add-deps '{:deps {environ/environ {:mvn/version "1.2.0"}}})
 (require '[environ.core :refer [env]])
