@@ -8,6 +8,10 @@
 - question-edit-page は必要か？
 - .env を読まずに開発できる方法。
 
+## 0.7.9 - 2021-11-22
+### Changed
+- Q は 54 文字、A は 66 文字でラップ。wrap のコードは r99c から持ってきた。
+
 ## 0.7.8 - 2021-11-12
 ### Changed
 - answers-page の pre.font-size larger を medium に変更。
