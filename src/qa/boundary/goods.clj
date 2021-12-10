@@ -1,11 +1,10 @@
 (ns qa.boundary.goods
   (:require
    [duct.database.sql]
-   #_[environ.core :refer [env]]
    [next.jdbc.sql :as sql]
    [next.jdbc.result-set :as rs]
    [qa.boundary.utils :refer [ds]]
-   [taoensso.timbre :refer [debug]]))
+   #_[taoensso.timbre :refer [debug]]))
 
 (def ^:private bfn {:builder-fn rs/as-unqualified-lower-maps})
 
@@ -14,47 +13,54 @@
   (found? [db a-id nick])
   (find-goods [db a-id])
   (count-sent [db nick])
-  (count-received [db nick]))
+  (count-received [db nick])
+  (recents [db]))
 
 (extend-protocol Goods
   duct.database.sql.Boundary
   (create!
-    [db q-id a-id nick]
-    (debug "create!" a-id nick)
-    (sql/insert! (ds db) :goods {:q_id q-id :a_id a-id :nick nick}))
+   [db q-id a-id nick]
+   (sql/insert! (ds db) :goods {:q_id q-id :a_id a-id :nick nick}))
 
   (found?
-    [db a-id nick]
-    (let [ret (sql/find-by-keys
-               (ds db)
-               :goods
-               {:a_id a-id :nick nick})]
-      (boolean (seq ret))))
+   [db a-id nick]
+   (let [ret (sql/find-by-keys
+              (ds db)
+              :goods
+              {:a_id a-id :nick nick})]
+     (boolean (seq ret))))
 
   (find-goods
-    [db a-id]
-    (let [ret (sql/find-by-keys
-               (ds db)
-               :goods {:a_id a-id}
-               bfn)]
-      (debug "find-goods" ret)
-      ret))
+   [db a-id]
+   (let [ret (sql/find-by-keys
+              (ds db)
+              :goods {:a_id a-id}
+              bfn)]
+     ret))
 
   (count-sent
-    [db nick]
-    (let [ret (sql/query
-               (ds db)
-               ["select count(*) from goods where nick=?" nick]
-               bfn)]
-      (debug "sent" ret)
-      (:count (first ret))))
+   [db nick]
+   (let [ret (sql/query
+              (ds db)
+              ["select count(*) from goods where nick=?" nick]
+              bfn)]
+     (:count (first ret))))
 
   (count-received
-    [db nick]
-    (let [ret (sql/query
-               (ds db)
-               ["select count(*) from goods
+   [db nick]
+   (let [ret (sql/query
+              (ds db)
+              ["select count(*) from goods
                 inner join answers on answers.id=goods.a_id
                 where answers.nick=?" nick])]
-      (debug "reveived" ret)
-      (:count (first ret)))))
+     (:count (first ret))))
+
+  (recents
+   [db]
+   (let [ret (sql/query
+              (ds db)
+              ["select goods.q_id, questions.q from goods
+inner join questions on goods.q_id=questions.id
+order by goods.id
+limit 30"])]
+     ret)))

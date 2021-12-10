@@ -125,6 +125,7 @@
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 ;; 必要か？別ブランチで消してみよう。
+;; 消すとエラー。
 (defn question-edit-page
   "このページは q の修正画面になる。"
   []
@@ -140,9 +141,11 @@
   (page
    [:h2 "QA: Questions"]
    [:p "👉 のクリックで回答ページへ。"
-       [:a {:href "/"} "注意事項"]
-       "・"
-       [:a {:href "/recents"} "最近の回答"]]
+    [:a {:href "/recents" :class "btn btn-success btn-sm"} "最近の回答"]
+    "&nbsp;"
+    [:a {:href "/goods" :class "btn btn-warning btn-sm"} "最近のいいね"]
+    "&nbsp;"
+    [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
            [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
@@ -165,7 +168,6 @@
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
-   [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:pre {:class "question"} (my-escape-html (wrap 54 (:q q)))]
    [:hr]
@@ -218,10 +220,12 @@
 (defn recents-page [answers]
   (page
    [:h2 "QA: recent answers"]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
    [:ol
     (for [a answers]
       [:li (:nick a)
        " "
        [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
        " "
-       (date-time (:ts a))])]))
+       (date-time (:ts a))])]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
