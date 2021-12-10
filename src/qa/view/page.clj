@@ -24,22 +24,22 @@
   [n s]
   (str/join "\n" (map (partial wrap-aux n) (str/split-lines s))))
 
-;; (defn unescape-br
-;;   "文字列 s 中のすべての &lt;br&gt; を <br> でリプレースバック。"
-;;   [s]
-;;   (str/replace s #"&lt;br&gt;" "<br>"))
-
+;; use abbrev?
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
   文字列長さが n に満たない時はそのまま。"
   [n s]
   (subs s 0 (min n (count s))))
 
-;; (defn date
-;;   "時刻表示を短くする。
-;;   引数 tm は time オブジェクト。"
-;;   [tm]
-;;   (subs (str tm) 0 10))
+(defn make-abbrev
+  ([n]
+   (make-abbrev n "..."))
+  ([n pat]
+   (let [re (re-pattern (format "^(.{%d}).*" n))]
+     (fn [s]
+       (str/replace s re (str "$1" pat))))))
+
+(def ^:private abr28 (make-abbrev 28))
 
 (defn date-time
   [tm]
@@ -149,10 +149,10 @@
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
            [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
-                " "
-               (escape-html (ss 28 (:q q)))
-               [:a {:href (str "/as/" (:id q))}
-                   (str " 👉(" (answer-count cs (:id q)) ")")]]))
+            " "
+            (escape-html (ss 28 (:q q)))
+            [:a {:href (str "/as/" (:id q))}
+             (str " 👉(" (answer-count cs (:id q)) ")")]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
@@ -229,3 +229,14 @@
        " "
        (date-time (:ts a))])]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
+
+(defn recent-goods-page [answers]
+  (page
+   [:h2 "QA: recent goods"]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
+   (into
+    [:ol]
+    (for [a answers]
+      [:li  [:a {:href  (str "/as/" (:goods/q_id a))}
+             (ss 28 (:questions/q a))]]))
+   [:p (str answers)]))

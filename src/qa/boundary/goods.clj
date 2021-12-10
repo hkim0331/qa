@@ -61,6 +61,6 @@
               (ds db)
               ["select goods.q_id, questions.q from goods
 inner join questions on goods.q_id=questions.id
-order by goods.id
+order by goods.id desc
 limit 30"])]
      ret)))
