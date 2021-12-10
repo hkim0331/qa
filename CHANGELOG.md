@@ -2,10 +2,16 @@
 
 ## Unreleased
 - 本番でログがうるさすぎ。
-21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["select * from answers where q_id=? order by id" 10], :elapsed 1}
+21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] -
+:duct.database.sql/query {:query ["select * from answers
+where q_id=? order by id" 10], :elapsed 1}
 - wrap する？
 - まだ reset エラーは出る。
 - question-edit-page は必要か？
+- to top をすべてのページに
+- 最近の goods のページ
+- 新規投稿ボタンを上の方に
+- .env を読まずに開発できる方法。
 
 ## 0.7.9 - 2021-11-22
 ### Changed
@@ -15,6 +21,7 @@
 ### Changed
 - answers-page の pre.font-size larger を medium に変更。
 - hr 引いて h4 Answer に変更。
+- improved placeholder
 
 ## 0.7.7 - 2021-11-06
 ### Changed

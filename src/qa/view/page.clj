@@ -119,7 +119,7 @@
             [:post "/q"]
             (anti-forgery-field)
             (text-area {:id "question"
-                        :placeholder "1 行 60 文字になる前に改行しよう。"}
+                        :placeholder "Q が長くなるとき、1 行 60 文字になる前に改行しよう。"}
                        "question")
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
