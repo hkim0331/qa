@@ -12,6 +12,7 @@
   (fn [_]
     (login-page)))
 
+;; typing から持ってきた関数名をそのまま。
 (defn auth? [nick password]
   (let [user (find-user-by-nick nick)]
     (and (some? user) (hashers/check password (:password user)))))

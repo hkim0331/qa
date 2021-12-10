@@ -35,6 +35,8 @@
     ^:auth
     [:qa.handler.core/good ^int q-id ^int a-id]
 
+    [:get "/goods"] ^:auth [:qa.handler.core/goods]
+
     [:get "/my-goods/" nick] ^:auth [:qa.handler.core/my-goods nick]
 
     [:get "/recents"] ^:auth [:qa.handler.core/recents]
@@ -67,7 +69,8 @@
 
   :qa.handler.core/good {:db #ig/ref :duct.database/sql}
   :qa.handler.core/my-goods {:db #ig/ref :duct.database/sql}
-
+  :qa.handler.core/goods {:db #ig/ref :duct.database/sql}
+  
   :qa.handler.core/recents {:db #ig/ref :duct.database/sql}
 
   ;; prevent goods duplicates

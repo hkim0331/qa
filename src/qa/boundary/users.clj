@@ -15,6 +15,7 @@
 
 (def ds (get-connection db))
 
+;; typing から持ってきた関数名をそのまま。
 (defn find-user-by-nick [nick]
   (let [ret (query
              ds

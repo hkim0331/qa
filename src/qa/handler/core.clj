@@ -8,9 +8,9 @@
    [qa.boundary.questions :as questions]
    [qa.view.page :refer [question-new-page question-edit-page
                          questions-page answers-page
-                         index-page admin-page goods-page
-                         recents-page]]
-                         ;;answer-page]]
+                         index-page admin-page
+                         recents-page
+                         goods-page recent-goods-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -41,12 +41,13 @@
       (questions/create db nick question)
       [::response/found "/qs"])))
 
+;; using?
 (defmethod ig/init-key :qa.handler.core/question [_ {:keys [db]}]
   (fn [{[_ n] :ataraxy/result}]
     (debug ":qa.handler.core/question" n)
     (let [ret (questions/fetch db n)]
       (debug "ret" ret)
-      (question-edit-page ret))))
+      (question-edit-page))))
 
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [_]
@@ -127,3 +128,7 @@
 (defmethod ig/init-key :qa.handler.core/recents [_ {:keys [db]}]
   (fn [_]
     (recents-page (answers/find-recents db 40))))
+
+(defmethod ig/init-key :qa.handler.core/goods [_ {:keys [db]}]
+  (fn [_]
+    (recent-goods-page (goods/recents db))))

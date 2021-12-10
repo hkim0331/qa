@@ -10,7 +10,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.7.9")
+(def version "0.8.0")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -24,22 +24,22 @@
   [n s]
   (str/join "\n" (map (partial wrap-aux n) (str/split-lines s))))
 
-;; (defn unescape-br
-;;   "文字列 s 中のすべての &lt;br&gt; を <br> でリプレースバック。"
-;;   [s]
-;;   (str/replace s #"&lt;br&gt;" "<br>"))
-
+;; use abbrev?
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
   文字列長さが n に満たない時はそのまま。"
   [n s]
   (subs s 0 (min n (count s))))
 
-;; (defn date
-;;   "時刻表示を短くする。
-;;   引数 tm は time オブジェクト。"
-;;   [tm]
-;;   (subs (str tm) 0 10))
+(defn make-abbrev
+  ([n]
+   (make-abbrev n "..."))
+  ([n pat]
+   (let [re (re-pattern (format "^(.{%d}).*" n))]
+     (fn [s]
+       (str/replace s re (str "$1" pat))))))
+
+(def ^:private abr28 (make-abbrev 28))
 
 (defn date-time
   [tm]
@@ -119,12 +119,13 @@
             [:post "/q"]
             (anti-forgery-field)
             (text-area {:id "question"
-                        :placeholder "1 行 60 文字になる前に改行しよう。"}
+                        :placeholder "Q が長くなるとき、1 行 60 文字になる前に改行しよう。"}
                        "question")
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 ;; 必要か？別ブランチで消してみよう。
+;; 消すとエラー。
 (defn question-edit-page
   "このページは q の修正画面になる。"
   []
@@ -140,16 +141,18 @@
   (page
    [:h2 "QA: Questions"]
    [:p "👉 のクリックで回答ページへ。"
-       [:a {:href "/"} "注意事項"]
-       "・"
-       [:a {:href "/recents"} "最近の回答"]]
+    [:a {:href "/recents" :class "btn btn-success btn-sm"} "最近の回答"]
+    "&nbsp;"
+    [:a {:href "/goods" :class "btn btn-warning btn-sm"} "最近のいいね"]
+    "&nbsp;"
+    [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
            [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
-                " "
-               (escape-html (ss 28 (:q q)))
-               [:a {:href (str "/as/" (:id q))}
-                   (str " 👉(" (answer-count cs (:id q)) ")")]]))
+            " "
+            (escape-html (ss 28 (:q q)))
+            [:a {:href (str "/as/" (:id q))}
+             (str " 👉(" (answer-count cs (:id q)) ")")]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
@@ -165,7 +168,6 @@
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
-   [:p [:a {:href "/"} "注意事項"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:pre {:class "question"} (my-escape-html (wrap 54 (:q q)))]
    [:hr]
@@ -218,10 +220,23 @@
 (defn recents-page [answers]
   (page
    [:h2 "QA: recent answers"]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
    [:ol
     (for [a answers]
       [:li (:nick a)
        " "
        [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
        " "
-       (date-time (:ts a))])]))
+       (date-time (:ts a))])]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
+
+(defn recent-goods-page [answers]
+  (page
+   [:h2 "QA: recent goods"]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
+   (into
+    [:ol]
+    (for [a answers]
+      [:li  [:a {:href  (str "/as/" (:goods/q_id a))}
+             (ss 28 (:questions/q a))]]))
+   [:p (str answers)]))
