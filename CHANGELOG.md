@@ -11,7 +11,7 @@ where q_id=? order by id" 10], :elapsed 1}
 - to top をすべてのページに
 - 最近の goods のページ
 - 新規投稿ボタンを上の方に
-
+- .env を読まずに開発できる方法。
 
 ## 0.7.9 - 2021-11-22
 ### Changed
@@ -21,6 +21,7 @@ where q_id=? order by id" 10], :elapsed 1}
 ### Changed
 - answers-page の pre.font-size larger を medium に変更。
 - hr 引いて h4 Answer に変更。
+- improved placeholder
 
 ## 0.7.7 - 2021-11-06
 ### Changed
