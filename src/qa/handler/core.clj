@@ -8,9 +8,9 @@
    [qa.boundary.questions :as questions]
    [qa.view.page :refer [question-new-page question-edit-page
                          questions-page answers-page
-                         index-page admin-page goods-page
-                         recents-page]]
-                         ;;answer-page]]
+                         index-page admin-page
+                         recents-page
+                         goods-page recent-goods-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -131,4 +131,4 @@
 
 (defmethod ig/init-key :qa.handler.core/goods [_ {:keys [db]}]
   (fn [_]
-    (recents-page (goods/recents db))))
+    (recent-goods-page (goods/recents db))))
