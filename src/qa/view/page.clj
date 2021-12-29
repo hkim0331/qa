@@ -10,7 +10,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.8.0")
+(def version "0.8.1")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -238,5 +238,5 @@
     [:ol]
     (for [a answers]
       [:li  [:a {:href  (str "/as/" (:goods/q_id a))}
-             (ss 28 (:questions/q a))]]))
-   [:p (str answers)]))
+             (ss 28 (:questions/q a))]]))))
+
