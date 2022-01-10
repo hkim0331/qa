@@ -6,9 +6,9 @@
    [hiccup.form :refer [form-to text-field password-field submit-button
                         label text-area file-upload hidden-field]]
    [hiccup.util :refer [escape-html]]
-   ;[qa.handler.core :refer [goods]]
-   [ring.util.anti-forgery :refer [anti-forgery-field]]
-   [taoensso.timbre :as timbre :refer [debug]]))
+   ;;[qa.handler.core :refer [goods]]
+   [ring.util.anti-forgery :refer [anti-forgery-field]]))
+   ;;[taoensso.timbre :as timbre :refer [debug]]))
 
 (def version "0.8.1")
 
