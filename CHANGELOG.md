@@ -7,6 +7,9 @@
 where q_id=? order by id" 10], :elapsed 1}
 - question-edit-page は必要か？
 
+## 0.9.0 - 2022-01-20
+- lein ancient
+
 ## 0.8.1 - 2021-12-10
 - to top をすべてのページに（多くのページに）
 - 最近の goods のページ
