@@ -4,13 +4,13 @@
    [clojure.string :as str]
    [hiccup.page :refer [html5]]
    [hiccup.form :refer [form-to text-field password-field submit-button
-                        label text-area file-upload hidden-field]]
+                        text-area hidden-field]]
    [hiccup.util :refer [escape-html]]
-   ;[qa.handler.core :refer [goods]]
-   [ring.util.anti-forgery :refer [anti-forgery-field]]
-   [taoensso.timbre :as timbre :refer [debug]]))
+   ;;[qa.handler.core :refer [goods]]
+   [ring.util.anti-forgery :refer [anti-forgery-field]]))
+   ;;[taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.8.0")
+(def version "0.9.0")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -31,15 +31,15 @@
   [n s]
   (subs s 0 (min n (count s))))
 
-(defn make-abbrev
-  ([n]
-   (make-abbrev n "..."))
-  ([n pat]
-   (let [re (re-pattern (format "^(.{%d}).*" n))]
-     (fn [s]
-       (str/replace s re (str "$1" pat))))))
+;; (defn make-abbrev
+;;  ([n]
+;;   (make-abbrev n "..."))
+;;  ([n pat]
+;;   (let [re (re-pattern (format "^(.{%d}).*" n))]
+;;     (fn [s]
+;;       (str/replace s re (str "$1" pat))))))
 
-(def ^:private abr28 (make-abbrev 28))
+;; (def ^:private abr28 (make-abbrev 28))
 
 (defn date-time
   [tm]
@@ -238,5 +238,5 @@
     [:ol]
     (for [a answers]
       [:li  [:a {:href  (str "/as/" (:goods/q_id a))}
-             (ss 28 (:questions/q a))]]))
-   [:p (str answers)]))
+             (ss 28 (:questions/q a))]]))))
+
