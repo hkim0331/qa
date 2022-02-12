@@ -1,20 +1,20 @@
-(defproject qa "0.9.0"
+(defproject qa "0.9.1"
   :description "qa system for my literacy classes"
   :url "https://qa.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
-  :dependencies [[buddy/buddy-auth "3.0.1"]
-                 [buddy/buddy-hashers "1.8.1"]
-                 [com.github.seancorfield/next.jdbc "1.2.659"]
-                 [com.fasterxml.jackson.core/jackson-core "2.13.0"]
+  :dependencies [[buddy/buddy-auth "3.0.323"]
+                 [buddy/buddy-hashers "1.8.158"]
+                 [com.github.seancorfield/next.jdbc "1.2.761"]
+                 [com.fasterxml.jackson.core/jackson-core "2.13.1"]
                  [duct/core "0.8.0"]
                  [duct/module.ataraxy "0.3.0"]
                  [duct/module.logging "0.5.0"]
                  [duct/module.sql "0.6.1"]
-                 [duct/module.web "0.7.2"]
+                 [duct/module.web "0.7.3"]
                  [environ "1.2.0"]
                  [hiccup "1.0.5"]
                  [org.clojure/clojure "1.10.3"]
-                 [org.postgresql/postgresql "42.2.24"]]
+                 [org.postgresql/postgresql "42.3.2"]]
   :plugins [[duct/lein-duct "0.12.2"]]
   :main ^:skip-aot qa.main
   :resource-paths ["resources" "target/resources"]
