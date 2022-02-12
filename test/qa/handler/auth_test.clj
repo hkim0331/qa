@@ -13,7 +13,7 @@
 
 (deftest auth?-test
  (testing "auth?"
-   (is (= true  (auth? "hkimura" "made in hkim")))
+   (is (= true  (auth? "hkimura" "kumaco")))
    (is (= false (auth? "hkimura" "bad")))
    (is (= false (auth? "" "")))
    (is (= false (auth? nil nil)))))
