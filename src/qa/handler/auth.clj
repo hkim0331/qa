@@ -12,14 +12,13 @@
   (fn [_]
     (login-page)))
 
-;; typing から持ってきた関数名をそのまま。
-(defn auth? [nick password]
-  (let [user (find-user-by-nick nick)]
+(defn auth? [db nick password]
+  (let [user (find-user-by-nick db nick)]
     (and (some? user) (hashers/check password (:password user)))))
 
-(defmethod ig/init-key :qa.handler.auth/login-post [_ _]
+(defmethod ig/init-key :qa.handler.auth/login-post [_ {:keys [db]}]
   (fn [{[_ {:strs [nick password]}] :ataraxy/result}]
-    (if (and (seq nick) (auth? nick password))
+    (if (and (seq nick) (auth? db nick password))
       (-> (redirect "/qs")
           (assoc-in [:session :identity] (keyword nick))) ; keyword の必要性
       [::response/found "/login"])))
