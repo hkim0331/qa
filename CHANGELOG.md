@@ -6,6 +6,17 @@
 :duct.database.sql/query {:query ["select * from answers
 where q_id=? order by id" 10], :elapsed 1}
 - question-edit-page は必要か？
+- markdown QA は？
+  もし、一行目で md とわかるなら、markdown プラグインに通すとか？
+
+## 1.1.0
+- fix typo
+
+## 1.0.1
+- improved utils.clj
+
+## 1.0.0
+- restart 2022 version from 1.0.0
 
 ## 0.9.0 - 2022-01-20
 - lein ancient
