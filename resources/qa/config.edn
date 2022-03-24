@@ -68,7 +68,7 @@
   :qa.handler.core/good {:db #ig/ref :duct.database/sql}
   :qa.handler.core/my-goods {:db #ig/ref :duct.database/sql}
   :qa.handler.core/goods {:db #ig/ref :duct.database/sql}
-  
+
   :qa.handler.core/recents {:db #ig/ref :duct.database/sql}
 
   ;; prevent goods duplicates

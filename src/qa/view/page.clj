@@ -88,7 +88,10 @@
 (defn login-page []
   (page
    [:h2 "QA: Login"]
+<<<<<<< HEAD
+=======
    [:p [:a {:href "/"} "注意事項"]]
+>>>>>>> hotfix/1.1.1
    (form-to
     [:post "/login"]
     (anti-forgery-field)
