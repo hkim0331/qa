@@ -4,8 +4,10 @@
   [next.jdbc :refer [get-connection]]
   [next.jdbc.result-set :as rs]
   [next.jdbc.sql :refer [query]]
-  [taoensso.timbre :refer [debug]]))
+  [taoensso.timbre :refer [debug]]
+  [qa.boundary.utils :refer [ds-opt]]))
 
+<<<<<<< HEAD
 (def db {:dbtype   "postgresql"
          :host     (env :l22-host)
          :dbname   (env :l22-db)
@@ -16,9 +18,10 @@
 
 ;; typing から持ってきた関数名をそのまま。
 (defn find-user-by-nick [nick]
+=======
+(defn find-user-by-nick [db nick]
+>>>>>>> hotfix/1.1.1
   (let [ret (query
-             ds
-             ["select * from users where login=?" nick]
-             {:builder-fn rs/as-unqualified-lower-maps})]
-     (debug "find-user-by-nick" ret)
-     (-> ret first)))
+             (ds-opt db)
+             ["select * from users where login=?" nick])]
+    (-> ret first)))
