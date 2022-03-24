@@ -10,7 +10,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
    ;;[taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "0.9.0")
+(def version "0.9.1")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -24,22 +24,11 @@
   [n s]
   (str/join "\n" (map (partial wrap-aux n) (str/split-lines s))))
 
-;; use abbrev?
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
   文字列長さが n に満たない時はそのまま。"
   [n s]
   (subs s 0 (min n (count s))))
-
-;; (defn make-abbrev
-;;  ([n]
-;;   (make-abbrev n "..."))
-;;  ([n pat]
-;;   (let [re (re-pattern (format "^(.{%d}).*" n))]
-;;     (fn [s]
-;;       (str/replace s re (str "$1" pat))))))
-
-;; (def ^:private abr28 (make-abbrev 28))
 
 (defn date-time
   [tm]
@@ -146,11 +135,14 @@
     [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
-           [:li [:a {:href (str "/my-goods/" (:nick q))} (:nick q)]
-            " "
-            (escape-html (ss 28 (:q q)))
+          [:li
+            ;;(escape-html (-> (:q q) str/split-lines first))
+            (escape-html (ss 30 (:q q)))
+            "&nbsp;"
+            [:a {:href (str "/my-goods/" (:nick q))} "["(:nick q)"]"]
+            "&nbsp;"
             [:a {:href (str "/as/" (:id q))}
-             (str " 👉(" (answer-count cs (:id q)) ")")]]))
+                (str " 👉(" (answer-count cs (:id q)) ")")]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
