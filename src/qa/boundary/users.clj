@@ -7,11 +7,10 @@
   [taoensso.timbre :refer [debug]]))
 
 (def db {:dbtype   "postgresql"
-         :host     (env :r99c-host)
-         :dbname   (env :r99c-db)
-         :port     (env :r99c-port)
-         :user     (env :r99c-user)
-         :password (env :r99c-password)})
+         :host     (env :l22-host)
+         :dbname   (env :l22-db)
+         :user     (env :l22-user)
+         :password (env :l22-password)})
 
 (def ds (get-connection db))
 
