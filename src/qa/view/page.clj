@@ -10,7 +10,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
    ;;[taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "1.0.1")
+(def version "1.1.0")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -64,7 +64,7 @@
   (page
    [:h2 "QA"]
    [:audio {:src "sounds/sorry-dave.mp3"
-            :autoplay "autoplay"
+            :autoplay false
             :controls "controls"}]
    [:div {:class "row"}
     [:div {:class "col-3"}
@@ -88,12 +88,11 @@
 (defn login-page []
   (page
    [:h2 "QA: Login"]
-   [:p "r99.melt と同じやつで。"
-    [:a {:href "/"} "注意事項"]]
+   [:p [:a {:href "/"} "注意事項"]]
    (form-to
     [:post "/login"]
     (anti-forgery-field)
-    (text-field {:placeholder "ニックネーム"} "nick")
+    (text-field {:placeholder "アカウント"} "nick")
     (password-field {:placeholder "パスワード"} "password")
     (submit-button "login"))))
 
