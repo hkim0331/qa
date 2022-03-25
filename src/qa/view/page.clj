@@ -7,10 +7,10 @@
                         text-area hidden-field]]
    [hiccup.util :refer [escape-html]]
    ;;[qa.handler.core :refer [goods]]
-   [ring.util.anti-forgery :refer [anti-forgery-field]]))
-   ;;[taoensso.timbre :as timbre :refer [debug]]))
+   [ring.util.anti-forgery :refer [anti-forgery-field]]
+   [taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "1.2.0")
+(def version "1.2.1")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -67,7 +67,7 @@
    (form-to
     [:post "/login"]
     (anti-forgery-field)
-    (text-field {:placeholder "アカウント"} "nick")
+    (text-field {:placeholder "アカウント"} "login")
     (password-field {:placeholder "パスワード"} "password")
     (submit-button "login"))
 
