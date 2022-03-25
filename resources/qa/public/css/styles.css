@@ -15,3 +15,11 @@ span.nick  {font-weight: bold;}
 .red     {color: red;}
 .sm      {font-size: small;}
 .skyblue {color: royalblue;}
+
+/* 2022-03-25 */
+table {
+  border-collapse: collapse;
+}
+table, th, td {
+  border: 1px solid black;
+}
