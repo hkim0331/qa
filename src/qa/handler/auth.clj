@@ -21,9 +21,10 @@
     (if (and (seq nick) (auth? db nick password))
       (-> (redirect "/qs")
           (assoc-in [:session :identity] (keyword nick))) ; keyword の必要性
-      [::response/found "/login"])))
+      (-> (redirect "/")
+          (assoc :flash "login failure")))))
 
 (defmethod ig/init-key :qa.handler.auth/logout [_ _]
   (fn [_]
-    (-> (redirect "/login")
+    (-> (redirect "/")
         (assoc :session {}))))

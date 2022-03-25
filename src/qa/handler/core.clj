@@ -26,8 +26,8 @@
     (finally "nobody")))
 
 (defmethod ig/init-key :qa.handler.core/index [_ _]
-  (fn [_]
-    (index-page)))
+  (fn [req]
+    (index-page req)))
 
 (defmethod ig/init-key :qa.handler.core/question-new [_ _]
   (fn [_]

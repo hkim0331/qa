@@ -8,6 +8,7 @@ where q_id=? order by id" 10], :elapsed 1}
 - question-edit-page は必要か？
 - markdown QA は？
   もし、一行目で md とわかるなら、markdown プラグインに通すとか？
+- ログイン画面を一つにまとめる。
 
 ## 1.1.0
 - fix typo

@@ -3,7 +3,7 @@
    [duct.database.sql]
    #_[environ.core :refer [env]]
    [next.jdbc.sql :as sql]
-   [qa.boundary.utils :refer [ds bf]]
+   [qa.boundary.utils :refer [ds ds-opt bf]]
    [taoensso.timbre :refer [debug]]))
 
 (defprotocol Answers
@@ -22,12 +22,11 @@
     (sql/insert! (ds db) :answers {:q_id q-id :nick nick :a answer}))
 
   (find-one [db n]
-    (sql/get-by-id (ds db) :answers n bf))
+    (sql/get-by-id (ds db) :answers n))
 
   (find-by-keys [db n]
-    (let [ret (sql/query (ds db)
-                         ["select * from answers where q_id=? order by id" n]
-                         bf)]
+    (let [ret (sql/query (ds-opt db)
+                         ["select * from answers where q_id=? order by id" n])]
       (debug "find-by-keys:" ret)
       ret))
 
@@ -38,16 +37,14 @@
       ret))
 
   (find-recents [db n]
-    (sql/query (ds db)
-               ["select * from answers order by id desc limit ?" n]
-               bf))
+    (sql/query (ds-opt db)
+               ["select * from answers order by id desc limit ?" n]))
 
   (count-my-answers
     [db nick]
     (let [ret (sql/query
-               (ds db)
-               ["select count(*) from answers where nick=?" nick]
-               bf)]
+               (ds-opt db)
+               ["select count(*) from answers where nick=?" nick])]
       (debug "count-my-answers" ret)
       (-> ret first :count)))
 
