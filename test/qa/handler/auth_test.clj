@@ -13,7 +13,7 @@
 
 (deftest auth?-test
  (testing "auth?"
-   (is (= true  (auth? "hkimura" "kumaco")))
+   (is (= true  (auth? "hkimura" "clojure")))
    (is (= false (auth? "hkimura" "bad")))
    (is (= false (auth? "" "")))
    (is (= false (auth? nil nil)))))

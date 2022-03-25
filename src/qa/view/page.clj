@@ -58,7 +58,7 @@
       [:p]
       [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
       [:hr]
-      "hkimura, " version "."]])])
+      "hkimura, " version]])])
 
 (defn index-page [req]
   (page

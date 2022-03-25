@@ -16,13 +16,13 @@
 
 (timbre/set-level! :info)
 
-(defn get-nick
+(defn get-login
   "request ヘッダの id 情報を文字列で返す。
    FIXME: develop ではエラーでも nobody を返したいが。"
   [req]
   (try
     (name (get-in req [:session :identity]))
-    (catch Exception e (debug "get-nick" (.getMessage e)))
+    (catch Exception e (debug "get-login" (.getMessage e)))
     (finally "nobody")))
 
 (defmethod ig/init-key :qa.handler.core/index [_ _]
@@ -35,7 +35,7 @@
 
 (defmethod ig/init-key :qa.handler.core/question-create [_ {:keys [db]}]
   (fn [{[_ params] :ataraxy/result :as req}]
-    (let [nick (get-nick req)
+    (let [nick (get-login req)
           question (get params "question")]
       (debug "question-create" "nick" nick "question" question)
       (questions/create db nick question)
@@ -66,7 +66,7 @@
 
 (defmethod ig/init-key :qa.handler.core/answer-create [_ {:keys [db]}]
   (fn [{[_ {:strs [q_id answer]}] :ataraxy/result :as req}]
-    (let [nick (get-nick req)]
+    (let [nick (get-login req)]
       (answers/create db (Integer/parseInt q_id) nick answer)
       [::response/found (str "/as/" q_id)])))
 
@@ -74,7 +74,7 @@
 ;;   (fn [{[_ n] :ataraxy/result :as req}]
 ;;     (debug "answer" n)
 ;;     (let [q (questions/fetch db n)]
-;;       (answer-page (get-nick req) q))))
+;;       (answer-page (get-login req) q))))
 
 ;; /as/3 のように呼ばれる。
 (defmethod ig/init-key :qa.handler.core/answers [_ {:keys [db]}]
@@ -82,14 +82,14 @@
     (debug ":qa.handler.core/answers" n)
     (let [q (questions/fetch db n)
           answers (answers/find-by-keys db n)
-          nick (get-nick req)]
+          nick (get-login req)]
       (debug "/as q:" q "nick:" nick "answers:" answers)
       (answers-page q answers nick))))
 
 ;; goods と answers の二つを書き換える。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]
   (fn [{[_ q-id a-id] :ataraxy/result :as req}]
-   (let [from (get-nick req)
+   (let [from (get-login req)
          ans (answers/find-one db a-id)
          g (:g ans)]
      (when-not (goods/found? db a-id from)
@@ -99,7 +99,7 @@
 
 (defmethod ig/init-key :qa.handler.core/admin [_ _]
  (fn [req]
-   (if (= (get-nick req) "hkimura")
+   (if (= (get-login req) "hkimura")
     (admin-page)
     [::response/forbidden "access denied"])))
 

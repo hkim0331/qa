@@ -15,12 +15,12 @@
           response (handler (mock/request :get "/q"))]
       (is (= :ataraxy.response/ok (first response)) "response ok"))))
 
-(deftest get-nick-test
-  (testing "get-nick returns nick?"
+(deftest get-login-test
+  (testing "get-login returns login?"
     (let [req (mock/request :get "/q")
           req2 (assoc-in req [:session :identity] (keyword "val"))]
-      (is (= nil (get-nick req)))
-      (is (= "val" (get-nick req2))))))
+      (is (= nil (get-login req)))
+      (is (= "val" (get-login req2))))))
 
 ;; DB が絡むテストはどう書く？
 ;; (deftest questios-test
