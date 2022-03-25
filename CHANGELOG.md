@@ -9,6 +9,11 @@ where q_id=? order by id" 10], :elapsed 1}
 - markdown QA は？
   もし、一行目で md とわかるなら、markdown プラグインに通すとか？
 
+
+## 1.2.0
+### Changed
+- index ページからログイン。
+
 ## 1.1.0
 - fix typo
 

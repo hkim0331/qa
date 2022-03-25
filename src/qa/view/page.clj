@@ -10,7 +10,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
    ;;[taoensso.timbre :as timbre :refer [debug]]))
 
-(def version "1.1.1")
+(def version "1.2.0")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -60,12 +60,19 @@
       [:hr]
       "hkimura, " version "."]])])
 
-(defn index-page []
+(defn index-page [req]
   (page
    [:h2 "QA"]
-   [:audio {:src "sounds/sorry-dave.mp3"
-            :autoplay false
-            :controls "controls"}]
+   [:div.text-danger (:flash req)]
+   (form-to
+    [:post "/login"]
+    (anti-forgery-field)
+    (text-field {:placeholder "アカウント"} "nick")
+    (password-field {:placeholder "パスワード"} "password")
+    (submit-button "login"))
+
+   [:br]
+
    [:div {:class "row"}
     [:div {:class "col-3"}
      [:a {:href "https://www.youtube.com/watch?v=JktXHKx3r20"}
@@ -75,6 +82,11 @@
      [:p "聞いたことは忘れる。" [:br]
       "やったことは覚える。" [:br]
       "人に教えたことは身に付く。"]]]
+
+   [:audio {:src "sounds/sorry-dave.mp3"
+            :autoplay false
+            :controls "controls"}]
+
    [:div
     [:ul
      [:li "回答しやすい質問をする練習と、"]
@@ -82,8 +94,7 @@
      [:li "語尾だけ丁寧、意味不明な質問・回答はよくない。"]
      [:li "「👍」付いた回答にはボーナス。"]
      [:li "「👍」付けた人と、質問出した人にもちょっとだけボーナス。"]
-     [:li "「👍」は一回答に一回だけです。"]]]
-   [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "Go!"]]))
+     [:li "「👍」は一回答に一回だけです。"]]]))
 
 (defn login-page []
   (page
