@@ -13,6 +13,7 @@
                  [duct/module.web "0.7.3"]
                  [environ "1.2.0"]
                  [hiccup "1.0.5"]
+                 [markdown-clj "1.10.9"]
                  [org.clojure/clojure "1.10.3"]
                  [org.postgresql/postgresql "42.3.2"]]
   :plugins [[duct/lein-duct "0.12.2"]]
