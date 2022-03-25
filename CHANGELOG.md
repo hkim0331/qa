@@ -7,6 +7,10 @@
 where q_id=? order by id" 10], :elapsed 1}
 - question-edit-page は必要か？
 
+## 1.3.1 - 2022-03-25
+### Added
+- table は無条件に枠線
+
 ## 1.3.0 - 2022-03-25
 ### Added
 - answer が ## で始まっていたら markdown と思って処理する。
