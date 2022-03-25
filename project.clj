@@ -1,4 +1,4 @@
-(defproject qa "1.2.1"
+(defproject qa "1.3.0"
   :description "qa system for my literacy classes"
   :url "https://qa.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -13,6 +13,7 @@
                  [duct/module.web "0.7.3"]
                  [environ "1.2.0"]
                  [hiccup "1.0.5"]
+                 [markdown-clj "1.10.9"]
                  [org.clojure/clojure "1.10.3"]
                  [org.postgresql/postgresql "42.3.2"]]
   :plugins [[duct/lein-duct "0.12.2"]]
