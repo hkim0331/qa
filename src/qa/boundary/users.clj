@@ -16,8 +16,8 @@
 ;;(def ds (get-connection db))
 
 ;; typing から持ってきた関数名をそのまま。
-(defn find-user-by-nick [db nick]
+(defn find-user-by-login [db login]
   (let [ret (query
              (ds-opt db)
-             ["select * from users where login=?" nick])]
+             ["select * from users where login=?" login])]
     (-> ret first)))
