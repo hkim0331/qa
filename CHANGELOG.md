@@ -5,11 +5,11 @@
 21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] -
 :duct.database.sql/query {:query ["select * from answers
 where q_id=? order by id" 10], :elapsed 1}
-- question-edit-page は必要か？
 - (reset) でエラーの理由？
 
 ## 1.3.2-SNAPSHOT
 - 1.3.0 を変更する。全面的に markdown を採用した。
+- question-edit-page を削除。
 
 ## 1.3.1 - 2022-03-25
 ### Added

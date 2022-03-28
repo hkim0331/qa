@@ -120,13 +120,13 @@
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
-;; 必要か？別ブランチで消してみよう。
-;; 消すとエラー。
-(defn question-edit-page
-  "このページは q の修正画面になる。"
-  []
-  (page
-   [:h2 "under construction"]))
+;; ;; 必要か？別ブランチで消してみよう。
+;; ;; 消すとエラー。
+;; (defn question-edit-page
+;;   "このページは q の修正画面になる。"
+;;   []
+;;   (page
+;;    [:h2 "under construction"]))
 
 (defn- answer-count [cs q_id]
   (-> (filter #(= (:answers/q_id %) q_id) cs)

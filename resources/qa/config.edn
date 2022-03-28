@@ -18,7 +18,7 @@
     [:post "/q" {params :multipart-params}]
     [:qa.handler.core/question-create params]
 
-    [:get  "/q/" n] ^:auth [:qa.handler.core/question ^int n]
+    ;;[:get  "/q/" n] ^:auth [:qa.handler.core/question ^int n]
     [:get  "/qs"] ^:auth [:qa.handler.core/questions]
 
     ;; [:get  "/a"] ^:auth [:qa.handler.core/answer-new]
@@ -55,7 +55,7 @@
 
   :qa.handler.core/question-new {}
   :qa.handler.core/question-create {:db #ig/ref :duct.database/sql}
-  :qa.handler.core/question        {:db #ig/ref :duct.database/sql}
+  ;;:qa.handler.core/question        {:db #ig/ref :duct.database/sql}
   :qa.handler.core/questions       {:db #ig/ref :duct.database/sql}
 
   ;; :qa.handler.core/answer-new {}
