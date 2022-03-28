@@ -6,7 +6,7 @@
    [qa.boundary.answers :as answers]
    [qa.boundary.goods :as goods]
    [qa.boundary.questions :as questions]
-   [qa.view.page :refer [question-new-page question-edit-page
+   [qa.view.page :refer [question-new-page #_question-edit-page
                          questions-page answers-page
                          index-page admin-page
                          recents-page
@@ -40,12 +40,12 @@
       [::response/found "/qs"])))
 
 ;; using?
-(defmethod ig/init-key :qa.handler.core/question [_ {:keys [db]}]
-  (fn [{[_ n] :ataraxy/result}]
-    (debug ":qa.handler.core/question" n)
-    (let [ret (questions/fetch db n)]
-      (debug "ret" ret)
-      (question-edit-page))))
+;; (defmethod ig/init-key :qa.handler.core/question [_ {:keys [db]}]
+;;   (fn [{[_ n] :ataraxy/result}]
+;;     (debug ":qa.handler.core/question" n)
+;;     (let [ret (questions/fetch db n)]
+;;       (debug "ret" ret)
+;;       (question-edit-page))))
 
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [_]

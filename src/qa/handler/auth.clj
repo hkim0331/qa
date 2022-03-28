@@ -8,8 +8,6 @@
    [ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
-;;(timbre/set-level! :debug)
-
 (defmethod ig/init-key :qa.handler.auth/login [_ _]
   (fn [_]
     (login-page)))
