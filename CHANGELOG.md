@@ -6,6 +6,8 @@
 :duct.database.sql/query {:query ["select * from answers
 where q_id=? order by id" 10], :elapsed 1}
 - (reset) でエラーの理由？
+- 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
+
 
 ## 1.3.2-SNAPSHOT
 - 1.3.0 を変更する。全面的に markdown を採用した。
