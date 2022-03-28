@@ -8,10 +8,9 @@
    [hiccup.util :refer [escape-html]]
    ;;[qa.handler.core :refer [goods]]
    [markdown.core :refer [md-to-html-string]]
-   [ring.util.anti-forgery :refer [anti-forgery-field]]
-   [taoensso.timbre :as timbre :refer [debug]]))
+   [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def version "1.3.1")
+(def version "1.3.2-SNAPSHOT")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -71,9 +70,7 @@
     (text-field {:placeholder "アカウント"} "login")
     (password-field {:placeholder "パスワード"} "password")
     (submit-button "login"))
-
    [:br]
-
    [:div {:class "row"}
     [:div {:class "col-3"}
      [:a {:href "https://www.youtube.com/watch?v=JktXHKx3r20"}
@@ -83,11 +80,9 @@
      [:p "聞いたことは忘れる。" [:br]
       "やったことは覚える。" [:br]
       "人に教えたことは身に付く。"]]]
-
    [:audio {:src "sounds/sorry-dave.mp3"
             :autoplay false
             :controls "controls"}]
-
    [:div
     [:ul
      [:li "回答しやすい質問をする練習と、"]
@@ -120,18 +115,18 @@
             [:post "/q"]
             (anti-forgery-field)
             (text-area {:id "question"
-                        :placeholder "Q が長くなるとき、1 行 60 文字になる前に改行しよう。"}
+                        :placeholder "1 行 60 文字以内に改行しよう。"}
                        "question")
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
-;; 必要か？別ブランチで消してみよう。
-;; 消すとエラー。
-(defn question-edit-page
-  "このページは q の修正画面になる。"
-  []
-  (page
-   [:h2 "under construction"]))
+;; ;; 必要か？別ブランチで消してみよう。
+;; ;; 消すとエラー。
+;; (defn question-edit-page
+;;   "このページは q の修正画面になる。"
+;;   []
+;;   (page
+;;    [:h2 "under construction"]))
 
 (defn- answer-count [cs q_id]
   (-> (filter #(= (:answers/q_id %) q_id) cs)
@@ -182,16 +177,15 @@
    (for [a answers]
      (let [goods (goods (:g a))]
        [:div
-        [:p [:span {:class "nick"} (:nick a)] "'s answer "
-         (date-time (:ts a)) ","]
-        (if (markdown? (:a a))
-         (md-to-html-string (:a a))
-         [:pre {:class "answer"} (my-escape-html (wrap 66 (:a a)))])
+        [:p [:span {:class "nick"} (:nick a)] "'s answer " (date-time (:ts a)) ","]
+        (md-to-html-string (:a a))
+        ;; (if (markdown? (:a a))
+        ;;  (md-to-html-string (:a a))
+        ;;  [:pre {:class "answer"} (my-escape-html (wrap 66 (:a a)))])
         [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
          (when (= nick "hkimura")
            [:a {:href (str "/who-goods/" (:id a)) :class "red"}
             " &nbsp; "])]]))
-
    [:p
     (form-to {:enctype "multipart/form-data"
               :onsubmit "return ok()"}
@@ -199,7 +193,7 @@
              (anti-forgery-field)
              (hidden-field "q_id" (:id q))
              (text-area {:id "answer"
-                         :placeholder "回答は 1 行 60 文字以内で。"}
+                         :placeholder "markdown OK"}
                         "answer")
              [:br]
              (submit-button {:class "btn btn-primary btn-sm"} "submit"))]
