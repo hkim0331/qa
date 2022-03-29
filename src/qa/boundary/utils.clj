@@ -11,4 +11,4 @@
     {:builder-fn rs/as-unqualified-lower-maps}))
 
 ;; 消せない。参照している関数がある。
-(def bf {:builder-fn rs/as-unqualified-lower-maps})
+;;(def bf {:builder-fn rs/as-unqualified-lower-maps})

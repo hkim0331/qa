@@ -81,19 +81,22 @@
     (let [q (questions/fetch db n)
           answers (answers/find-by-keys db n)
           nick (get-login req)]
-      (debug "/as q:" q "nick:" nick "answers:" answers)
+      ;;(debug "/as q:" q "nick:" nick "answers:" answers)
       (answers-page q answers nick))))
 
 ;; goods と answers の二つを書き換える。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]
   (fn [{[_ q-id a-id] :ataraxy/result :as req}]
-   (let [from (get-login req)
-         ans (answers/find-one db a-id)
-         g (:g ans)]
-     (when-not (goods/found? db a-id from)
-       (answers/update-answer! db {:g (inc g)} a-id)
-       (goods/create! db q-id a-id from))
-     [::response/found (str "/as/" q-id)])))
+    (let [from (get-login req)
+          ans (answers/find-one db a-id)
+          g (:g ans)]
+      (debug "from" from)
+      (debug "ans" ans)
+      (debug "g" g); nil
+      (when-not (goods/found? db a-id from)
+        (answers/update-answer! db {:g (inc g)} a-id)
+        (goods/create! db q-id a-id from))
+      [::response/found (str "/as/" q-id)])))
 
 (defmethod ig/init-key :qa.handler.core/admin [_ _]
  (fn [req]
