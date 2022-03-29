@@ -81,7 +81,7 @@
     (let [from (get-login req)
           ans (answers/find-one db a-id)
           g (:g ans)]
-      (debug "good" from abs g)
+      ;;(debug "good" from ans g)
       (when-not (goods/found? db a-id from)
         (answers/update-answer! db {:g (inc g)} a-id)
         (goods/create! db q-id a-id from))
