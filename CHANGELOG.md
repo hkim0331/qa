@@ -5,8 +5,8 @@
 21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] -
 :duct.database.sql/query {:query ["select * from answers
 where q_id=? order by id" 10], :elapsed 1}
-- (reset) でエラーの理由？
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
+- ログインなしでも閲覧だけできる
 
 ## 1.3.5 - 2022-03-29
 ### Fixed
@@ -14,7 +14,11 @@ where q_id=? order by id" 10], :elapsed 1}
   残していた過去の login フォームに飛ぶリンクがあった。
 - 最近のいいねで internal server error
   builder-fn 問題。
-  
+
+## 1.3.4-SNAPSHOT
+- debug ログを精選する
+- リファクタリング
+
 ## 1.3.3 - 2022-03-29
 ### Fixed
 - good で internal server error
