@@ -7,9 +7,15 @@
 where q_id=? order by id" 10], :elapsed 1}
 - (reset) でエラーの理由？
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
-- good で internal error
 - debug ログを精選する
+- 最初のログインに必ず失敗する
 
+
+## 1.3.3 - 2022-03-29
+- good で internal server error
+### Fixed
+- builder-fn を渡していない関数があった。
+  (ds db) を全て (ds-opt db) に変更してバグフィックス。
 
 ## 1.3.2 - 2022-03-29
 - 1.3.0 を変更する。全面的に markdown を採用した。

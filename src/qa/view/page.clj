@@ -10,7 +10,7 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def version "1.3.2")
+(def version "1.3.3")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
