@@ -3,7 +3,7 @@
    [next.jdbc :as jdbc]
    [next.jdbc.result-set :as rs]))
 
-(defn ds [db]
+(defn- ds [db]
   (-> db :spec :datasource))
 
 (defn ds-opt [db]

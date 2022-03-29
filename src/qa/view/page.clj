@@ -8,9 +8,10 @@
    [hiccup.util :refer [escape-html]]
    ;;[qa.handler.core :refer [goods]]
    [markdown.core :refer [md-to-html-string]]
-   [ring.util.anti-forgery :refer [anti-forgery-field]]))
+   [ring.util.anti-forgery :refer [anti-forgery-field]]
+   [taoensso.timbre :as timbre]))
 
-(def version "1.3.3")
+(def version "1.3.5")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -92,18 +93,6 @@
      [:li "「👍」付けた人と、質問出した人にもちょっとだけボーナス。"]
      [:li "「👍」は一回答に一回だけです。"]]]))
 
-;; 必要か？
-(defn login-page []
-  (page
-   [:h2 "QA: Login"]
-   [:p [:a {:href "/"} "注意事項"]]
-   (form-to
-    [:post "/login"]
-    (anti-forgery-field)
-    (text-field {:placeholder "アカウント"} "nick")
-    (password-field {:placeholder "パスワード"} "password")
-    (submit-button "login"))))
-
 (defn question-new-page []
   (page
    [:h2 "QA: Create a Question"]
@@ -119,14 +108,6 @@
                        "question")
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
-
-;; ;; 必要か？別ブランチで消してみよう。
-;; ;; 消すとエラー。
-;; (defn question-edit-page
-;;   "このページは q の修正画面になる。"
-;;   []
-;;   (page
-;;    [:h2 "under construction"]))
 
 (defn- answer-count [cs q_id]
   (-> (filter #(= (:answers/q_id %) q_id) cs)
@@ -240,6 +221,8 @@
    (into
     [:ol]
     (for [a answers]
-      [:li  [:a {:href  (str "/as/" (:goods/q_id a))}
-             (ss 28 (:questions/q a))]]))))
+      (do
+        (timbre/debug a)
+        [:li  [:a {:href  (str "/as/" (:q_id a))}
+               (ss 28 (:q a))]])))))
 

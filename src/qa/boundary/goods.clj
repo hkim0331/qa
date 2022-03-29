@@ -34,16 +34,14 @@
    [db a-id]
    (let [ret (sql/find-by-keys
               (ds-opt db)
-              :goods {:a_id a-id}
-              bfn)]
+              :goods {:a_id a-id})]
      ret))
 
   (count-sent
    [db nick]
    (let [ret (sql/query
               (ds-opt db)
-              ["select count(*) from goods where nick=?" nick]
-              bfn)]
+              ["select count(*) from goods where nick=?" nick])]
      (:count (first ret))))
 
   (count-received
