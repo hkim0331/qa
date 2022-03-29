@@ -5,11 +5,13 @@
 21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] -
 :duct.database.sql/query {:query ["select * from answers
 where q_id=? order by id" 10], :elapsed 1}
-- (reset) でエラーの理由？
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
-- debug ログを精選する
-- 最初のログインに必ず失敗する
+- 最初のログインに必ず失敗する(確認が必要)
+- `最近のいいね`で Internal Server Error
 
+## 1.3.4-SNAPSHOT
+- debug ログを精選する
+- リファクタリング
 
 ## 1.3.3 - 2022-03-29
 - good で internal server error

@@ -39,14 +39,6 @@
       (questions/create db nick question)
       [::response/found "/qs"])))
 
-;; using?
-;; (defmethod ig/init-key :qa.handler.core/question [_ {:keys [db]}]
-;;   (fn [{[_ n] :ataraxy/result}]
-;;     (debug ":qa.handler.core/question" n)
-;;     (let [ret (questions/fetch db n)]
-;;       (debug "ret" ret)
-;;       (question-edit-page))))
-
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [_]
     (debug "questions")
@@ -90,9 +82,7 @@
     (let [from (get-login req)
           ans (answers/find-one db a-id)
           g (:g ans)]
-      (debug "from" from)
-      (debug "ans" ans)
-      (debug "g" g); nil
+      (debug "good" from abs g)
       (when-not (goods/found? db a-id from)
         (answers/update-answer! db {:g (inc g)} a-id)
         (goods/create! db q-id a-id from))
@@ -124,8 +114,6 @@
       [::response/ok
        (str "<p>"nick ": A/Q = " a "/" q ", recv/sent = " r "/" s "</p>")])))
 
-;; recent n items? or
-;; recent n mins?
 (defmethod ig/init-key :qa.handler.core/recents [_ {:keys [db]}]
   (fn [_]
     (recents-page (answers/find-recents db 40))))
