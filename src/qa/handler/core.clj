@@ -49,7 +49,6 @@
 
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [_]
-    (debug "questions")
     (let [ret (questions/fetch-all db)
           counts (answers/count-answers db)]
       (questions-page ret counts))))
@@ -132,4 +131,6 @@
 
 (defmethod ig/init-key :qa.handler.core/goods [_ {:keys [db]}]
   (fn [_]
-    (recent-goods-page (goods/recents db))))
+    (let [ret (goods/recents db)]
+      ;;(debug "goods ret" ret)
+      (recent-goods-page (goods/recents db)))))

@@ -3,14 +3,14 @@
    [ataraxy.response :as response]
    [buddy.hashers :as hashers]
    [qa.boundary.users :refer [find-user-by-login]]
-   [qa.view.page :refer [login-page]]
+   [qa.view.page :refer [index-page]]
    [integrant.core :as ig]
    [ring.util.response :refer [redirect]]
-   [taoensso.timbre :as timbre :refer [debug]]))
+   [taoensso.timbre :as timbre]))
 
 (defmethod ig/init-key :qa.handler.auth/login [_ _]
-  (fn [_]
-    (login-page)))
+  (fn [req]
+    (index-page req)))
 
 (defn auth? [db login password]
   (let [user (find-user-by-login db login)]
