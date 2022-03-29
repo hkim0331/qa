@@ -3,8 +3,7 @@
    [duct.database.sql]
    #_[environ.core :refer [env]]
    [next.jdbc.sql :as sql]
-   [qa.boundary.utils :refer [ds ds-opt bf]]
-   [taoensso.timbre :refer [debug]]))
+   [qa.boundary.utils :refer [ds-opt]]))
 
 (defprotocol Answers
   (create [db q-id nick answer])
@@ -18,22 +17,22 @@
 (extend-protocol Answers
   duct.database.sql.Boundary
   (create [db q-id nick answer]
-    (debug "q_id:" q-id "nick:" nick "answer:" answer)
-    (sql/insert! (ds db) :answers {:q_id q-id :nick nick :a answer}))
+    ;;(debug "q_id:" q-id "nick:" nick "answer:" answer)
+    (sql/insert! (ds-opt db) :answers {:q_id q-id :nick nick :a answer}))
 
   (find-one [db n]
-    (sql/get-by-id (ds db) :answers n))
+    (sql/get-by-id (ds-opt db) :answers n))
 
   (find-by-keys [db n]
     (let [ret (sql/query (ds-opt db)
                          ["select * from answers where q_id=? order by id" n])]
-      (debug "find-by-keys:" ret)
+      ;;(debug "find-by-keys:" ret)
       ret))
 
   (update-answer!
     [db map n]
-    (let [ret (sql/update! (ds db) :answers map {:id n})]
-      (debug "update-answer!" ret)
+    (let [ret (sql/update! (ds-opt db) :answers map {:id n})]
+      ;;(debug "update-answer!" ret)
       ret))
 
   (find-recents [db n]
@@ -45,13 +44,13 @@
     (let [ret (sql/query
                (ds-opt db)
                ["select count(*) from answers where nick=?" nick])]
-      (debug "count-my-answers" ret)
+      ;;(debug "count-my-answers" ret)
       (-> ret first :count)))
 
   (count-answers
     [db]
     (let [ret (sql/query
-               (ds db)
+               (ds-opt db)
                ["select q_id,count(*) from answers group by q_id"])]
-      (debug "count-answers" ret)
+      ;;(debug "count-answers" ret)
       ret)))
