@@ -109,10 +109,11 @@
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
-(defn- answer-count [cs q_id]
-  (-> (filter #(= (:answers/q_id %) q_id) cs)
-      first
-      :count))
+;; fixed 2022-03-31
+;; 0 を返す是非
+(defn- answer-count
+  [cs q_id]
+  (:count (first (filter #(= (:q_id %) q_id) cs)) 0))
 
 (defn questions-page [qs cs]
   (page
@@ -125,14 +126,14 @@
     [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]
    (into [:ol {:reversed "reversed"}]
          (for [q qs]
-          [:li
+           [:li
             ;;(escape-html (-> (:q q) str/split-lines first))
             (escape-html (ss 30 (:q q)))
             "&nbsp;"
-            [:a {:href (str "/my-goods/" (:nick q))} "["(:nick q)"]"]
+            [:a {:href (str "/my-goods/" (:nick q))} "[" (:nick q) "]"]
             "&nbsp;"
             [:a {:href (str "/as/" (:id q))}
-                (str " 👉(" (answer-count cs (:id q)) ")")]]))
+             (str " 👉" (answer-count cs (:id q)))]]))
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
