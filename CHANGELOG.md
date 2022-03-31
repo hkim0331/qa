@@ -9,6 +9,11 @@ where q_id=? order by id" 10], :elapsed 1}
 - ログインなしでも閲覧だけできる
 - L22 等への戻りリンク
 
+## 2022-03-31
+### Fixed
+- did not display reply count
+  builder-fn relating bug. fixed.
+  is it good/bad to display `0`?
 
 ## 1.3.5 - 2022-03-29
 ### Fixed
