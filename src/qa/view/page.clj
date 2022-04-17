@@ -11,7 +11,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre]))
 
-(def version "1.3.6")
+(def version "1.3.7")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux

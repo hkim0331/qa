@@ -39,6 +39,7 @@
       (questions/create db nick question)
       [::response/found "/qs"])))
 
+;; 2022-04-01 以降の q をリストする
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [_]
     (let [ret (questions/fetch-after db "2022-04-01")
