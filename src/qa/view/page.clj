@@ -11,7 +11,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre]))
 
-(def version "1.3.6")
+(def version "1.3.7")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -109,8 +109,7 @@
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
-;; fixed 2022-03-31
-;; 0 を返す是非
+;; 回答がついてなかったら 0 を表示する。
 (defn- answer-count
   [cs q_id]
   (:count (first (filter #(= (:q_id %) q_id) cs)) 0))

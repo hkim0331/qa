@@ -18,15 +18,12 @@
     [:post "/q" {params :multipart-params}]
     [:qa.handler.core/question-create params]
 
-    ;;[:get  "/q/" n] ^:auth [:qa.handler.core/question ^int n]
     [:get  "/qs"] ^:auth [:qa.handler.core/questions]
-
-    ;; [:get  "/a"] ^:auth [:qa.handler.core/answer-new]
+    [:get  "/qs-all"] ^:auth [:qa.handler.core/questions-all]
 
     [:post "/a" {params :multipart-params}]
     [:qa.handler.core/answer-create params]
 
-    ;; [:get  "/a/"  n] ^:auth [:qa.handler.core/answer  ^int n]
     [:get  "/as/" n] ^:auth [:qa.handler.core/answers ^int n]
 
     [:get "/good/" q-id "/" a-id]
@@ -55,12 +52,10 @@
 
   :qa.handler.core/question-new {}
   :qa.handler.core/question-create {:db #ig/ref :duct.database/sql}
-  ;;:qa.handler.core/question        {:db #ig/ref :duct.database/sql}
   :qa.handler.core/questions       {:db #ig/ref :duct.database/sql}
+  :qa.handler.core/questions-all   {:db #ig/ref :duct.database/sql}
 
-  ;; :qa.handler.core/answer-new {}
   :qa.handler.core/answer-create {:db #ig/ref :duct.database/sql}
-  ;;:qa.handler.core/answer        {:db #ig/ref :duct.database/sql}
   :qa.handler.core/answers       {:db #ig/ref :duct.database/sql}
 
   :qa.handler.core/who-goods {:db #ig/ref :duct.database/sql}
