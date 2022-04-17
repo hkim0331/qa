@@ -10,8 +10,11 @@ where q_id=? order by id" 10], :elapsed 1}
 - L22 等への戻りリンク
 - 「最近のQA」「全てのQA」に分ける。
 
-## 1.3.7-SNAPSHOT
+## 1.3.7 - 2022-04-17
 - /qs で 2022-04 以降の Q を表示する。それ以前のものは /all か /ps-all を設ける。
+  日付比較するには引数の文字列をキャストする必要がある。
+
+  ["select * from questions where ts > ?::DATE order by id desc" date]
 
 ## 2022-04-13
 ### Resumed

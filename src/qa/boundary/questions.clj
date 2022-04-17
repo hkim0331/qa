@@ -10,6 +10,7 @@
   (create [db nick question])
   (fetch [db n])
   (fetch-all [db])
+  (fetch-after [db date])
   (count-my-questions [db nick]))
 
 (extend-protocol Questions
@@ -24,8 +25,14 @@
      ret))
 
   (fetch-all [db]
-    ;; CHANGED:
-    (sql/query (ds-opt db) ["select * from questions order by id desc"]))
+    (sql/query
+     (ds-opt db)
+     ["select * from questions order by id desc"]))
+
+  (fetch-after [db date]
+   (sql/query
+    (ds-opt db)
+    ["select * from questions where ts > ?::DATE order by id desc" date]))
 
   (count-my-questions
     [db nick]
