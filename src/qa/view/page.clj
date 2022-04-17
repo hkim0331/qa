@@ -109,8 +109,7 @@
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
-;; fixed 2022-03-31
-;; 0 を返す是非
+;; 回答がついてなかったら 0 を表示する。
 (defn- answer-count
   [cs q_id]
   (:count (first (filter #(= (:q_id %) q_id) cs)) 0))
