@@ -6,9 +6,7 @@
 :duct.database.sql/query {:query ["select * from answers
 where q_id=? order by id" 10], :elapsed 1}
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
-- ログインなしでも閲覧だけできる
-- L22 等への戻りリンク
-- 「最近のQA」「全てのQA」に分ける。
+- qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 
 ## 1.3.7 - 2022-04-17
 - /qs で 2022-04 以降の Q を表示する。それ以前のものは /all か /ps-all を設ける。

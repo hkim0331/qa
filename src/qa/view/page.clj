@@ -32,6 +32,7 @@
   (subs s 0 (min n (count s))))
 
 (defn date-time
+  "timestamp 文字列から YYYY/MM/DD hh:mm:ss を抜き出す"
   [tm]
   (subs (str tm) 0 19))
 
