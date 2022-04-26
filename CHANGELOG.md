@@ -9,7 +9,7 @@ where q_id=? order by id" 10], :elapsed 1}
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - 質問も markdown
 
-## 1.3.8-SNAPSHOT
+## 1.3.8 - 2022-04-26
 - /as/:n に top へのリンク
 - ol の li じゃなく、id でリスト。p に変更したが、ちょっと空きすぎか？
 
