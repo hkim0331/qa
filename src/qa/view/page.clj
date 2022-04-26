@@ -11,7 +11,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre]))
 
-(def version "1.3.7")
+(def version "1.3.8")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -32,6 +32,7 @@
   (subs s 0 (min n (count s))))
 
 (defn date-time
+  "timestamp 文字列から YYYY/MM/DD hh:mm:ss を抜き出す"
   [tm]
   (subs (str tm) 0 19))
 
@@ -122,18 +123,19 @@
     "&nbsp;"
     [:a {:href "/goods" :class "btn btn-warning btn-sm"} "最近のいいね"]
     "&nbsp;"
-    [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]
-   (into [:ol {:reversed "reversed"}]
-         (for [q qs]
-           [:li
-            ;;(escape-html (-> (:q q) str/split-lines first))
-            (escape-html (ss 30 (:q q)))
-            "&nbsp;"
-            [:a {:href (str "/my-goods/" (:nick q))} "[" (:nick q) "]"]
-            "&nbsp;"
-            [:a {:href (str "/as/" (:id q))}
-             (str " 👉" (answer-count cs (:id q)))]]))
-   [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
+    [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]
+    (for [q qs]
+      [:p
+       (:id q)
+       ", "
+       (escape-html (-> (:q q) str/split-lines first))
+            ;;(escape-html (ss 30 (:q q)))
+       "&nbsp;"
+       [:a {:href (str "/my-goods/" (:nick q))} "[" (:nick q) "]"]
+       "&nbsp;"
+       [:a {:href (str "/as/" (:id q))}
+        (str " 👉" (answer-count cs (:id q)))]])
+    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]]))
 
 (defn goods
   [n]
@@ -151,6 +153,7 @@
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
+   [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:pre {:class "question"} (my-escape-html (wrap 54 (:q q)))]
    [:hr]
