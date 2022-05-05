@@ -9,6 +9,16 @@ where q_id=? order by id" 10], :elapsed 1}
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - 質問も markdown
 
+## 1.4.0-SNAPSHOT
+
+| | | |
+|-:|-:|-:|
+| com.github.seancorfield/next.jdbc | 1.2.761 | 1.2.780 |
+| duct/lein-duct | 0.12.2 | 0.12.3 |
+| markdown-clj/markdown-clj | 1.10.9 | 1.11.1 |
+| org.clojure/clojure | 1.10.3 | 1.11.1 |
+| org.postgresql/postgresql | 42.3.2 | 42.3.5 |
+
 ## 1.3.8 - 2022-04-26
 - /as/:n に top へのリンク
 - ol の li じゃなく、id でリスト。p に変更したが、ちょっと空きすぎか？
