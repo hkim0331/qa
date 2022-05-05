@@ -7,9 +7,11 @@
 where q_id=? order by id" 10], :elapsed 1}
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
-- 質問も markdown
+- 質問も markdown?
 
 ## 1.4.0-SNAPSHOT
+
+clj -Tantq outdated
 
 | | | |
 |-:|-:|-:|
