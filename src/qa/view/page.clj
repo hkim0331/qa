@@ -11,7 +11,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre]))
 
-(def version "1.3.8")
+(def version "1.4.1")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -97,11 +97,11 @@
 (defn question-new-page []
   (page
    [:h2 "QA: Create a Question"]
-   [:p "具体的な質問じゃないと回答つけづらい。"
+   [:p "具体的な質問じゃないと回答つけにくい。"
     "短すぎる質問も長すぎる質問と同じく受信しない。"
     [:a {:href "/"} "注意事項"]]
    (form-to {:enctype "multipart/form-data"
-             :onsubmit "return ok()"}
+             :onsubmit "return confirm('その質問は具体的か？ 回答者が回答しやすい質問になるよう、考えてるか？')"}
             [:post "/q"]
             (anti-forgery-field)
             (text-area {:id "question"
@@ -172,7 +172,7 @@
             " &nbsp; "])]]))
    [:p
     (form-to {:enctype "multipart/form-data"
-              :onsubmit "return ok()"}
+              :onsubmit "return confirm('その回答で OK ですか？')"}
              [:post "/a"]
              (anti-forgery-field)
              (hidden-field "q_id" (:id q))

@@ -7,7 +7,23 @@
 where q_id=? order by id" 10], :elapsed 1}
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
-- 質問も markdown
+- 質問も markdown?
+
+## 1.4.1 - 2022-06-05
+### Changed
+- replace ok() with confirm('message')
+
+## 1.4.0-SNAPSHOT
+
+clj -Tantq outdated
+
+| | | |
+|-:|-:|-:|
+| com.github.seancorfield/next.jdbc | 1.2.761 | 1.2.780 |
+| duct/lein-duct | 0.12.2 | 0.12.3 |
+| markdown-clj/markdown-clj | 1.10.9 | 1.11.1 |
+| org.clojure/clojure | 1.10.3 | 1.11.1 |
+| org.postgresql/postgresql | 42.3.2 | 42.3.5 |
 
 ## 1.3.8 - 2022-04-26
 - /as/:n に top へのリンク

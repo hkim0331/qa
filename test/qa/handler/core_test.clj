@@ -1,8 +1,8 @@
 (ns qa.handler.core-test
   (:require [clojure.test :refer [deftest testing is]]
             [integrant.core :as ig]
-            [ring.mock.request :as mock]
-            [qa.handler.core :refer :all]))
+            [ring.mock.request :as mock]))
+            ;;[qa.handler.core :refer :all]))
 
 ;; DB が関係して来た時、duct の枠組みはテストしにくくないか？
 ;; (deftest questions-test
