@@ -9,6 +9,9 @@ where q_id=? order by id" 10], :elapsed 1}
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - 質問も markdown?
 
+## 1.4.2 - 2022-06-23
+- goods の timestamp 表示
+
 ## 1.4.1 - 2022-06-05
 ### Changed
 - replace ok() with confirm('message')
