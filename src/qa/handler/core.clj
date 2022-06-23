@@ -6,11 +6,15 @@
    [qa.boundary.answers :as answers]
    [qa.boundary.goods :as goods]
    [qa.boundary.questions :as questions]
-   [qa.view.page :refer [question-new-page #_question-edit-page
-                         questions-page answers-page
-                         index-page admin-page
-                         recents-page
-                         goods-page recent-goods-page]]
+   [qa.view.page :refer
+    [admin-page
+     answers-page
+     goods-page
+     index-page
+     question-new-page #_question-edit-page
+     questions-page
+     recents-page
+     recent-goods-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -127,4 +131,4 @@
   (fn [_]
     (let [ret (goods/recents db)]
       ;;(debug "goods ret" ret)
-      (recent-goods-page (goods/recents db)))))
+      (recent-goods-page ret))))

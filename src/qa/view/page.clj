@@ -11,7 +11,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre]))
 
-(def version "1.4.1")
+(def version "1.4.2")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -27,7 +27,7 @@
 
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
-  文字列長さが n に満たない時はそのまま。"
+   文字列長さが n に満たない時はそのまま。"
   [n s]
   (subs s 0 (min n (count s))))
 
@@ -224,8 +224,8 @@
    (into
     [:ol]
     (for [a answers]
-      (do
-        (timbre/debug a)
-        [:li  [:a {:href  (str "/as/" (:q_id a))}
-               (ss 28 (:q a))]])))))
+      [:li
+       (date-time (:ts a))
+       " "
+       [:a {:href  (str "/as/" (:q_id a))} (ss 28 (:q a))]]))))
 
