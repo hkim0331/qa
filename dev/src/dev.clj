@@ -29,5 +29,3 @@
   (load "local"))
 
 (integrant.repl/set-prep! #(duct/prep-config (read-config) profiles))
-
-(timbre/set-level! :report)
