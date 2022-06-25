@@ -5,11 +5,16 @@
 21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] -
 :duct.database.sql/query {:query ["select * from answers
 where q_id=? order by id" 10], :elapsed 1}
+
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - 質問も markdown?
-- アクセスログをとる。誰がどこをアクセスしたか。
 
+
+## 1.5.0-SNAPSHOT
+### Changed
+- アクセスログをとる。誰がどこをアクセスしたか。
+- views/questions-page に login を引数に加える。
 
 ## 1.4.2 - 2022-06-23
 - goods の timestamp 表示

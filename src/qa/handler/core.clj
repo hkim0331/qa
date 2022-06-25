@@ -45,16 +45,16 @@
 
 ;; 2022-04-01 以降の q をリストする
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
-  (fn [_]
+  (fn [request]
     (let [ret (questions/fetch-after db "2022-04-01")
           counts (answers/count-answers db)]
-      (questions-page ret counts))))
+      (questions-page ret counts (get-login request)))))
 
 (defmethod ig/init-key :qa.handler.core/questions-all [_ {:keys [db]}]
-  (fn [_]
+  (fn [request]
     (let [ret (questions/fetch-all db)
           counts (answers/count-answers db)]
-      (questions-page ret counts))))
+      (questions-page ret counts (get-login request)))))
 ;;;
 ;;; answer/answers
 ;;;
