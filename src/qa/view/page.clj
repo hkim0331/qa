@@ -11,7 +11,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre]))
 
-(def version "1.4.2")
+(def version "1.5.0-SNAPSHOT")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -115,7 +115,8 @@
   [cs q_id]
   (:count (first (filter #(= (:q_id %) q_id) cs)) 0))
 
-(defn questions-page [qs cs]
+(defn questions-page [qs cs login]
+  (timbre/info "questions" login)
   (page
    [:h2 "QA: Questions"]
    [:p "👉 のクリックで回答ページへ。"
@@ -147,10 +148,8 @@
   (-> (str/replace s #"<br>" "")
       escape-html))
 
-(defn- markdown? [s]
-  (str/starts-with? s "##"))
-
 (defn answers-page [q answers nick]
+  (timbre/info "answer" (:id q) nick)
   (page
    [:h2 "QA: Answers"]
    [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
@@ -163,9 +162,6 @@
        [:div
         [:p [:span {:class "nick"} (:nick a)] "'s answer " (date-time (:ts a)) ","]
         (md-to-html-string (:a a))
-        ;; (if (markdown? (:a a))
-        ;;  (md-to-html-string (:a a))
-        ;;  [:pre {:class "answer"} (my-escape-html (wrap 66 (:a a)))])
         [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
          (when (= nick "hkimura")
            [:a {:href (str "/who-goods/" (:id a)) :class "red"}

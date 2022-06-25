@@ -11,6 +11,10 @@ where q_id=? order by id" 10], :elapsed 1}
 - アクセスログをとる。誰がどこをアクセスしたか。
 
 
+## 1.5.0-SNAPSHOT
+### Changed
+- views/questions-page に login を引数に加える。
+
 ## 1.4.2 - 2022-06-23
 - goods の timestamp 表示
 
