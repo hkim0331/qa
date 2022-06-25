@@ -6,6 +6,7 @@
    [qa.boundary.answers :as answers]
    [qa.boundary.goods :as goods]
    [qa.boundary.questions :as questions]
+   [qa.boundary.readers :as readers]
    [qa.view.page :refer
     [admin-page
      answers-page
@@ -48,13 +49,14 @@
   (fn [request]
     (let [ret (questions/fetch-after db "2022-04-01")
           counts (answers/count-answers db)]
-      (questions-page ret counts (get-login request)))))
+      (readers/create-reader db (get-login request) "qs" 0)
+      (questions-page ret counts))))
 
 (defmethod ig/init-key :qa.handler.core/questions-all [_ {:keys [db]}]
   (fn [request]
     (let [ret (questions/fetch-all db)
           counts (answers/count-answers db)]
-      (questions-page ret counts (get-login request)))))
+      (questions-page ret counts))))
 ;;;
 ;;; answer/answers
 ;;;
@@ -82,6 +84,7 @@
     (let [q (questions/fetch db n)
           answers (answers/find-by-keys db n)
           nick (get-login req)]
+      (readers/create-reader db nick "as" n)
       ;;(debug "/as q:" q "nick:" nick "answers:" answers)
       (answers-page q answers nick))))
 
@@ -132,3 +135,10 @@
     (let [ret (goods/recents db)]
       ;;(debug "goods ret" ret)
       (recent-goods-page ret))))
+
+(defmethod ig/init-key :qa.handler.core/readers [_ {:keys [db]}]
+  (fn [{[_ path n] :ataraxy/result}]
+    (let [ret (readers/fetch-readers db path n)]
+      [::response/ok (->> (mapv :login ret)
+                          (interpose ", ")
+                          (apply str))])))
