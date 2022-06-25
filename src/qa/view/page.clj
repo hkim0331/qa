@@ -11,7 +11,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre]))
 
-(def version "1.5.0-SNAPSHOT")
+(def version "1.5.1-SNAPSHOT")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -116,7 +116,7 @@
   (:count (first (filter #(= (:q_id %) q_id) cs)) 0))
 
 (defn questions-page [qs cs login]
-  (timbre/info "questions" login)
+  (timbre/report "questions" login)
   (page
    [:h2 "QA: Questions"]
    [:p "👉 のクリックで回答ページへ。"
@@ -149,7 +149,7 @@
       escape-html))
 
 (defn answers-page [q answers nick]
-  (timbre/info "answer" (:id q) nick)
+  (timbre/report "answer" (:id q) nick)
   (page
    [:h2 "QA: Answers"]
    [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
