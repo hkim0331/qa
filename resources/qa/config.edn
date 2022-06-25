@@ -39,10 +39,9 @@
     [:get "/who-goods/" n] ^:auth [:qa.handler.core/who-goods n]
 
     [:get "/admin"] ^:auth [:qa.handler.core/admin]
-    [:post "/admin/goods" {params :form-params}]
-    [:qa.handler.core/admin-goods params]
+    [:post "/admin/goods" {params :form-params}] [:qa.handler.core/admin-goods params]
 
-    [:get "/readers/" path "/" n] [:qa.handler.core/readers path ^int n]}}
+    [:get "/readers/" path "/" n] ^:auth [:qa.handler.core/readers path ^int n]}}
 
   :qa.middleware/auth {}
 
