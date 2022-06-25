@@ -1,20 +1,16 @@
 # Question and Answers
 
 ## Unreleased
-- 本番でログがうるさすぎ。
-21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] -
-:duct.database.sql/query {:query ["select * from answers
-where q_id=? order by id" 10], :elapsed 1}
-
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - 質問も markdown?
+- app.melt で systemctl stop qa できてないか？
 
-
-## 1.5.0-SNAPSHOT
+## 1.5.0 - 2022-06-25
 ### Changed
 - アクセスログをとる。誰がどこをアクセスしたか。
-- views/questions-page に login を引数に加える。
+  ログレベル REPORT で書き出す。
+- views/questions-page に login を引数に加えた。
 
 ## 1.4.2 - 2022-06-23
 - goods の timestamp 表示
