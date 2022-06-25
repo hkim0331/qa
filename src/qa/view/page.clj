@@ -11,7 +11,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [taoensso.timbre :as timbre]))
 
-(def version "1.5.0")
+(def version "1.5.1")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -115,8 +115,7 @@
   [cs q_id]
   (:count (first (filter #(= (:q_id %) q_id) cs)) 0))
 
-(defn questions-page [qs cs login]
-  (timbre/report "questions" login)
+(defn questions-page [qs cs]
   (page
    [:h2 "QA: Questions"]
    [:p "👉 のクリックで回答ページへ。"
@@ -125,6 +124,7 @@
     [:a {:href "/goods" :class "btn btn-warning btn-sm"} "最近のいいね"]
     "&nbsp;"
     [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]
+    [:p [:a {:href "/readers/qs/0"} "readers"]]
     (for [q qs]
       [:p
        (:id q)
@@ -149,12 +149,12 @@
       escape-html))
 
 (defn answers-page [q answers nick]
-  (timbre/report "answer" (:id q) nick)
   (page
    [:h2 "QA: Answers"]
    [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:pre {:class "question"} (my-escape-html (wrap 54 (:q q)))]
+   [:p [:a {:href (str "/readers/as/" (:id q))} "readers"]]
    [:hr]
    [:h4 "Answers"]
    (for [a answers]
