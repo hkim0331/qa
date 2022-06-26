@@ -87,12 +87,10 @@
             :controls "controls"}]
    [:div
     [:ul
-     [:li "回答しやすい質問をする練習と、"]
-     [:li "回答できる質問には回答する練習。"]
-     [:li "語尾だけ丁寧、意味不明な質問・回答はよくない。"]
-     [:li "「👍」付いた回答にはボーナス。"]
-     [:li "「👍」付けた人と、質問出した人にもちょっとだけボーナス。"]
-     [:li "「👍」は一回答に一回だけです。"]]]))
+     [:li "回答しやすい質問をする練習と、回答できる質問には回答する練習。"]
+     [:li "質問はテキスト、回答は Markdown で。"]
+     [:li "「👍」は一回答に一回だけです。"]
+     [:li "「👍」付いた回答にはちょびっとボーナス。"]]]))
 
 (defn question-new-page []
   (page
@@ -101,11 +99,11 @@
     "短すぎる質問も長すぎる質問と同じく受信しない。"
     [:a {:href "/"} "注意事項"]]
    (form-to {:enctype "multipart/form-data"
-             :onsubmit "return confirm('その質問は具体的か？ 回答者が回答しやすい質問になるよう、考えてるか？')"}
+             :onsubmit "return confirm('その質問は具体的か？')"}
             [:post "/q"]
             (anti-forgery-field)
             (text-area {:id "question"
-                        :placeholder "1 行 60 文字以内に改行しよう。"}
+                        :placeholder "テキストで。60 文字以内に改行するように。"}
                        "question")
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
@@ -153,7 +151,7 @@
    [:h2 "QA: Answers"]
    [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
-   [:pre {:class "question"} (my-escape-html (wrap 54 (:q q)))]
+   [:pre {:class "question"} (my-escape-html (wrap 60 (:q q)))]
    [:p [:a {:href (str "/readers/as/" (:id q))} "readers"]]
    [:hr]
    [:h4 "Answers"]
@@ -224,4 +222,14 @@
        (date-time (:ts a))
        " "
        [:a {:href  (str "/as/" (:q_id a))} (ss 28 (:q a))]]))))
+
+(defn readers-page [readers]
+  (page
+   [:h2 "QA: Who read this page?"]
+   [:p "点数稼ぎの QA は冷えるよ。"]
+   [:p (->> (mapv :login readers)
+            (interpose " ")
+            (apply str))
+    "(合計 " (count readers) ")"]))
+
 
