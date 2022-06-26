@@ -7,6 +7,9 @@
 - app.melt で systemctl stop qa できてないか？
 - [link](url) で。(url)[link] はだめ。
 
+## 1.5.2 - 2022-06-26
+- /readers
+
 ## 1.5.1 - 2022-06-25
 ### Added
 - /qs と /as に readers リンク。それまでにそのページを訪れた人の全リスト。
