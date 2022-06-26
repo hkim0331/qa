@@ -5,6 +5,10 @@
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - 質問も markdown?
 - app.melt で systemctl stop qa できてないか？
+- [link](url) で。(url)[link] はだめ。
+
+## 1.5.2 - 2022-06-26
+- /readers
 
 ## 1.5.1 - 2022-06-25
 ### Added
