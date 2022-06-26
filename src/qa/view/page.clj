@@ -225,8 +225,8 @@
 
 (defn readers-page [readers]
   (page
-   [:h2 "QA: Who read this page?"]
-   [:p "点数稼ぎの QA は冷えるよ。"]
+   [:h2 "QA: Who read this page? since 06/25 15:00~"]
+   [:p "ほんと、みんな、読まないんだな。点数稼ぎの QA はさらに冷えるよ。"]
    [:p (->> (mapv :login readers)
             (interpose " ")
             (apply str))
