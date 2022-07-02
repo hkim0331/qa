@@ -5,13 +5,17 @@
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - 質問も markdown?
 - app.melt で systemctl stop qa できてないか？
-- [link](url) で。(url)[link] はだめ。
+  restart.sh だとリスタートできる。
 - (reset) で毎回、クラッシュ。lein repl はよくて、VScode の REPL がダメか？
+
+
+## 1.6.0-SNAPSHOT
+### Changed
+- - q/a のテキストエリアの高さを 2 倍、200px に。
 
 ## 1.5.3 - 2022-07-02
 ### Added
 - get /since/yyyy-mm-dd, yyyy-mm-dd からのページの読者を表示。
-
 
 ## 1.5.2 - 2022-06-26
 - /readers
