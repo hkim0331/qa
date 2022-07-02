@@ -15,7 +15,8 @@
      question-new-page #_question-edit-page
      questions-page
      recents-page
-     recent-goods-page]]
+     recent-goods-page
+     readers-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -136,9 +137,13 @@
       ;;(debug "goods ret" ret)
       (recent-goods-page ret))))
 
+(def since (atom "2022-06-25"))
+
 (defmethod ig/init-key :qa.handler.core/readers [_ {:keys [db]}]
   (fn [{[_ path n] :ataraxy/result}]
-    (let [ret (readers/fetch-readers db path n)]
-      [::response/ok (->> (mapv :login ret)
-                          (interpose ", ")
-                          (apply str))])))
+    (readers-page (readers/fetch-readers db path n @since) @since)))
+
+(defmethod ig/init-key :qa.handler.core/since [_ _]
+  (fn [{[_ timestamp] :ataraxy/result}]
+    (reset! since timestamp)
+    [::response/found "/qs"]))
