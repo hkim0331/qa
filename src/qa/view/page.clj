@@ -9,7 +9,8 @@
    ;;[qa.handler.core :refer [goods]]
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
-   [taoensso.timbre :as timbre]))
+   #_[taoensso.timbre :as timbre]))
+
 
 (def version "1.5.2")
 
@@ -223,9 +224,9 @@
        " "
        [:a {:href  (str "/as/" (:q_id a))} (ss 28 (:q a))]]))))
 
-(defn readers-page [readers]
+(defn readers-page [readers since]
   (page
-   [:h2 "QA: Who read this page? since 06/25 15:00~"]
+   [:h2 "QA: Who read since " since]
    [:p "ほんと、みんな、読まないんだな。点数稼ぎの QA はさらに冷えるよ。"]
    [:p (->> (mapv :login readers)
             (interpose " ")

@@ -39,9 +39,15 @@
     [:get "/who-goods/" n] ^:auth [:qa.handler.core/who-goods n]
 
     [:get "/admin"] ^:auth [:qa.handler.core/admin]
-    [:post "/admin/goods" {params :form-params}] [:qa.handler.core/admin-goods params]
 
-    [:get "/readers/" path "/" n] ^:auth [:qa.handler.core/readers path ^int n]}}
+    [:post "/admin/goods" {params :form-params}]
+    [:qa.handler.core/admin-goods params]
+
+    [:get "/readers/" path "/" n]
+    ^:auth [:qa.handler.core/readers path ^int n]
+
+    [:get "/since/" timestamp]
+    [:qa.handler.core/since timestamp]}}
 
   :qa.middleware/auth {}
 
@@ -69,6 +75,7 @@
   :qa.handler.core/recents {:db #ig/ref :duct.database/sql}
 
   :qa.handler.core/readers {:db #ig/ref :duct.database/sql}
+  :qa.handler.core/since   {:db #ig/ref :duct.database/sql}
 
   ;; prevent goods duplicates
   :qa.handler.core/admin {}

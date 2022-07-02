@@ -137,6 +137,13 @@
       ;;(debug "goods ret" ret)
       (recent-goods-page ret))))
 
+(def since (atom "2022-06-25"))
+
 (defmethod ig/init-key :qa.handler.core/readers [_ {:keys [db]}]
   (fn [{[_ path n] :ataraxy/result}]
-    (readers-page (readers/fetch-readers db path n))))
+    (readers-page (readers/fetch-readers db path n @since) @since)))
+
+(defmethod ig/init-key :qa.handler.core/since [_ _]
+  (fn [{[_ timestamp] :ataraxy/result}]
+    (reset! since timestamp)
+    [::response/found "/qs"]))
