@@ -6,7 +6,8 @@
 - 質問も markdown?
 - app.melt で systemctl stop qa できてないか？
   restart.sh だとリスタートできる。
-- (reset) で毎回、クラッシュ。lein repl はよくて、VScode の REPL がダメか？
+- (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
+  duct じゃなく、VScode の REPL がダメか？
 
 
 ## 1.6.0-SNAPSHOT
