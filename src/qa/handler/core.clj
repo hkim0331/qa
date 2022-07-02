@@ -144,6 +144,9 @@
     (readers-page (readers/fetch-readers db path n @since) @since)))
 
 (defmethod ig/init-key :qa.handler.core/since [_ _]
-  (fn [{[_ timestamp] :ataraxy/result}]
-    (reset! since timestamp)
-    [::response/found "/qs"]))
+  (fn [{[_ timestamp] :ataraxy/result :as request}]
+    (if (= "hkimura" (get-login request))
+      (do
+        (reset! since timestamp)
+        [::response/found "/qs"])
+      [::response/forbidden "forbidden"])))
