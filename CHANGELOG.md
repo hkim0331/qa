@@ -4,13 +4,22 @@
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - 質問も markdown?
-- app.melt で systemctl stop qa できてない。
-  systemctl ではなく、restart.sh だとリスタートできる。
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
-- qa.service としたらログはどこへ行く？
-https://jyn.jp/systemd-log-to-file/
 
+
+## 1.6.0 - 2022-07-03
+### Changed
+- app.melt で systemctl stop qa できてない。
+  systemctl ではなく、restart.sh だとリスタートできる。
+  qa.service としたらログはどこへ行く？
+  https://jyn.jp/systemd-log-to-file/
+  systemd 240 からは append をsystemd に追加できる。
+  
+```
+StandardOutput=append:/home/ubuntu/qa/log/qa.log
+StandardError=append:/home/ubuntu/qa/log/qa.log
+```
 
 ## 1.6.0-SNAPSHOT
 ### Changed
