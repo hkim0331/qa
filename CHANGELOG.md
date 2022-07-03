@@ -5,10 +5,11 @@
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - 質問も markdown?
 - app.melt で systemctl stop qa できてない。
-　systemctl ではなく、restart.sh だとリスタートできる。
+  systemctl ではなく、restart.sh だとリスタートできる。
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
 - qa.service としたらログはどこへ行く？
+https://jyn.jp/systemd-log-to-file/
 
 
 ## 1.6.0-SNAPSHOT
