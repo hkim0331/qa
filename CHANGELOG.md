@@ -4,14 +4,31 @@
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - 質問も markdown?
-- app.melt で systemctl stop qa できてないか？
-- [link](url) で。(url)[link] はだめ。
-- (reset) で毎回、クラッシュ。lein repl はよくて、VScode の REPL がダメか？
+- (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
+  duct じゃなく、VScode の REPL がダメか？
+
+
+## 1.6.0 - 2022-07-03
+### Changed
+- app.melt で systemctl stop qa できてない。
+  systemctl ではなく、restart.sh だとリスタートできる。
+  qa.service としたらログはどこへ行く？
+  https://jyn.jp/systemd-log-to-file/
+  systemd 240 からは append をsystemd に追加できる。
+  
+```
+StandardOutput=append:/home/ubuntu/qa/log/qa.log
+StandardError=append:/home/ubuntu/qa/log/qa.log
+```
+
+## 1.6.0-SNAPSHOT
+### Changed
+- q/a のテキストエリアの高さを 2 倍、200px
+- /since を hkimura オンリーに
 
 ## 1.5.3 - 2022-07-02
 ### Added
 - get /since/yyyy-mm-dd, yyyy-mm-dd からのページの読者を表示。
-
 
 ## 1.5.2 - 2022-06-26
 - /readers
