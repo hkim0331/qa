@@ -8,6 +8,7 @@
 　systemctl ではなく、restart.sh だとリスタートできる。
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
+- qa.service としたらログはどこへ行く？
 
 
 ## 1.6.0-SNAPSHOT
