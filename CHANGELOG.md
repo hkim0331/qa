@@ -6,7 +6,19 @@
 - 質問も markdown?
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
+- いいねにアラートつけるか。
+```
+[:a {:href (str "/good/" (:id q) "/" (:id a))
+     :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
+    goods]
+```
+## 1.6.1 - 2022-07-10
 
+| | | |
+|-:|-:|-:|
+|com.fasterxml.jackson.core/jackson-core |   2.13.1 |  2.13.3 |
+|markdown-clj/markdown-clj |   1.11.1 |  1.11.2 |
+|org.postgresql/postgresql |   42.3.5 |  42.4.0 |
 
 ## 1.6.0 - 2022-07-03
 ### Changed
@@ -15,7 +27,7 @@
   qa.service としたらログはどこへ行く？
   https://jyn.jp/systemd-log-to-file/
   systemd 240 からは append をsystemd に追加できる。
-  
+
 ```
 StandardOutput=append:/home/ubuntu/qa/log/qa.log
 StandardError=append:/home/ubuntu/qa/log/qa.log
