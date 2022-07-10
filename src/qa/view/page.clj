@@ -117,6 +117,7 @@
 (defn questions-page [qs cs]
   (page
    [:h2 "QA: Questions"]
+   [:p "すべての QA に目を通すのがルール。"]
    [:p "👉 のクリックで回答ページへ。"
     [:a {:href "/recents" :class "btn btn-success btn-sm"} "最近の回答"]
     "&nbsp;"
