@@ -12,7 +12,7 @@
    #_[taoensso.timbre :as timbre]))
 
 
-(def version "1.6.0")
+(def version "1.6.1")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -161,7 +161,9 @@
        [:div
         [:p [:span {:class "nick"} (:nick a)] "'s answer " (date-time (:ts a)) ","]
         (md-to-html-string (:a a))
-        [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
+        [:p [:a {:href (str "/good/" (:id q) "/" (:id a))
+                 :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"} 
+                goods]
          (when (= nick "hkimura")
            [:a {:href (str "/who-goods/" (:id a)) :class "red"}
             " &nbsp; "])]]))
@@ -227,7 +229,7 @@
 (defn readers-page [readers since]
   (page
    [:h2 "QA: Who read since " since]
-   [:p "ほんと、みんな、読まないんだな。点数稼ぎの QA はさらに冷えるよ。"]
+   [:p "ほんと、みんな、QA 読まないんだな。点数稼ぎの 👍 はさらに冷えるよ。"]
    [:p (->> (mapv :login readers)
             (interpose " ")
             (apply str))
