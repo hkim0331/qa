@@ -3,6 +3,7 @@
    #_[ataraxy.core :as ataraxy]
    [ataraxy.response :as response]
    [integrant.core :as ig]
+   #_[markdown.core :refer [md-to-html-string]]
    [qa.boundary.answers :as answers]
    [qa.boundary.goods :as goods]
    [qa.boundary.questions :as questions]
@@ -12,6 +13,8 @@
      answers-page
      goods-page
      index-page
+     markdown-page
+     markdown-preview-page
      question-new-page #_question-edit-page
      questions-page
      recents-page
@@ -150,3 +153,12 @@
         (reset! since timestamp)
         [::response/found "/qs"])
       [::response/forbidden "forbidden"])))
+
+(defmethod ig/init-key :qa.handler.core/md [_ _]
+  (fn [_]
+    (markdown-page)))
+
+(defmethod ig/init-key :qa.handler.core/md-post [_ _]
+  (fn [{[_ {:strs [md]}] :ataraxy/result}]
+    (markdown-preview-page md)))
+    ;;[::response/ok (md-to-html-string md)])) 

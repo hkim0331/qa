@@ -124,19 +124,21 @@
     [:a {:href "/goods" :class "btn btn-warning btn-sm"} "最近のいいね"]
     "&nbsp;"
     [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]
-    [:p [:a {:href "/readers/qs/0"} "readers"]]
-    (for [q qs]
-      [:p
-       (:id q)
-       ", "
-       (escape-html (-> (:q q) str/split-lines first))
-            ;;(escape-html (ss 30 (:q q)))
-       "&nbsp;"
-       [:a {:href (str "/my-goods/" (:nick q))} "[" (:nick q) "]"]
-       "&nbsp;"
-       [:a {:href (str "/as/" (:id q))}
-        (str " 👉" (answer-count cs (:id q)))]])
-    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]]))
+    "&nbsp;"
+    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown"]]
+   [:p [:a {:href "/readers/qs/0"} "readers"]]
+   (for [q qs]
+     [:p
+      (:id q)
+      ", "
+      (escape-html (-> (:q q) str/split-lines first))
+           ;;(escape-html (ss 30 (:q q)))
+      "&nbsp;"
+      [:a {:href (str "/my-goods/" (:nick q))} "[" (:nick q) "]"]
+      "&nbsp;"
+      [:a {:href (str "/as/" (:id q))}
+       (str " 👉" (answer-count cs (:id q)))]])
+   [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
   [n]
@@ -234,4 +236,20 @@
             (apply str))
     "(合計 " (count readers) ")"]))
 
+(defn markdown-page []
+  (page
+   [:h2 "Markdown Etude"]
+    (form-to
+     [:post "/md"]
+     (anti-forgery-field)
+     (text-area {:id "md" :placeholder "markdown OK"} "md")
+     (submit-button {:class "btn btn-info btn-sm"} "markdown"))))
 
+(defn markdown-preview-page [md]
+  (page
+   [:h2 "Markdown Etude"]
+   [:hr]
+   (md-to-html-string md)
+   [:hr]
+   [:p "to return markdown page, use browswer's back button."]
+   [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "top"]]))
