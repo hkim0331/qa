@@ -1,14 +1,91 @@
 # Question and Answers
 
 ## Unreleased
-- 本番でログがうるさすぎ。
-21-10-25 02:57:34 app INFO [duct.database.sql.hikaricp:30] -
-:duct.database.sql/query {:query ["select * from answers
-where q_id=? order by id" 10], :elapsed 1}
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
-- ログインなしでも閲覧だけできる
-- L22 等への戻りリンク
-- 「最近のQA」「全てのQA」に分ける。
+- qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
+- 質問も markdown?
+- (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
+  duct じゃなく、VScode の REPL がダメか？
+- いいねにアラートつけるか。
+```
+[:a {:href (str "/good/" (:id q) "/" (:id a))
+     :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
+    goods]
+```
+
+## 1.7.0 - 2022-07-15
+### Added
+- /md, /md-post markdown 練習ページ。
+
+
+## 1.6.2 - 2022-07-10
+- 文言修正
+
+## 1.6.1 - 2022-07-10
+
+| | | |
+|-:|-:|-:|
+|com.fasterxml.jackson.core/jackson-core |   2.13.1 |  2.13.3 |
+|markdown-clj/markdown-clj |   1.11.1 |  1.11.2 |
+|org.postgresql/postgresql |   42.3.5 |  42.4.0 |
+
+## 1.6.0 - 2022-07-03
+### Changed
+- app.melt で systemctl stop qa できてない。
+  systemctl ではなく、restart.sh だとリスタートできる。
+  qa.service としたらログはどこへ行く？
+  https://jyn.jp/systemd-log-to-file/
+  systemd 240 からは append をsystemd に追加できる。
+
+```
+StandardOutput=append:/home/ubuntu/qa/log/qa.log
+StandardError=append:/home/ubuntu/qa/log/qa.log
+```
+
+## 1.6.0-SNAPSHOT
+### Changed
+- q/a のテキストエリアの高さを 2 倍、200px
+- /since を hkimura オンリーに
+
+## 1.5.3 - 2022-07-02
+### Added
+- get /since/yyyy-mm-dd, yyyy-mm-dd からのページの読者を表示。
+
+## 1.5.2 - 2022-06-26
+- /readers
+
+## 1.5.1 - 2022-06-25
+### Added
+- /qs と /as に readers リンク。それまでにそのページを訪れた人の全リスト。
+
+## 1.5.0 - 2022-06-25
+### Changed
+- アクセスログをとる。誰がどこをアクセスしたか。
+  ログレベル REPORT で書き出す。
+- views/questions-page に login を引数に加えた。
+
+## 1.4.2 - 2022-06-23
+- goods の timestamp 表示
+
+## 1.4.1 - 2022-06-05
+### Changed
+- replace ok() with confirm('message')
+
+## 1.4.0-SNAPSHOT
+
+clj -Tantq outdated
+
+| | | |
+|-:|-:|-:|
+| com.github.seancorfield/next.jdbc | 1.2.761 | 1.2.780 |
+| duct/lein-duct | 0.12.2 | 0.12.3 |
+| markdown-clj/markdown-clj | 1.10.9 | 1.11.1 |
+| org.clojure/clojure | 1.10.3 | 1.11.1 |
+| org.postgresql/postgresql | 42.3.2 | 42.3.5 |
+
+## 1.3.8 - 2022-04-26
+- /as/:n に top へのリンク
+- ol の li じゃなく、id でリスト。p に変更したが、ちょっと空きすぎか？
 
 ## 1.3.7 - 2022-04-17
 - /qs で 2022-04 以降の Q を表示する。それ以前のものは /all か /ps-all を設ける。

@@ -57,7 +57,7 @@
    [db]
    (let [ret (sql/query
               (ds-opt db)
-              ["select goods.q_id, questions.q from goods
+              ["select goods.q_id, questions.q, goods.ts from goods
 inner join questions on goods.q_id=questions.id
 order by goods.id desc
 limit 30"])]

@@ -3,14 +3,23 @@
    #_[ataraxy.core :as ataraxy]
    [ataraxy.response :as response]
    [integrant.core :as ig]
+   #_[markdown.core :refer [md-to-html-string]]
    [qa.boundary.answers :as answers]
    [qa.boundary.goods :as goods]
    [qa.boundary.questions :as questions]
-   [qa.view.page :refer [question-new-page #_question-edit-page
-                         questions-page answers-page
-                         index-page admin-page
-                         recents-page
-                         goods-page recent-goods-page]]
+   [qa.boundary.readers :as readers]
+   [qa.view.page :refer
+    [admin-page
+     answers-page
+     goods-page
+     index-page
+     markdown-page
+     markdown-preview-page
+     question-new-page #_question-edit-page
+     questions-page
+     recents-page
+     recent-goods-page
+     readers-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -41,13 +50,14 @@
 
 ;; 2022-04-01 以降の q をリストする
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
-  (fn [_]
+  (fn [request]
     (let [ret (questions/fetch-after db "2022-04-01")
           counts (answers/count-answers db)]
+      (readers/create-reader db (get-login request) "qs" 0)
       (questions-page ret counts))))
 
 (defmethod ig/init-key :qa.handler.core/questions-all [_ {:keys [db]}]
-  (fn [_]
+  (fn [request]
     (let [ret (questions/fetch-all db)
           counts (answers/count-answers db)]
       (questions-page ret counts))))
@@ -78,6 +88,7 @@
     (let [q (questions/fetch db n)
           answers (answers/find-by-keys db n)
           nick (get-login req)]
+      (readers/create-reader db nick "as" n)
       ;;(debug "/as q:" q "nick:" nick "answers:" answers)
       (answers-page q answers nick))))
 
@@ -127,4 +138,27 @@
   (fn [_]
     (let [ret (goods/recents db)]
       ;;(debug "goods ret" ret)
-      (recent-goods-page (goods/recents db)))))
+      (recent-goods-page ret))))
+
+(def since (atom "2022-06-25"))
+
+(defmethod ig/init-key :qa.handler.core/readers [_ {:keys [db]}]
+  (fn [{[_ path n] :ataraxy/result}]
+    (readers-page (readers/fetch-readers db path n @since) @since)))
+
+(defmethod ig/init-key :qa.handler.core/since [_ _]
+  (fn [{[_ timestamp] :ataraxy/result :as request}]
+    (if (= "hkimura" (get-login request))
+      (do
+        (reset! since timestamp)
+        [::response/found "/qs"])
+      [::response/forbidden "forbidden"])))
+
+(defmethod ig/init-key :qa.handler.core/md [_ _]
+  (fn [_]
+    (markdown-page)))
+
+(defmethod ig/init-key :qa.handler.core/md-post [_ _]
+  (fn [{[_ {:strs [md]}] :ataraxy/result}]
+    (markdown-preview-page md)))
+    ;;[::response/ok (md-to-html-string md)])) 

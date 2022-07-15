@@ -9,9 +9,10 @@
    ;;[qa.handler.core :refer [goods]]
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
-   [taoensso.timbre :as timbre]))
+   #_[taoensso.timbre :as timbre]))
 
-(def version "1.3.7")
+
+(def version "1.7.0")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -27,11 +28,12 @@
 
 (defn ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
-  文字列長さが n に満たない時はそのまま。"
+   文字列長さが n に満たない時はそのまま。"
   [n s]
   (subs s 0 (min n (count s))))
 
 (defn date-time
+  "timestamp 文字列から YYYY/MM/DD hh:mm:ss を抜き出す"
   [tm]
   (subs (str tm) 0 19))
 
@@ -86,25 +88,23 @@
             :controls "controls"}]
    [:div
     [:ul
-     [:li "回答しやすい質問をする練習と、"]
-     [:li "回答できる質問には回答する練習。"]
-     [:li "語尾だけ丁寧、意味不明な質問・回答はよくない。"]
-     [:li "「👍」付いた回答にはボーナス。"]
-     [:li "「👍」付けた人と、質問出した人にもちょっとだけボーナス。"]
-     [:li "「👍」は一回答に一回だけです。"]]]))
+     [:li "回答しやすい質問をする練習と、回答できる質問には回答する練習。"]
+     [:li "質問はテキスト、回答は Markdown で。"]
+     [:li "「👍」は一回答に一回だけです。"]
+     [:li "「👍」付いた回答にはちょびっとボーナス。"]]]))
 
 (defn question-new-page []
   (page
    [:h2 "QA: Create a Question"]
-   [:p "具体的な質問じゃないと回答つけづらい。"
+   [:p "具体的な質問じゃないと回答つけにくい。"
     "短すぎる質問も長すぎる質問と同じく受信しない。"
     [:a {:href "/"} "注意事項"]]
    (form-to {:enctype "multipart/form-data"
-             :onsubmit "return ok()"}
+             :onsubmit "return confirm('その質問は具体的か？')"}
             [:post "/q"]
             (anti-forgery-field)
             (text-area {:id "question"
-                        :placeholder "1 行 60 文字以内に改行しよう。"}
+                        :placeholder "テキストで。60 文字以内に改行するように。"}
                        "question")
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
@@ -117,22 +117,27 @@
 (defn questions-page [qs cs]
   (page
    [:h2 "QA: Questions"]
+   [:p "すべての QA に目を通すのがルール。"]
    [:p "👉 のクリックで回答ページへ。"
     [:a {:href "/recents" :class "btn btn-success btn-sm"} "最近の回答"]
     "&nbsp;"
     [:a {:href "/goods" :class "btn btn-warning btn-sm"} "最近のいいね"]
     "&nbsp;"
-    [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]
-   (into [:ol {:reversed "reversed"}]
-         (for [q qs]
-           [:li
-            ;;(escape-html (-> (:q q) str/split-lines first))
-            (escape-html (ss 30 (:q q)))
-            "&nbsp;"
-            [:a {:href (str "/my-goods/" (:nick q))} "[" (:nick q) "]"]
-            "&nbsp;"
-            [:a {:href (str "/as/" (:id q))}
-             (str " 👉" (answer-count cs (:id q)))]]))
+    [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]
+    "&nbsp;"
+    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown"]]
+   [:p [:a {:href "/readers/qs/0"} "readers"]]
+   (for [q qs]
+     [:p
+      (:id q)
+      ", "
+      (escape-html (-> (:q q) str/split-lines first))
+           ;;(escape-html (ss 30 (:q q)))
+      "&nbsp;"
+      [:a {:href (str "/my-goods/" (:nick q))} "[" (:nick q) "]"]
+      "&nbsp;"
+      [:a {:href (str "/as/" (:id q))}
+       (str " 👉" (answer-count cs (:id q)))]])
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
@@ -145,14 +150,13 @@
   (-> (str/replace s #"<br>" "")
       escape-html))
 
-(defn- markdown? [s]
-  (str/starts-with? s "##"))
-
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
+   [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
    [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
-   [:pre {:class "question"} (my-escape-html (wrap 54 (:q q)))]
+   [:pre {:class "question"} (my-escape-html (wrap 60 (:q q)))]
+   [:p [:a {:href (str "/readers/as/" (:id q))} "readers"]]
    [:hr]
    [:h4 "Answers"]
    (for [a answers]
@@ -160,16 +164,13 @@
        [:div
         [:p [:span {:class "nick"} (:nick a)] "'s answer " (date-time (:ts a)) ","]
         (md-to-html-string (:a a))
-        ;; (if (markdown? (:a a))
-        ;;  (md-to-html-string (:a a))
-        ;;  [:pre {:class "answer"} (my-escape-html (wrap 66 (:a a)))])
         [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
          (when (= nick "hkimura")
            [:a {:href (str "/who-goods/" (:id a)) :class "red"}
             " &nbsp; "])]]))
    [:p
     (form-to {:enctype "multipart/form-data"
-              :onsubmit "return ok()"}
+              :onsubmit "return confirm('その回答で OK ですか？')"}
              [:post "/a"]
              (anti-forgery-field)
              (hidden-field "q_id" (:id q))
@@ -221,8 +222,34 @@
    (into
     [:ol]
     (for [a answers]
-      (do
-        (timbre/debug a)
-        [:li  [:a {:href  (str "/as/" (:q_id a))}
-               (ss 28 (:q a))]])))))
+      [:li
+       (date-time (:ts a))
+       " "
+       [:a {:href  (str "/as/" (:q_id a))} (ss 28 (:q a))]]))))
 
+(defn readers-page [readers since]
+  (page
+   [:h2 "QA: Who read since " since]
+   [:p "ほんと、みんな、QA 読まないんだな。点数稼ぎの 👍 は心が冷えるよ。"]
+   [:p (->> (mapv :login readers)
+            (interpose " ")
+            (apply str))
+    "(合計 " (count readers) ")"]))
+
+(defn markdown-page []
+  (page
+   [:h2 "Markdown Etude"]
+    (form-to
+     [:post "/md"]
+     (anti-forgery-field)
+     (text-area {:id "md" :placeholder "markdown OK"} "md")
+     (submit-button {:class "btn btn-info btn-sm"} "markdown"))))
+
+(defn markdown-preview-page [md]
+  (page
+   [:h2 "Markdown Etude"]
+   [:hr]
+   (md-to-html-string md)
+   [:hr]
+   [:p "to return markdown page, use browswer's back button."]
+   [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "top"]]))

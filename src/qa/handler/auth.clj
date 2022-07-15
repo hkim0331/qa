@@ -19,7 +19,7 @@
 
 (defmethod ig/init-key :qa.handler.auth/login-post [_ {:keys [db]}]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]
-    (timbre/debug "login-post" login password)
+    ;;(timbre/debug "login-post" login password)
     (if (and (seq login) (auth? db login password))
       (-> (redirect "/qs")
           (assoc-in [:session :identity] (keyword login))) ; keyword の必要性

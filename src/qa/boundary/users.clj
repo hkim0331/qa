@@ -1,10 +1,9 @@
 (ns qa.boundary.users
  (:require
-  [environ.core :refer [env]]
-  [next.jdbc :refer [get-connection]]
-  [next.jdbc.result-set :as rs]
+  ;;[environ.core :refer [env]]
+  ;;[next.jdbc :refer [get-connection]]
+  ;;[next.jdbc.result-set :as rs]
   [next.jdbc.sql :refer [query]]
-  [taoensso.timbre :refer [debug]]
   [qa.boundary.utils :refer [ds-opt]]))
 
 ;; (def db {:dbtype   "postgresql"
