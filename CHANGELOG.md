@@ -12,6 +12,7 @@
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
 ```
+
 ## 1.6.2 - 2022-07-10
 - 文言修正
 
