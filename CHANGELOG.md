@@ -12,6 +12,12 @@
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
 ```
+
+## 1.7.0 - 2022-07-15
+### Added
+- /md, /md-post markdown 練習ページ。
+
+
 ## 1.6.2 - 2022-07-10
 - 文言修正
 
