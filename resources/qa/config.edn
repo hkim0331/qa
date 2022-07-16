@@ -43,10 +43,10 @@
     [:post "/admin/goods" {params :form-params}]
     [:qa.handler.core/admin-goods params]
 
-    [:get "/readers/" path "/" n]
-    ^:auth [:qa.handler.core/readers path ^int n]
+    [:get "/readers/" path "/" n] ^:auth
+    [:qa.handler.core/readers path ^int n]
 
-    [:get  "/md"] [:qa.handler.core/md]
+    [:get  "/md"] ^:auth [:qa.handler.core/md]
     [:post "/md" {params :form-params}] [:qa.handler.core/md-post params]
 
     [:get "/since/" timestamp]
