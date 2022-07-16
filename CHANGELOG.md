@@ -13,6 +13,12 @@
     goods]
 ```
 
+## 1.7.2 - 2022-07-16
+- auth to /md page
+
+## 1.7.1 - 2022-07-16
+- improve /md descriptions text
+
 ## 1.7.0 - 2022-07-15
 ### Added
 - /md, /md-post markdown 練習ページ。
