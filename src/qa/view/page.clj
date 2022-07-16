@@ -12,7 +12,7 @@
    #_[taoensso.timbre :as timbre]))
 
 
-(def version "1.7.0")
+(def version "1.7.1")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -238,18 +238,18 @@
 
 (defn markdown-page []
   (page
-   [:h2 "Markdown Etude"]
-    (form-to
-     [:post "/md"]
-     (anti-forgery-field)
-     (text-area {:id "md" :placeholder "markdown OK"} "md")
-     (submit-button {:class "btn btn-info btn-sm"} "markdown"))))
+   [:h2 "Markdown 練習場"]
+   (form-to
+    [:post "/md"]
+    (anti-forgery-field)
+    (text-area {:id "md" :placeholder "マークダウンの練習ページ"} "md")
+    (submit-button {:class "btn btn-info btn-sm"} "preview"))))
 
 (defn markdown-preview-page [md]
   (page
-   [:h2 "Markdown Etude"]
+   [:h2 "Markdown 練習場(Preview)"]
    [:hr]
    (md-to-html-string md)
    [:hr]
-   [:p "to return markdown page, use browswer's back button."]
+   [:p "to return to the markdown page, use your browswer's back button."]
    [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "top"]]))
