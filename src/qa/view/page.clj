@@ -240,9 +240,9 @@
   (page
    [:h2 "Markdown 練習場"]
    [:p "powered by markdown.clj"
-       "&nbsp;"
-       [:a {:href "https://github.com/yogthos/markdown-clj"}
-           "&lt;https://github.com/yogthos/markdown-clj"]]
+    "&nbsp;"
+    [:a {:href "https://github.com/yogthos/markdown-clj"}
+     "&lt;https://github.com/yogthos/markdown-clj"]]
    (form-to
     [:post "/md"]
     (anti-forgery-field)
@@ -255,7 +255,7 @@
    [:p "powered by markdown.clj"
     "&nbsp"
     [:a {:href "https://github.com/yogthos/markdown-clj"}
-        "&lt;https://github.com/yogthos/markdown-clj>"]]
+     "&lt;https://github.com/yogthos/markdown-clj>"]]
    [:hr]
    (md-to-html-string md)
    [:hr]
