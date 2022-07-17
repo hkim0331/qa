@@ -12,7 +12,7 @@
    #_[taoensso.timbre :as timbre]))
 
 
-(def version "1.7.3")
+(def version "1.7.4")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -242,7 +242,7 @@
    [:p "powered by markdown.clj"
     "&nbsp;"
     [:a {:href "https://github.com/yogthos/markdown-clj"}
-     "&lt;https://github.com/yogthos/markdown-clj"]]
+     "&lt;https://github.com/yogthos/markdown-clj>"]]
    (form-to
     [:post "/md"]
     (anti-forgery-field)

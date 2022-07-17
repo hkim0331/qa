@@ -13,6 +13,10 @@
     goods]
 ```
 
+## 1.7.4
+### Fixed
+- deploy 後、毎回 /since/yyyy-mm-dd は面倒だ。
+
 ## 1.7.3 - 2022-07-17
 - forgot html escaping
 - ボタンの色を統一する。QA too は btn-success.
