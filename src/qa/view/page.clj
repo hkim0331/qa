@@ -241,21 +241,25 @@
 
 (def ^:private markdown-clj-url "https://github.com/yogthos/markdown-clj")
 
-(defn markdown-page []
+(defn markdown-page [login]
   (page
-   [:h2 "Markdown 練習場"]
+   [:h2 "Markdown 道場"]
    [:p "powered by markdown-clj "
     [:a {:href (str markdown-clj-url "#supported-syntax")}
      (str "&lt;" markdown-clj-url ">")]]
    (form-to
     [:post "/md"]
     (anti-forgery-field)
-    (text-area {:id "md" :placeholder "マークダウンの練習ページ"} "md")
+    (text-area {:id "md"
+                :placeholder (str login
+                                  "さんのマークダウン練習ページ。"
+                                  "練習しないとできるようにならないよ。")}
+               "md")
     (submit-button {:class "btn btn-info btn-sm"} "preview"))))
 
 (defn markdown-preview-page [md]
   (page
-   [:h2 "Markdown 練習場(Preview)"]
+   [:h2 "Markdown 道場(Preview)"]
    [:p "powered by markdown-clj "
     [:a {:href (str markdown-clj-url "#supported-syntax")}
      (str "&lt;" markdown-clj-url ">")]]

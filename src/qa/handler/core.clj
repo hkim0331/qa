@@ -4,7 +4,6 @@
    [ataraxy.response :as response]
    [integrant.core :as ig]
    [java-time :as jt]
-   #_[markdown.core :refer [md-to-html-string]]
    [qa.boundary.answers :as answers]
    [qa.boundary.goods :as goods]
    [qa.boundary.questions :as questions]
@@ -157,8 +156,8 @@
       [::response/forbidden "forbidden"])))
 
 (defmethod ig/init-key :qa.handler.core/md [_ _]
-  (fn [_]
-    (markdown-page)))
+  (fn [req]
+    (markdown-page (get-login req))))
 
 (defmethod ig/init-key :qa.handler.core/md-post [_ _]
   (fn [{[_ {:strs [md]}] :ataraxy/result}]
