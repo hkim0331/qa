@@ -242,7 +242,7 @@
    [:p "powered by markdown.clj"
     "&nbsp;"
     [:a {:href "https://github.com/yogthos/markdown-clj"}
-     "&lt;https://github.com/yogthos/markdown-clj"]]
+     "&lt;https://github.com/yogthos/markdown-clj>"]]
    (form-to
     [:post "/md"]
     (anti-forgery-field)

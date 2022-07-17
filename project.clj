@@ -4,6 +4,7 @@
   :min-lein-version "2.0.0"
   :dependencies [[buddy/buddy-auth "3.0.323"]
                  [buddy/buddy-hashers "1.8.158"]
+                 [clojure.java-time "0.3.3"]
                  [com.github.seancorfield/next.jdbc "1.2.780"]
                  [com.fasterxml.jackson.core/jackson-core "2.13.3"]
                  [duct/core "0.8.0"]
