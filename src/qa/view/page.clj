@@ -178,6 +178,9 @@
                          :placeholder "markdown OK"}
                         "answer")
              [:br]
+             [:a {:href "/md"
+                  :class "btn btn-info btn-sm"} "Markdown 練習場"]
+             "&nbsp;"
              (submit-button {:class "btn btn-primary btn-sm"} "submit"))]
    [:p]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
@@ -241,7 +244,7 @@
    [:h2 "Markdown 練習場"]
    [:p "powered by markdown.clj"
     "&nbsp;"
-    [:a {:href "https://github.com/yogthos/markdown-clj"}
+    [:a {:href "https://github.com/yogthos/markdown-clj#supported-syntax"}
      "&lt;https://github.com/yogthos/markdown-clj>"]]
    (form-to
     [:post "/md"]
@@ -254,10 +257,10 @@
    [:h2 "Markdown 練習場(Preview)"]
    [:p "powered by markdown.clj"
     "&nbsp"
-    [:a {:href "https://github.com/yogthos/markdown-clj"}
+    [:a {:href "https://github.com/yogthos/markdown-clj#supported-syntax"}
      "&lt;https://github.com/yogthos/markdown-clj>"]]
    [:hr]
    (md-to-html-string md)
    [:hr]
-   [:p "Markdown 練習場へはブラウザの戻るで。"]
+   [:p "Markdown 練習場へはブラウザの「戻る」で。"]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA top"]]))
