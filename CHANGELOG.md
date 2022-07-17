@@ -13,9 +13,13 @@
     goods]
 ```
 
+- Answers の右に練習場へのリンク
+
 ## 1.7.4
 ### Fixed
 - deploy 後、毎回 /since/yyyy-mm-dd は面倒だ。
+### Changed
+- /yogthos/markdown-clj#supported-syntax を直接リンク。
 
 ## 1.7.3 - 2022-07-17
 - forgot html escaping
