@@ -3,7 +3,6 @@
 ## Unreleased
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
-- 質問も markdown?
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
 - いいねにアラートつけるか。
@@ -12,10 +11,11 @@
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
 ```
-- admin-page 等、行方不明。
+- admin-page 等、行方不明。不要か？
 
+## 1.7.5-SNAPSHOT
 
-## 1.7.4
+## 1.7.4 - 2022-07-17
 ### Fixed
 - deploy 後、毎回 /since/yyyy-mm-dd は面倒だ。
 ### Changed

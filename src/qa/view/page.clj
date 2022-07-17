@@ -12,7 +12,7 @@
    #_[taoensso.timbre :as timbre]))
 
 
-(def version "1.7.4")
+(def version "1.7.5-SNAPSHOT")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
