@@ -189,12 +189,12 @@
   (page
    [:h2 "QA Admin"]
    [:p "who goods?"]
-   (form-to)
-   [:post "/admin/goods"
-    (anti-forgery-field)
-    "good " (text-field {:id "n" :size 3} "n")
-    " "
-    (submit-button {:class "btn btn-primary btn-sm"} "submit")]))
+   (form-to
+     [:post "/admin/goods"]
+     (anti-forgery-field)
+     "good " (text-field {:id "n" :size 3} "n")
+     " "
+     (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn goods-page [goods]
   (page
@@ -239,13 +239,14 @@
             (apply str))
     "(合計 " (count readers) ")"]))
 
+(def ^:private markdown-clj-url "https://github.com/yogthos/markdown-clj")
+
 (defn markdown-page []
   (page
    [:h2 "Markdown 練習場"]
-   [:p "powered by markdown.clj"
-    "&nbsp;"
-    [:a {:href "https://github.com/yogthos/markdown-clj#supported-syntax"}
-     "&lt;https://github.com/yogthos/markdown-clj>"]]
+   [:p "powered by markdown-clj "
+    [:a {:href (str markdown-clj-url "#supported-syntax")}
+     (str "&lt;" markdown-clj-url ">")]]
    (form-to
     [:post "/md"]
     (anti-forgery-field)
@@ -255,10 +256,9 @@
 (defn markdown-preview-page [md]
   (page
    [:h2 "Markdown 練習場(Preview)"]
-   [:p "powered by markdown.clj"
-    "&nbsp"
-    [:a {:href "https://github.com/yogthos/markdown-clj#supported-syntax"}
-     "&lt;https://github.com/yogthos/markdown-clj>"]]
+   [:p "powered by markdown-clj "
+    [:a {:href (str markdown-clj-url "#supported-syntax")}
+     (str "&lt;" markdown-clj-url ">")]]
    [:hr]
    (md-to-html-string md)
    [:hr]
