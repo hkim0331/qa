@@ -14,6 +14,7 @@
 ```
 
 ## 1.7.3 - 2022-07-17
+- forgot html escaping
 - ボタンの色を統一する。QA too は btn-success.
 
 ## 1.7.2 - 2022-07-16
