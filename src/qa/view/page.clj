@@ -252,8 +252,9 @@
   (page
    [:h2 "Markdown 練習場(Preview)"]
    [:p "powered by markdown.clj"
+    "&nbsp"
     [:a {:href "https://github.com/yogthos/markdown-clj"}
-        "https://github.com/yogthos/markdown-clj"]]
+        "<https://github.com/yogthos/markdown-clj>"]]
    [:hr]
    (md-to-html-string md)
    [:hr]
