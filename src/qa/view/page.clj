@@ -12,7 +12,7 @@
    #_[taoensso.timbre :as timbre]))
 
 
-(def version "1.7.2")
+(def version "1.7.3")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -239,6 +239,9 @@
 (defn markdown-page []
   (page
    [:h2 "Markdown 練習場"]
+   [:p "powered by markdown.clj"
+       [:a {:href "https://github.com/yogthos/markdown-clj"}
+           "https://github.com/yogthos/markdown-clj"]]
    (form-to
     [:post "/md"]
     (anti-forgery-field)
@@ -248,8 +251,11 @@
 (defn markdown-preview-page [md]
   (page
    [:h2 "Markdown 練習場(Preview)"]
+   [:p "powered by markdown.clj"
+    [:a {:href "https://github.com/yogthos/markdown-clj"}
+        "https://github.com/yogthos/markdown-clj"]]
    [:hr]
    (md-to-html-string md)
    [:hr]
-   [:p "to return to the markdown page, use your browswer's back button."]
-   [:p [:a {:href "/qs" :class "btn btn-primary btn-sm"} "top"]]))
+   [:p "Markdown 練習場へはブラウザの戻るで。"]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA top"]]))
