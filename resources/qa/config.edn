@@ -77,8 +77,8 @@
   :qa.handler.core/recents {:db #ig/ref :duct.database/sql}
 
   :qa.handler.core/md {}
-  :qa.handler.core/md-post {}
-  
+  :qa.handler.core/md-post {:db #ig/ref :duct.database/sql}
+ 
   :qa.handler.core/readers {:db #ig/ref :duct.database/sql}
   :qa.handler.core/since   {:db #ig/ref :duct.database/sql}
 
