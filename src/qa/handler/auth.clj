@@ -2,9 +2,9 @@
   (:require
    [ataraxy.response :as response]
    [buddy.hashers :as hashers]
+   [integrant.core :as ig]
    [qa.boundary.users :refer [find-user-by-login]]
    [qa.view.page :refer [index-page]]
-   [integrant.core :as ig]
    [ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre]))
 

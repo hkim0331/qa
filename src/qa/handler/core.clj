@@ -159,6 +159,7 @@
   (fn [req]
     (markdown-page (get-login req))))
 
-(defmethod ig/init-key :qa.handler.core/md-post [_ _]
-  (fn [{[_ {:strs [md]}] :ataraxy/result}]
+(defmethod ig/init-key :qa.handler.core/md-post [_ {:keys [db]}]
+  (fn [{[_ {:strs [md]}] :ataraxy/result :as request}]
+    (readers/create-reader db (get-login request) "md" 0)
     (markdown-preview-page md)))

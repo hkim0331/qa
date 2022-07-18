@@ -12,7 +12,7 @@
    #_[taoensso.timbre :as timbre]))
 
 
-(def version "1.7.5")
+(def version "1.7.6")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -154,7 +154,7 @@
   (page
    [:h2 "QA: Answers"]
    [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
-   [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
+   [:h4 (:id q) ", " (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:pre {:class "question"} (my-escape-html (wrap 60 (:q q)))]
    [:p [:a {:href (str "/readers/as/" (:id q))} "readers"]]
    [:hr]
@@ -252,7 +252,7 @@
     (anti-forgery-field)
     (text-area {:id "md"
                 :placeholder (str login
-                                  "さんのマークダウン練習ページ。"
+                                  "さん専用マークダウン練習ページ。"
                                   "練習しないとできるようにならないよ。")}
                "md")
     (submit-button {:class "btn btn-info btn-sm"} "preview"))))
