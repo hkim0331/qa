@@ -26,8 +26,7 @@
 
     [:get  "/as/" n] ^:auth [:qa.handler.core/answers ^int n]
 
-    [:get "/good/" q-id "/" a-id]
-    ^:auth
+    [:get "/good/" q-id "/" a-id] ^:auth
     [:qa.handler.core/good ^int q-id ^int a-id]
 
     [:get "/goods"] ^:auth [:qa.handler.core/goods]
@@ -43,8 +42,11 @@
     [:post "/admin/goods" {params :form-params}]
     [:qa.handler.core/admin-goods params]
 
-    [:get "/readers/" path "/" n]
-    ^:auth [:qa.handler.core/readers path ^int n]
+    [:get "/readers/" path "/" n] ^:auth
+    [:qa.handler.core/readers path ^int n]
+
+    [:get  "/md"] ^:auth [:qa.handler.core/md]
+    [:post "/md" {params :form-params}] [:qa.handler.core/md-post params]
 
     [:get "/since/" timestamp]
     [:qa.handler.core/since timestamp]}}
@@ -74,6 +76,9 @@
 
   :qa.handler.core/recents {:db #ig/ref :duct.database/sql}
 
+  :qa.handler.core/md {}
+  :qa.handler.core/md-post {:db #ig/ref :duct.database/sql}
+ 
   :qa.handler.core/readers {:db #ig/ref :duct.database/sql}
   :qa.handler.core/since   {:db #ig/ref :duct.database/sql}
 

@@ -3,6 +3,7 @@
    #_[ataraxy.core :as ataraxy]
    [ataraxy.response :as response]
    [integrant.core :as ig]
+   [java-time :as jt]
    [qa.boundary.answers :as answers]
    [qa.boundary.goods :as goods]
    [qa.boundary.questions :as questions]
@@ -12,6 +13,8 @@
      answers-page
      goods-page
      index-page
+     markdown-page
+     markdown-preview-page
      question-new-page #_question-edit-page
      questions-page
      recents-page
@@ -102,16 +105,16 @@
       [::response/found (str "/as/" q-id)])))
 
 (defmethod ig/init-key :qa.handler.core/admin [_ _]
- (fn [req]
-   (if (= (get-login req) "hkimura")
-    (admin-page)
-    [::response/forbidden "access denied"])))
+  (fn [req]
+    (if (= (get-login req) "hkimura")
+      (admin-page)
+      [::response/forbidden "access denied"])))
 
 (defmethod ig/init-key :qa.handler.core/admin-goods [_ {:keys [db]}]
- (fn [{[_ {:strs [n]}] :ataraxy/result}]
-   (let [goods (goods/find-goods db (Integer. n))]
-     (debug "goods:" goods)
-     (goods-page goods))))
+  (fn [{[_ {:strs [n]}] :ataraxy/result}]
+    (let [goods (goods/find-goods db (Integer. n))]
+      (debug "goods:" goods)
+      (goods-page goods))))
 
 (defmethod ig/init-key :qa.handler.core/who-goods [_ {:keys [db]}]
   (fn [{[_ n] :ataraxy/result}]
@@ -125,7 +128,7 @@
           q (questions/count-my-questions db nick)
           a (answers/count-my-answers db nick)]
       [::response/ok
-       (str "<p>"nick ": A/Q = " a "/" q ", recv/sent = " r "/" s "</p>")])))
+       (str "<p>" nick ": A/Q = " a "/" q ", recv/sent = " r "/" s "</p>")])))
 
 (defmethod ig/init-key :qa.handler.core/recents [_ {:keys [db]}]
   (fn [_]
@@ -137,7 +140,8 @@
       ;;(debug "goods ret" ret)
       (recent-goods-page ret))))
 
-(def since (atom "2022-06-25"))
+(def since (atom (->> (jt/zoned-date-time)
+                      (jt/format "yyyy-MM-dd"))))
 
 (defmethod ig/init-key :qa.handler.core/readers [_ {:keys [db]}]
   (fn [{[_ path n] :ataraxy/result}]
@@ -150,3 +154,12 @@
         (reset! since timestamp)
         [::response/found "/qs"])
       [::response/forbidden "forbidden"])))
+
+(defmethod ig/init-key :qa.handler.core/md [_ _]
+  (fn [req]
+    (markdown-page (get-login req))))
+
+(defmethod ig/init-key :qa.handler.core/md-post [_ {:keys [db]}]
+  (fn [{[_ {:strs [md]}] :ataraxy/result :as request}]
+    (readers/create-reader db (get-login request) "md" 0)
+    (markdown-preview-page md)))

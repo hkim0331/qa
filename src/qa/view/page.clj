@@ -12,7 +12,7 @@
    #_[taoensso.timbre :as timbre]))
 
 
-(def version "1.6.2")
+(def version "1.7.6")
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -124,19 +124,21 @@
     [:a {:href "/goods" :class "btn btn-warning btn-sm"} "最近のいいね"]
     "&nbsp;"
     [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]
-    [:p [:a {:href "/readers/qs/0"} "readers"]]
-    (for [q qs]
-      [:p
-       (:id q)
-       ", "
-       (escape-html (-> (:q q) str/split-lines first))
-            ;;(escape-html (ss 30 (:q q)))
-       "&nbsp;"
-       [:a {:href (str "/my-goods/" (:nick q))} "[" (:nick q) "]"]
-       "&nbsp;"
-       [:a {:href (str "/as/" (:id q))}
-        (str " 👉" (answer-count cs (:id q)))]])
-    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]]))
+    "&nbsp;"
+    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown"]]
+   [:p [:a {:href "/readers/qs/0"} "readers"]]
+   (for [q qs]
+     [:p
+      (:id q)
+      ", "
+      (escape-html (-> (:q q) str/split-lines first))
+           ;;(escape-html (ss 30 (:q q)))
+      "&nbsp;"
+      [:a {:href (str "/my-goods/" (:nick q))} "[" (:nick q) "]"]
+      "&nbsp;"
+      [:a {:href (str "/as/" (:id q))}
+       (str " 👉" (answer-count cs (:id q)))]])
+   [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
 (defn goods
   [n]
@@ -152,7 +154,7 @@
   (page
    [:h2 "QA: Answers"]
    [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
-   [:h4 (:nick q) "さんの質問 " (date-time (:ts q)) ","]
+   [:h4 (:id q) ", " (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:pre {:class "question"} (my-escape-html (wrap 60 (:q q)))]
    [:p [:a {:href (str "/readers/as/" (:id q))} "readers"]]
    [:hr]
@@ -176,6 +178,9 @@
                          :placeholder "markdown OK"}
                         "answer")
              [:br]
+             [:a {:href "/md"
+                  :class "btn btn-info btn-sm"} "Markdown 練習場"]
+             "&nbsp;"
              (submit-button {:class "btn btn-primary btn-sm"} "submit"))]
    [:p]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
@@ -184,12 +189,12 @@
   (page
    [:h2 "QA Admin"]
    [:p "who goods?"]
-   (form-to)
-   [:post "/admin/goods"
-    (anti-forgery-field)
-    "good " (text-field {:id "n" :size 3} "n")
-    " "
-    (submit-button {:class "btn btn-primary btn-sm"} "submit")]))
+   (form-to
+     [:post "/admin/goods"]
+     (anti-forgery-field)
+     "good " (text-field {:id "n" :size 3} "n")
+     " "
+     (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn goods-page [goods]
   (page
@@ -234,4 +239,32 @@
             (apply str))
     "(合計 " (count readers) ")"]))
 
+(def ^:private markdown-clj-url "https://github.com/yogthos/markdown-clj")
 
+(defn markdown-page [login]
+  (page
+   [:h2 "Markdown 道場"]
+   [:p "powered by markdown-clj "
+    [:a {:href (str markdown-clj-url "#supported-syntax")}
+     (str "&lt;" markdown-clj-url ">")]]
+   (form-to
+    [:post "/md"]
+    (anti-forgery-field)
+    (text-area {:id "md"
+                :placeholder (str login
+                                  "さん専用マークダウン練習ページ。"
+                                  "練習しないとできるようにならないよ。")}
+               "md")
+    (submit-button {:class "btn btn-info btn-sm"} "preview"))))
+
+(defn markdown-preview-page [md]
+  (page
+   [:h2 "Markdown 道場(Preview)"]
+   [:p "powered by markdown-clj "
+    [:a {:href (str markdown-clj-url "#supported-syntax")}
+     (str "&lt;" markdown-clj-url ">")]]
+   [:hr]
+   (md-to-html-string md)
+   [:hr]
+   [:p "Markdown 練習場へはブラウザの「戻る」で。"]
+   [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA top"]]))
