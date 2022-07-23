@@ -14,6 +14,9 @@
 
 (def version "1.7.6")
 
+;; 2022-07-23
+(def wrap-at 80)
+
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
   [n s]
@@ -155,7 +158,7 @@
    [:h2 "QA: Answers"]
    [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
    [:h4 (:id q) ", " (:nick q) "さんの質問 " (date-time (:ts q)) ","]
-   [:pre {:class "question"} (my-escape-html (wrap 60 (:q q)))]
+   [:pre {:class "question"} (my-escape-html (wrap wrap-at (:q q)))]
    [:p [:a {:href (str "/readers/as/" (:id q))} "readers"]]
    [:hr]
    [:h4 "Answers"]
@@ -190,11 +193,11 @@
    [:h2 "QA Admin"]
    [:p "who goods?"]
    (form-to
-     [:post "/admin/goods"]
-     (anti-forgery-field)
-     "good " (text-field {:id "n" :size 3} "n")
-     " "
-     (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
+    [:post "/admin/goods"]
+    (anti-forgery-field)
+    "good " (text-field {:id "n" :size 3} "n")
+    " "
+    (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn goods-page [goods]
   (page
