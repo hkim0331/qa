@@ -107,7 +107,7 @@
             [:post "/q"]
             (anti-forgery-field)
             (text-area {:id "question"
-                        :placeholder "テキスト。マークダウン不可。60 文字以内に改行するように。"}
+                        :placeholder "テキストで。60 文字以内に改行するように。マークダウン不可。"}
                        "question")
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
