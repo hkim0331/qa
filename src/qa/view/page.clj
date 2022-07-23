@@ -107,7 +107,7 @@
             [:post "/q"]
             (anti-forgery-field)
             (text-area {:id "question"
-                        :placeholder "テキストで。60 文字以内に改行するように。"}
+                        :placeholder "テキスト。マークダウン不可。60 文字以内に改行するように。"}
                        "question")
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
@@ -182,7 +182,7 @@
                         "answer")
              [:br]
              [:a {:href "/md"
-                  :class "btn btn-info btn-sm"} "Markdown 練習場"]
+                  :class "btn btn-info btn-sm"} "Markdown 道場"]
              "&nbsp;"
              (submit-button {:class "btn btn-primary btn-sm"} "submit"))]
    [:p]
@@ -269,5 +269,5 @@
    [:hr]
    (md-to-html-string md)
    [:hr]
-   [:p "Markdown 練習場へはブラウザの「戻る」で。"]
+   [:p "Markdown 道場へはブラウザの「戻る」で。"]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA top"]]))
