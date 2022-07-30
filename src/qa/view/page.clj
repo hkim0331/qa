@@ -172,6 +172,8 @@
            [:a {:href (str "/who-goods/" (:id a)) :class "red"}
             " &nbsp; "])]]))
    [:p
+    ;; form の内側に [:a] で道場をリンクしている。submit 先で分岐できれば、
+    ;; タイプしたメッセージをプレビューできるか？
     (form-to {:enctype "multipart/form-data"
               :onsubmit "return confirm('その回答で OK ですか？')"}
              [:post "/a"]
@@ -181,8 +183,7 @@
                          :placeholder "markdown OK"}
                         "answer")
              [:br]
-             [:a {:href "/md"
-                  :class "btn btn-info btn-sm"} "Markdown 道場"]
+             [:a {:href "/md" :class "btn btn-info btn-sm"} "Markdown 道場"]
              "&nbsp;"
              (submit-button {:class "btn btn-primary btn-sm"} "submit"))]
    [:p]
