@@ -15,6 +15,8 @@
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできる。
 
+## 1.7.9 - 2022-08-06
+- DRY! `/since` redirects `/since/"today"`.
 
 ## 1.7.8 - 2022-08-06
 - added `/since`, reset to `since today`.
