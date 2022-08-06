@@ -12,7 +12,10 @@
    #_[taoensso.timbre :as timbre]))
 
 
-(def version "1.7.6")
+(def version "1.7.8")
+
+;; 2022-07-23
+(def wrap-at 80)
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -104,7 +107,7 @@
             [:post "/q"]
             (anti-forgery-field)
             (text-area {:id "question"
-                        :placeholder "テキストで。60 文字以内に改行するように。"}
+                        :placeholder "テキストで。60 文字以内に改行するように。マークダウン不可。"}
                        "question")
             [:br]
             (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
@@ -155,7 +158,7 @@
    [:h2 "QA: Answers"]
    [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
    [:h4 (:id q) ", " (:nick q) "さんの質問 " (date-time (:ts q)) ","]
-   [:pre {:class "question"} (my-escape-html (wrap 60 (:q q)))]
+   [:pre {:class "question"} (my-escape-html (wrap wrap-at (:q q)))]
    [:p [:a {:href (str "/readers/as/" (:id q))} "readers"]]
    [:hr]
    [:h4 "Answers"]
@@ -169,6 +172,8 @@
            [:a {:href (str "/who-goods/" (:id a)) :class "red"}
             " &nbsp; "])]]))
    [:p
+    ;; form の内側に [:a] で道場をリンクしている。submit 先で分岐できれば、
+    ;; タイプしたメッセージをプレビューできるか？
     (form-to {:enctype "multipart/form-data"
               :onsubmit "return confirm('その回答で OK ですか？')"}
              [:post "/a"]
@@ -178,8 +183,7 @@
                          :placeholder "markdown OK"}
                         "answer")
              [:br]
-             [:a {:href "/md"
-                  :class "btn btn-info btn-sm"} "Markdown 練習場"]
+             [:a {:href "/md" :class "btn btn-info btn-sm"} "Markdown 道場"]
              "&nbsp;"
              (submit-button {:class "btn btn-primary btn-sm"} "submit"))]
    [:p]
@@ -190,11 +194,11 @@
    [:h2 "QA Admin"]
    [:p "who goods?"]
    (form-to
-     [:post "/admin/goods"]
-     (anti-forgery-field)
-     "good " (text-field {:id "n" :size 3} "n")
-     " "
-     (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
+    [:post "/admin/goods"]
+    (anti-forgery-field)
+    "good " (text-field {:id "n" :size 3} "n")
+    " "
+    (submit-button {:class "btn btn-primary btn-sm"} "submit"))))
 
 (defn goods-page [goods]
   (page
@@ -266,5 +270,5 @@
    [:hr]
    (md-to-html-string md)
    [:hr]
-   [:p "Markdown 練習場へはブラウザの「戻る」で。"]
+   [:p "Markdown 道場へはブラウザの「戻る」で。"]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA top"]]))
