@@ -16,8 +16,11 @@
 - 質問を出したユーザは質問をクローズできる。
 
 
+## 1.7.8 - 2022-08-06
+- added `/since`, reset to `since today`.
+
 ## 1.7.7 - 2022-07-23
-- wrap at 80 columns. 
+- wrap at 80 columns.
 
 ## 1.7.6 - 2022-07-18
 - answers ページに q-id を表示する。
