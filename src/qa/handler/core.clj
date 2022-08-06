@@ -155,13 +155,10 @@
         [::response/found "/qs"])
       [::response/forbidden "forbidden"])))
 
+;; DRY!
 (defmethod ig/init-key :qa.handler.core/set-since [_ _]
-  (fn [request]
-    (if (= "hkimura" (get-login request))
-      (do
-        (reset! since (str (jt/local-date)))
-        [::response/found "/qs"])
-      [::response/forbidden "forbidden"])))
+  (fn [_]
+    [::response/found (str "/since/" (jt/local-date))]))
 
 (defmethod ig/init-key :qa.handler.core/md [_ _]
   (fn [req]
