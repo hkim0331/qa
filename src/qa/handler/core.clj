@@ -177,7 +177,7 @@
 ;;(def ^:private grading "jdbc:sqlite:db/grading.sqlite3")
 (def grading
   (jdbc/get-datasource
-   {:dbtype "sqlite" :dbname "db/grading.sqlite3"}))
+   {:dbtype "sqlite" :dbname "/home/ubuntu/qa/db/grading.sqlite3"}))
 
 (comment
   (with-open [conn (jdbc/get-connection grading)]
@@ -195,6 +195,6 @@
           ret (with-open [conn (jdbc/get-connection grading)]
                 (jdbc/execute-one!
                  conn
-                 ["select * from grading where login=?" "ramenman"]
+                 ["select * from grading where login=?" login]
                  {:builder-fn rs/as-unqualified-lower-maps}))]
       (points-page ret))))
