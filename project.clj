@@ -16,6 +16,7 @@
                  [hiccup "1.0.5"]
                  [markdown-clj "1.11.2"]
                  [org.clojure/clojure "1.11.1"]
+                 ;;[org.clojure/tools.reader "1.3.6"];; 2022-08-09
                  [org.postgresql/postgresql "42.4.0"]
                  [org.xerial/sqlite-jdbc "3.36.0.3"]]
   :plugins [[duct/lein-duct "0.12.3"]]
