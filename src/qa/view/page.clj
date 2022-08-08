@@ -275,5 +275,5 @@
 
 (defn points-page [ret]
   (page
-   [:h2 "points" (:name ret)]
+   [:h2 "Points " (:name ret)]
    (mapv (fn [x] (str "<p>" x "</p>")) (sort-by key ret))))
