@@ -2,8 +2,12 @@
   (:require
    #_[ataraxy.core :as ataraxy]
    [ataraxy.response :as response]
+   [clojure.java.io :as io]
    [integrant.core :as ig]
    [java-time :as jt]
+   [next.jdbc :as jdbc]
+   [next.jdbc.sql :as sql]
+   [next.jdbc.result-set :as rs]
    [qa.boundary.answers :as answers]
    [qa.boundary.goods :as goods]
    [qa.boundary.questions :as questions]
@@ -19,7 +23,8 @@
      questions-page
      recents-page
      recent-goods-page
-     readers-page]]
+     readers-page
+     points-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -155,6 +160,11 @@
         [::response/found "/qs"])
       [::response/forbidden "forbidden"])))
 
+;; DRY!
+(defmethod ig/init-key :qa.handler.core/set-since [_ _]
+  (fn [_]
+    [::response/found (str "/since/" (jt/local-date))]))
+
 (defmethod ig/init-key :qa.handler.core/md [_ _]
   (fn [req]
     (markdown-page (get-login req))))
@@ -163,3 +173,28 @@
   (fn [{[_ {:strs [md]}] :ataraxy/result :as request}]
     (readers/create-reader db (get-login request) "md" 0)
     (markdown-preview-page md)))
+
+;;(def ^:private grading "jdbc:sqlite:db/grading.sqlite3")
+(def grading
+  (jdbc/get-datasource
+   {:dbtype "sqlite" :dbname (io/resource "db/grading.sqlite3")}))
+
+(comment
+  (with-open [conn (jdbc/get-connection grading)]
+    (jdbc/execute-one!
+     conn
+     ["select * from grading where login=?" "ramenman"])))
+
+;; no good
+;; (def ds (jdbc/with-options (jdbc/get-connection grading)
+;;           {:builder-fn rs/as-unqualified-lower-maps}))
+
+(defmethod ig/init-key :qa.handler.core/points [_ _]
+  (fn [request]
+    (let [login (get-login request)
+          ret (with-open [conn (jdbc/get-connection grading)]
+                (jdbc/execute-one!
+                 conn
+                 ["select * from grading where login=?" "ramenman"]
+                 {:builder-fn rs/as-unqualified-lower-maps}))]
+      (points-page ret))))

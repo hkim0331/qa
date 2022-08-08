@@ -48,12 +48,17 @@
     [:get  "/md"] ^:auth [:qa.handler.core/md]
     [:post "/md" {params :form-params}] [:qa.handler.core/md-post params]
 
-    [:get "/since/" timestamp]
-    [:qa.handler.core/since timestamp]}}
+    [:get "/points"] ^:auth [:qa.handler.core/points]
+
+    ;; post
+    [:get "/since"] [:qa.handler.core/set-since]
+    [:get "/since/" timestamp] [:qa.handler.core/since timestamp]}}
 
   :qa.middleware/auth {}
 
   :qa.handler.core/index {}
+
+  :qa.handler.core/points {}
 
   ;; using ex-typing's database.
   :qa.handler.auth/login {}
@@ -78,8 +83,9 @@
 
   :qa.handler.core/md {}
   :qa.handler.core/md-post {:db #ig/ref :duct.database/sql}
- 
+
   :qa.handler.core/readers {:db #ig/ref :duct.database/sql}
+  :qa.handler.core/set-since {}
   :qa.handler.core/since   {:db #ig/ref :duct.database/sql}
 
   ;; prevent goods duplicates
