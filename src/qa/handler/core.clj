@@ -195,6 +195,6 @@
           ret (with-open [conn (jdbc/get-connection grading)]
                 (jdbc/execute-one!
                  conn
-                 ["select * from grading where login=?" "ramenman"]
+                 ["select * from grading where login=?" login]
                  {:builder-fn rs/as-unqualified-lower-maps}))]
       (points-page ret))))
