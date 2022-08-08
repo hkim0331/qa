@@ -177,7 +177,7 @@
 ;;(def ^:private grading "jdbc:sqlite:db/grading.sqlite3")
 (def grading
   (jdbc/get-datasource
-   {:dbtype "sqlite" :dbname "db/grading.sqlite3"}))
+   {:dbtype "sqlite" :dbname "/home/ubuntu/qa/db/grading.sqlite3"}))
 
 (comment
   (with-open [conn (jdbc/get-connection grading)]
