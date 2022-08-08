@@ -48,6 +48,8 @@
     [:get  "/md"] ^:auth [:qa.handler.core/md]
     [:post "/md" {params :form-params}] [:qa.handler.core/md-post params]
 
+    [:get "/points"] ^:auth [:qa.handler.core/points]
+
     ;; post
     [:get "/since"] [:qa.handler.core/set-since]
     [:get "/since/" timestamp] [:qa.handler.core/since timestamp]}}
@@ -55,6 +57,8 @@
   :qa.middleware/auth {}
 
   :qa.handler.core/index {}
+
+  :qa.handler.core/points {}
 
   ;; using ex-typing's database.
   :qa.handler.auth/login {}

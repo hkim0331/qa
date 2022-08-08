@@ -1,4 +1,4 @@
-(defproject qa "1.7.9"
+(defproject qa "1.8.0"
   :description "qa system for my literacy classes"
   :url "https://qa.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -16,7 +16,8 @@
                  [hiccup "1.0.5"]
                  [markdown-clj "1.11.2"]
                  [org.clojure/clojure "1.11.1"]
-                 [org.postgresql/postgresql "42.4.0"]]
+                 [org.postgresql/postgresql "42.4.0"]
+                 [org.xerial/sqlite-jdbc "3.36.0.3"]]
   :plugins [[duct/lein-duct "0.12.3"]]
   :main ^:skip-aot qa.main
   :resource-paths ["resources" "target/resources"]

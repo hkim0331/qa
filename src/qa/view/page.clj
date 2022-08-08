@@ -12,7 +12,7 @@
    #_[taoensso.timbre :as timbre]))
 
 
-(def version "1.7.9")
+(def version "1.8.0")
 
 ;; 2022-07-23
 (def wrap-at 80)
@@ -272,3 +272,8 @@
    [:hr]
    [:p "Markdown 道場へはブラウザの「戻る」で。"]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA top"]]))
+
+(defn points-page [ret]
+  (page
+   [:h2 "points" (:name ret)]
+   (mapv (fn [x] (str "<p>" x "</p>")) (sort-by key ret))))
