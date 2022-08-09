@@ -192,7 +192,18 @@
           ret (sql/query
                grading
                ["select * from grading where login=?" "tommy"])]
-      (println "ret" ret)
+      (println "first ret" (first ret))
       (if (empty? ret)
         [::response/ok "no data"]
-        (points-page ret)))))
+        (let [ret (first ret)]
+          (points-page
+           (:name ret)
+           (:sid ret)
+           (->> (dissoc ret
+                        :created_at
+                        :id
+                        :login
+                        :name
+                        :sid
+                        :updated_at)
+               (sort-by key))))))))
