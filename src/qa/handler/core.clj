@@ -176,25 +176,30 @@
 
 ;;(def ^:private grading "jdbc:sqlite:db/grading.sqlite3")
 (def grading
-  (jdbc/get-datasource
-   {:dbtype "sqlite" :dbname "/home/ubuntu/qa/db/grading.sqlite3"}))
-
-(comment
-  (with-open [conn (jdbc/get-connection grading)]
-    (jdbc/execute-one!
-     conn
-     ["select * from grading where login=?" "ramenman"])))
-
-;; no good
-;; (def ds (jdbc/with-options (jdbc/get-connection grading)
-;;           {:builder-fn rs/as-unqualified-lower-maps}))
+  (-> (jdbc/get-datasource
+       {:dbtype "sqlite"
+        :dbname "db/grading.sqlite3"})
+      (jdbc/with-options
+        {:builder-fn rs/as-unqualified-lower-maps})))
 
 (defmethod ig/init-key :qa.handler.core/points [_ _]
   (fn [request]
     (let [login (get-login request)
-          ret (with-open [conn (jdbc/get-connection grading)]
-                (jdbc/execute-one!
-                 conn
-                 ["select * from grading where login=?" login]
-                 {:builder-fn rs/as-unqualified-lower-maps}))]
-      (points-page ret))))
+          ret (sql/query
+               grading
+               ["select * from grading where login=?" login])]
+      ;;(println "first ret" (first ret))
+      (if (empty? ret)
+        [::response/ok "no data"]
+        (let [ret (first ret)]
+          (points-page
+           (:name ret)
+           (:sid ret)
+           (->> (dissoc ret
+                        :created_at
+                        :id
+                        :login
+                        :name
+                        :sid
+                        :updated_at)
+                (sort-by key))))))))
