@@ -12,7 +12,7 @@
    #_[taoensso.timbre :as timbre]))
 
 
-(def version "1.8.2")
+(def version "1.9.0")
 
 ;; 2022-07-23
 (def wrap-at 80)
@@ -277,5 +277,4 @@
   (page
    [:h2 "Points " name " " sid]
    (for [item ret]
-     (do
-       [:p (str item)]))))
+     [:p (str item)])))

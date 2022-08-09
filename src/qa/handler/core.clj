@@ -178,21 +178,17 @@
 (def grading
   (-> (jdbc/get-datasource
        {:dbtype "sqlite"
-        :dbname (-> "db/grading.sqlite3" io/resource)})
+        :dbname "db/grading.sqlite3"})
       (jdbc/with-options
         {:builder-fn rs/as-unqualified-lower-maps})))
-
-;; no good
-;; (def ds (jdbc/with-options (jdbc/get-connection grading)
-;;           {:builder-fn rs/as-unqualified-lower-maps}))
 
 (defmethod ig/init-key :qa.handler.core/points [_ _]
   (fn [request]
     (let [login (get-login request)
           ret (sql/query
                grading
-               ["select * from grading where login=?" "tommy"])]
-      (println "first ret" (first ret))
+               ["select * from grading where login=?" login])]
+      ;;(println "first ret" (first ret))
       (if (empty? ret)
         [::response/ok "no data"]
         (let [ret (first ret)]
@@ -206,4 +202,4 @@
                         :name
                         :sid
                         :updated_at)
-               (sort-by key))))))))
+                (sort-by key))))))))
