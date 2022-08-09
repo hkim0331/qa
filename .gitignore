@@ -17,4 +17,5 @@ pom.xml.asc
 .env
 /start-stop
 /db-dumps/*.sql
+/db
 
