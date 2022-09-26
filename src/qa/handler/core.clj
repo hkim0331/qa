@@ -2,8 +2,12 @@
   (:require
    #_[ataraxy.core :as ataraxy]
    [ataraxy.response :as response]
+   [clojure.java.io :as io]
    [integrant.core :as ig]
    [java-time :as jt]
+   [next.jdbc :as jdbc]
+   [next.jdbc.sql :as sql]
+   [next.jdbc.result-set :as rs]
    [qa.boundary.answers :as answers]
    [qa.boundary.goods :as goods]
    [qa.boundary.questions :as questions]
@@ -19,7 +23,8 @@
      questions-page
      recents-page
      recent-goods-page
-     readers-page]]
+     readers-page
+     points-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -168,3 +173,33 @@
   (fn [{[_ {:strs [md]}] :ataraxy/result :as request}]
     (readers/create-reader db (get-login request) "md" 0)
     (markdown-preview-page md)))
+
+;;(def ^:private grading "jdbc:sqlite:db/grading.sqlite3")
+(def grading
+  (-> (jdbc/get-datasource
+       {:dbtype "sqlite"
+        :dbname "db/grading.sqlite3"})
+      (jdbc/with-options
+        {:builder-fn rs/as-unqualified-lower-maps})))
+
+(defmethod ig/init-key :qa.handler.core/points [_ _]
+  (fn [request]
+    (let [login (get-login request)
+          ret (sql/query
+               grading
+               ["select * from grading where login=?" login])]
+      ;;(println "first ret" (first ret))
+      (if (empty? ret)
+        [::response/ok "no data"]
+        (let [ret (first ret)]
+          (points-page
+           (:name ret)
+           (:sid ret)
+           (->> (dissoc ret
+                        :created_at
+                        :id
+                        :login
+                        :name
+                        :sid
+                        :updated_at)
+                (sort-by key))))))))
