@@ -27,13 +27,13 @@
     (timbre/debug "auth?" user)
     (and (some? user) (hashers/check password (:password user)))))
 
-(defmethod ig/init-key :qa.handler.auth/login-post [_ {:keys [db]}]
+(defmethod ig/init-key :qa.handler.auth/login-post [_ _]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]
     (if (and (seq login) (auth? login password))
       (do
         (timbre/info "login success")
         (-> (redirect "/qs")
-            (assoc-in [:session :identity] (keyword login)))) ; keyword の必要性
+            (assoc-in [:session :identity] (keyword login))))
       (do
         (timbre/info "login failure")
         (-> (redirect "/")
