@@ -23,9 +23,15 @@
 (def auth-backend
   (session-backend {:unauthorized-handler unauthorized-handler}))
 
+(defn probe [handler]
+ (fn [req]
+  (info "probe session identity:" (get-in req [:session :identity]))
+  (handler req)))
+
 (defmethod ig/init-key :qa.middleware/auth [_ _]
   (fn [handler]
     (-> handler
+        probe
         (restrict {:handler authenticated?})
         (wrap-authorization  auth-backend)
         (wrap-authentication auth-backend))))
