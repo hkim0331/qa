@@ -1,4 +1,4 @@
-(defproject qa "2.0.2"
+(defproject qa "2.0.5"
   :description "qa system for my literacy classes"
   :url "https://qa.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -23,7 +23,8 @@
    [org.xerial/sqlite-jdbc "3.39.3.0"]
    ;;
    [cheshire/cheshire "5.11.0"]
-   [hato/hato "0.9.0"]]
+   [hato/hato "0.9.0"]
+   [ring "1.9.6"]]
 
   :plugins [[duct/lein-duct "0.12.3"]]
   :main ^:skip-aot qa.main

@@ -17,6 +17,7 @@
       (info "unauthorized-handler: autenticated")
       (throw-unauthorized)) ;{:status 403 :body "error"}
     (do
+      ;; ここに入っちゃう。
       (info "unauthorized-handler: unauthenticated")
       [::response/found  "/login"])))
 
