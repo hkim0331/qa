@@ -18,7 +18,9 @@
 ;;   (let [user (find-user-by-login db login)]
 ;;     (timbre/debug "auth?" user)
 ;;     (and (some? user) (hashers/check password (:password user)))))
+
 (def l22 "https://l22.melt.kyutech.ac.jp")
+
 (defn auth? [login password]
   (let [ep (str l22 "/api/user/" login)
         user (:body (hc/get ep {:as :json}))]
@@ -27,12 +29,15 @@
 
 (defmethod ig/init-key :qa.handler.auth/login-post [_ {:keys [db]}]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]
-    ;;(timbre/debug "login-post" login password)
     (if (and (seq login) (auth? login password))
-      (-> (redirect "/qs")
-          (assoc-in [:session :identity] (keyword login))) ; keyword の必要性
-      (-> (redirect "/")
-          (assoc :flash "login failure")))))
+      (do
+        (timbre/info "login success")
+        (-> (redirect "/qs")
+            (assoc-in [:session :identity] (keyword login)))) ; keyword の必要性
+      (do
+        (timbre/info "login failure")
+        (-> (redirect "/")
+            (assoc :flash "login failure"))))))
 
 (defmethod ig/init-key :qa.handler.auth/logout [_ _]
   (fn [_]
