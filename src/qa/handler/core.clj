@@ -53,10 +53,11 @@
       (questions/create db nick question)
       [::response/found "/qs"])))
 
-;; 2022-04-01 以降の q をリストする
+;; 2022-10-01 以降の q をリストする
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [request]
-    (let [ret (questions/fetch-after db "2022-04-01")
+    (timbre/info "questions")
+    (let [ret (questions/fetch-after db "2022-10-01")
           counts (answers/count-answers db)]
       (readers/create-reader db (get-login request) "qs" 0)
       (questions-page ret counts))))
