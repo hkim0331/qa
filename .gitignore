@@ -18,4 +18,6 @@ pom.xml.asc
 /start-stop
 /db-dumps/*.sql
 /db
-
+/.clj-kondo/.cache
+/.lsp/.cache
+/.calva/output-window
