@@ -18,9 +18,7 @@
    [hiccup "1.0.5"]
    [markdown-clj "1.11.4"]
    [org.clojure/clojure "1.11.1"]
-   ;;[org.clojure/tools.reader "1.3.6"];; 2022-08-09
-   [org.postgresql/postgresql "42.6.0"] ;; 2023-03-05
-   ;;[org.xerial/sqlite-jdbc "3.40.0.0"] ;; 2023-03-05
+   [org.postgresql/postgresql "42.6.0"]
    ;;
    [cheshire/cheshire "5.11.0"]
    [hato/hato "0.9.0"]

@@ -1,7 +1,7 @@
 (ns dev
   (:refer-clojure :exclude [test])
   (:require [clojure.repl :refer :all]
-            [fipp.edn :refer [pprint]]
+            #_[fipp.edn :refer [pprint]]
             [clojure.tools.namespace.repl :refer [refresh]]
             [clojure.java.io :as io]
             [duct.core :as duct]
@@ -10,7 +10,7 @@
             [integrant.core :as ig]
             [integrant.repl :refer [clear halt go init prep reset]]
             [integrant.repl.state :refer [config system]]
-            [taoensso.timbre :as timbre]))
+            #_[taoensso.timbre :as timbre]))
 
 (duct/load-hierarchy)
 

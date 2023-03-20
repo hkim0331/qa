@@ -17,7 +17,12 @@
 - admin-page 等、行方不明。不要か？
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできる。
-- sqlite3 db はプロジェクトに同梱しない方がいいのか？
+* preview before submission
+* no auth when dev mode
+* use env-var? `config` usage in duct
+
+
+## 2.2.4-SNAPSHOT
 
 ## 2.1.3 - 2023-03-05
 - update libraries

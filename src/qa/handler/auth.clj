@@ -26,6 +26,9 @@
         user (:body (hc/get ep {:as :json}))]
     (timbre/debug "auth?" user)
     (and (some? user) (hashers/check password (:password user)))))
+    ;; (if (ig/ref :qa.auth?)
+    ;;   (and (some? user) (hashers/check password (:password user)))
+    ;;   true)))
 
 (defmethod ig/init-key :qa.handler.auth/login-post [_ _]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]

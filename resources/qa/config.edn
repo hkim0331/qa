@@ -2,7 +2,9 @@
  {:duct.core/project-ns qa
 
   :duct.router/ataraxy
-  {:middleware {:auth #ig/ref :qa.middleware/auth}
+  {:middleware
+   {:auth #ig/ref :qa.middleware/auth}
+
    :routes
    {[:get "/"] [:qa.handler.core/index]
 
@@ -50,7 +52,7 @@
 
     [:get "/points"] ^:auth [:qa.handler.core/points]
 
-    ;; post
+    ;; post?
     [:get "/since"] [:qa.handler.core/set-since]
     [:get "/since/" timestamp] [:qa.handler.core/since timestamp]}}
 
