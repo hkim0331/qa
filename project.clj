@@ -7,7 +7,7 @@
   [[buddy/buddy-auth "3.0.323"]
    [buddy/buddy-hashers "1.8.158"]
    [clojure.java-time "1.2.0"] ;; 2023-03-05
-   [com.github.seancorfield/next.jdbc "1.3.847"]
+   [com.github.seancorfield/next.jdbc "1.3.862"]
    [com.fasterxml.jackson.core/jackson-core "2.14.2"] ;; 2023-03-05
    [duct/core "0.8.0"]
    [duct/module.ataraxy "0.3.0"]
@@ -19,7 +19,7 @@
    [markdown-clj "1.11.4"]
    [org.clojure/clojure "1.11.1"]
    ;;[org.clojure/tools.reader "1.3.6"];; 2022-08-09
-   [org.postgresql/postgresql "42.5.4"] ;; 2023-03-05
+   [org.postgresql/postgresql "42.6.0"] ;; 2023-03-05
    ;;[org.xerial/sqlite-jdbc "3.40.0.0"] ;; 2023-03-05
    ;;
    [cheshire/cheshire "5.11.0"]
