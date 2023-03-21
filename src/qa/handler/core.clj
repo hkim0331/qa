@@ -101,7 +101,7 @@
 
 ;; 2023-03-21
 (defmethod ig/init-key :qa.handler.core/markdown-preview [_ _]
-  (fn [{req :ataraxy/result}]
+  (fn [{[_ req] :ataraxy/result}]
     (debug "makrdown-review" req)
     (preview-page (select-keys req ["q-id" "answer"]))))
 
