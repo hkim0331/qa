@@ -20,6 +20,7 @@
 
 
 ## 2.2.4 - 2023-03-21
+- bump vesion up
 - preview before submission
 - no auth when dev mode
 - use env-var? `config` usage in duct
