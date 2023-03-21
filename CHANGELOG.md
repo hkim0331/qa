@@ -9,7 +9,7 @@
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
 - いいねにアラートつけるか
-```
+```clojure
 [:a {:href (str "/good/" (:id q) "/" (:id a))
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
@@ -17,7 +17,13 @@
 - admin-page 等、行方不明。不要か？
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできる
+- code block
 
+
+## 2.2.5-SNAPSHOT
+- added Makefile
+
+  % make deploy
 
 ## 2.2.4 - 2023-03-21
 - bump vesion up
