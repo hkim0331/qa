@@ -2,12 +2,17 @@
   (:require
    #_[ataraxy.response :as response]
    [buddy.hashers :as hashers]
+   [environ.core :refer [env]]
    [hato.client :as hc]
    [integrant.core :as ig]
    #_[qa.boundary.users :refer [find-user-by-login]]
    [qa.view.page :refer [index-page]]
    [ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre]))
+
+(comment
+  (env :qa-dev)
+  :rcf)
 
 (defmethod ig/init-key :qa.handler.auth/login [_ _]
   (fn [req]
@@ -22,10 +27,12 @@
 (def l22 "https://l22.melt.kyutech.ac.jp")
 
 (defn auth? [login password]
-  (let [ep (str l22 "/api/user/" login)
-        user (:body (hc/get ep {:as :json}))]
-    (timbre/debug "auth?" user)
-    (and (some? user) (hashers/check password (:password user)))))
+  (if (env :qa-dev)
+    true
+    (let [ep (str l22 "/api/user/" login)
+          user (:body (hc/get ep {:as :json}))]
+      (timbre/debug "auth?" user)
+      (and (some? user) (hashers/check password (:password user))))))
 
 (defmethod ig/init-key :qa.handler.auth/login-post [_ _]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]

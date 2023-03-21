@@ -2,7 +2,7 @@
   (:require
    #_[ataraxy.core :as ataraxy]
    [ataraxy.response :as response]
-   [clojure.java.io :as io]
+   #_[clojure.java.io :as io]
    [integrant.core :as ig]
    [java-time :as jt]
    [next.jdbc :as jdbc]
@@ -24,7 +24,8 @@
      recents-page
      recent-goods-page
      readers-page
-     points-page]]
+     points-page
+     preview-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -75,9 +76,12 @@
   (fn [_]
     [::response/ok "answer-new"]))
 
+;; changed 2023-03-21
 (defmethod ig/init-key :qa.handler.core/answer-create [_ {:keys [db]}]
-  (fn [{[_ {:strs [q_id answer]}] :ataraxy/result :as req}]
+  (fn [{{:keys [q_id answer]} :params :as req}]
     (let [nick (get-login req)]
+      ;;(timbre/debug "req" req)
+      (timbre/debug "answer-create: q_id" q_id "nick" nick "answer" answer)
       (answers/create db (Integer/parseInt q_id) nick answer)
       [::response/found (str "/as/" q_id)])))
 
@@ -97,6 +101,12 @@
       (readers/create-reader db nick "as" n)
       ;;(debug "/as q:" q "nick:" nick "answers:" answers)
       (answers-page q answers nick))))
+
+;; 2023-03-21
+(defmethod ig/init-key :qa.handler.core/markdown-preview [_ _]
+  (fn [{[_ req] :ataraxy/result}]
+    (debug "makrdown-preview" req)
+    (preview-page (select-keys req ["q_id" "answer"]))))
 
 ;; goods と answers の二つを書き換える。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]

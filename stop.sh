@@ -1,3 +1,4 @@
 #!/bin/sh
-export PORT=3024
-kill `lsof -t -i:${PORT}`
+PID=`/usr/bin/lsof -i:3003 -t`
+kill ${PID}
+echo killed PID ${PID} 
