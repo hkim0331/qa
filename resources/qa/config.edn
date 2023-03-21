@@ -23,6 +23,10 @@
     [:get  "/qs"] ^:auth [:qa.handler.core/questions]
     [:get  "/qs-all"] ^:auth [:qa.handler.core/questions-all]
 
+    ;; 2023-03-21
+    [:post "/markdown-preview" {params :form-params}]
+    [:qa.handler.core/markdown-preview params]
+
     [:post "/a" {params :multipart-params}]
     [:qa.handler.core/answer-create params]
 
@@ -71,6 +75,9 @@
   :qa.handler.core/question-create {:db #ig/ref :duct.database/sql}
   :qa.handler.core/questions       {:db #ig/ref :duct.database/sql}
   :qa.handler.core/questions-all   {:db #ig/ref :duct.database/sql}
+
+  ;;2023-03-21
+  :qa.handler.core/markdown-preview {}
 
   :qa.handler.core/answer-create {:db #ig/ref :duct.database/sql}
   :qa.handler.core/answers       {:db #ig/ref :duct.database/sql}

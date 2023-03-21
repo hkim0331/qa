@@ -9,7 +9,7 @@
    ;;[qa.handler.core :refer [goods]]
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
-   #_[taoensso.timbre :as timbre]))
+   [taoensso.timbre :as timbre]))
 
 
 (def version "2.1.3")
@@ -153,6 +153,7 @@
   (-> (str/replace s #"<br>" "")
       escape-html))
 
+
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
@@ -174,9 +175,10 @@
    [:p
     ;; form の内側に [:a] で道場をリンクしている。submit 先で分岐できれば、
     ;; タイプしたメッセージをプレビューできるか？
-    (form-to {:enctype "multipart/form-data"
-              :onsubmit "return confirm('その回答で OK ですか？')"}
-             [:post "/a"]
+    (form-to ;;{:enctype "multipart/form-data"
+             ;; :onsubmit "return confirm('その回答で OK ですか？')"}
+             ;;[:post "/a"]
+             [:post "/markdown-preview"]
              (anti-forgery-field)
              (hidden-field "q_id" (:id q))
              (text-area {:id "answer"
@@ -278,3 +280,10 @@
    [:h2 "Points " name " " sid]
    (for [item ret]
      [:p (str item)])))
+
+(defn preview-page [{:strs [q-id answer] :as req}]
+  (timbre/debug "preview-page q-id" q-id "answer" answer)
+  (timbre/debug "req" req)
+  (page
+   [:h2 "Preview Markdown"]
+   (md-to-html-string answer)))

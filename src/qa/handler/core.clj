@@ -24,7 +24,8 @@
      recents-page
      recent-goods-page
      readers-page
-     points-page]]
+     points-page
+     preview-page]]
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
@@ -97,6 +98,12 @@
       (readers/create-reader db nick "as" n)
       ;;(debug "/as q:" q "nick:" nick "answers:" answers)
       (answers-page q answers nick))))
+
+;; 2023-03-21
+(defmethod ig/init-key :qa.handler.core/markdown-preview [_ _]
+  (fn [{req :ataraxy/result}]
+    (debug "makrdown-review" req)
+    (preview-page (select-keys req ["q-id" "answer"]))))
 
 ;; goods と answers の二つを書き換える。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]
