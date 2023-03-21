@@ -1,7 +1,7 @@
 (ns dev
   (:refer-clojure :exclude [test])
   (:require [clojure.repl :refer :all]
-            [fipp.edn :refer [pprint]]
+            #_[fipp.edn :refer [pprint]]
             [clojure.tools.namespace.repl :refer [refresh]]
             [clojure.java.io :as io]
             [duct.core :as duct]
@@ -27,5 +27,9 @@
 
 (when (io/resource "local.clj")
   (load "local"))
+
+(timbre/merge-config!
+ {:min-level :debug
+  :timestamp-opts {:pattern "HH:mm:ss" :timezone :jvm-default}})
 
 (integrant.repl/set-prep! #(duct/prep-config (read-config) profiles))
