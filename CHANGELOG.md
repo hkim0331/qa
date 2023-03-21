@@ -17,16 +17,15 @@
 - admin-page 等、行方不明。不要か？
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできる
-* preview before submission
-* no auth when dev mode
-* use env-var? `config` usage in duct
 
 
-## 2.2.4-SNAPSHOT markdown preview
-- omit login auth by export QA_DEV=true
+## 2.2.4 - 2023-03-21
+- preview before submission
+- no auth when dev mode
+- use env-var? `config` usage in duct
+- ommit login auth by export QA_DEV=true
 - `:duct.server.http/jetty {:port 3003}` this is same with qa.melt
   changed start.sh and stop.sh simultaneously.
- 
 
 ## 2.1.3 - 2023-03-05
 - update libraries

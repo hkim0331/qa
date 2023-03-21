@@ -76,9 +76,12 @@
   (fn [_]
     [::response/ok "answer-new"]))
 
+;; changed 2023-03-21
 (defmethod ig/init-key :qa.handler.core/answer-create [_ {:keys [db]}]
-  (fn [{[_ {:strs [q_id answer]}] :ataraxy/result :as req}]
+  (fn [{{:keys [q_id answer]} :params :as req}]
     (let [nick (get-login req)]
+      ;;(timbre/debug "req" req)
+      (timbre/debug "answer-create: q_id" q_id "nick" nick "answer" answer)
       (answers/create db (Integer/parseInt q_id) nick answer)
       [::response/found (str "/as/" q_id)])))
 
@@ -102,8 +105,8 @@
 ;; 2023-03-21
 (defmethod ig/init-key :qa.handler.core/markdown-preview [_ _]
   (fn [{[_ req] :ataraxy/result}]
-    (debug "makrdown-review" req)
-    (preview-page (select-keys req ["q-id" "answer"]))))
+    (debug "makrdown-preview" req)
+    (preview-page (select-keys req ["q_id" "answer"]))))
 
 ;; goods と answers の二つを書き換える。
 (defmethod ig/init-key :qa.handler.core/good [_ {:keys [db]}]
