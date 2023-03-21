@@ -3,12 +3,12 @@
 ## Unreleased
 - firefox で qa にログインできない
   nginx 通さないダイレクト通信だとログインできる
-  問題は nginx にあるとみた方がいい。
+  問題は nginx にあるとみた方がいい
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
-- いいねにアラートつけるか。
+- いいねにアラートつけるか
 ```
 [:a {:href (str "/good/" (:id q) "/" (:id a))
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
@@ -16,13 +16,17 @@
 ```
 - admin-page 等、行方不明。不要か？
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
-- 質問を出したユーザは質問をクローズできる。
+- 質問を出したユーザは質問をクローズできる
 * preview before submission
 * no auth when dev mode
 * use env-var? `config` usage in duct
 
 
-## 2.2.4-SNAPSHOT
+## 2.2.4-SNAPSHOT markdown preview
+- omit login auth by export QA_DEV=true
+- `:duct.server.http/jetty {:port 3003}` this is same with qa.melt
+  changed start.sh and stop.sh simultaneously.
+ 
 
 ## 2.1.3 - 2023-03-05
 - update libraries

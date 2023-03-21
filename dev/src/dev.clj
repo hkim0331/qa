@@ -10,7 +10,7 @@
             [integrant.core :as ig]
             [integrant.repl :refer [clear halt go init prep reset]]
             [integrant.repl.state :refer [config system]]
-            #_[taoensso.timbre :as timbre]))
+            [taoensso.timbre :as timbre]))
 
 (duct/load-hierarchy)
 
@@ -27,5 +27,9 @@
 
 (when (io/resource "local.clj")
   (load "local"))
+
+(timbre/merge-config!
+ {:min-level :debug
+  :timestamp-opts {:pattern "HH:mm:ss" :timezone :jvm-default}})
 
 (integrant.repl/set-prep! #(duct/prep-config (read-config) profiles))
