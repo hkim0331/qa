@@ -9,10 +9,10 @@
            {:login login :page page :number number}))
 
 (defn fetch-readers [db page number since]
-  (println "since" since)
+  ;; (println "since" since)
   (let [ret (query
              (ds-opt db)
-             ["select distinct(login) from readers
+             ["select login from readers
                where page=? and number=? and read_at > ?::date"
               page number since])]
    ret))

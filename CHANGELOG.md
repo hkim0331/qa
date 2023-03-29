@@ -20,6 +20,12 @@
 - code block
 
 
+## 2.2.6 - 2023-03-29
+readers を重複をなくした名前順ではなく、読んだ順にした。長すぎる時はやめよう。
+- boundary.readers/fetch-readers で distinct をやめ、
+- view.page/readers-page に dedupe を挟んだ。連続するものは一つに。
+  => 一度だけ現れるってのは？
+
 ## 2.2.5-SNAPSHOT
 - added Makefile
 

@@ -241,6 +241,8 @@
    [:h2 "QA: Who read since " since]
    [:p "ほんと、みんな、QA 読まないんだな。点数稼ぎの 👍 は心が冷えるよ。"]
    [:p (->> (mapv :login readers)
+            ;; 2.2.5, 2023-03-29
+            dedupe
             (interpose " ")
             (apply str))
     "(合計 " (count readers) ")"]))

@@ -64,7 +64,7 @@
       (questions-page ret counts))))
 
 (defmethod ig/init-key :qa.handler.core/questions-all [_ {:keys [db]}]
-  (fn [request]
+  (fn [_]
     (let [ret (questions/fetch-all db)
           counts (answers/count-answers db)]
       (questions-page ret counts))))
