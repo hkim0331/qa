@@ -9,10 +9,10 @@
    ;;[qa.handler.core :refer [goods]]
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
-   #_[taoensso.timbre :as timbre]))
+   [taoensso.timbre :as timbre]))
 
 
-(def version "1.7.9")
+(def version "2.2.6")
 
 ;; 2022-07-23
 (def wrap-at 80)
@@ -153,6 +153,7 @@
   (-> (str/replace s #"<br>" "")
       escape-html))
 
+
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
@@ -174,9 +175,10 @@
    [:p
     ;; form の内側に [:a] で道場をリンクしている。submit 先で分岐できれば、
     ;; タイプしたメッセージをプレビューできるか？
-    (form-to {:enctype "multipart/form-data"
-              :onsubmit "return confirm('その回答で OK ですか？')"}
-             [:post "/a"]
+    (form-to ;;{:enctype "multipart/form-data"
+             ;; :onsubmit "return confirm('その回答で OK ですか？')"}
+             ;;[:post "/a"]
+             [:post "/markdown-preview"]
              (anti-forgery-field)
              (hidden-field "q_id" (:id q))
              (text-area {:id "answer"
@@ -185,7 +187,7 @@
              [:br]
              [:a {:href "/md" :class "btn btn-info btn-sm"} "Markdown 道場"]
              "&nbsp;"
-             (submit-button {:class "btn btn-primary btn-sm"} "submit"))]
+             (submit-button {:class "btn btn-primary btn-sm"} "preview"))]
    [:p]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
 
@@ -239,6 +241,8 @@
    [:h2 "QA: Who read since " since]
    [:p "ほんと、みんな、QA 読まないんだな。点数稼ぎの 👍 は心が冷えるよ。"]
    [:p (->> (mapv :login readers)
+            ;; 2.2.5, 2023-03-29
+            dedupe
             (interpose " ")
             (apply str))
     "(合計 " (count readers) ")"]))
@@ -272,3 +276,25 @@
    [:hr]
    [:p "Markdown 道場へはブラウザの「戻る」で。"]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA top"]]))
+
+(defn points-page [name sid ret]
+  (page
+   [:h2 "Points " name " " sid]
+   (for [item ret]
+     [:p (str item)])))
+
+(defn preview-page [{:strs [q_id answer] :as req}]
+  (timbre/debug "preview-page q_id" q_id "answer" answer)
+  ;; (timbre/debug "req" req)
+  (page
+   [:h2 "Check Your Markdown"]
+   (md-to-html-string answer)
+   (form-to
+    [:post "/a"]
+    (anti-forgery-field)
+    (hidden-field "q_id" q_id)
+    (hidden-field "answer" answer)
+    (submit-button {:class "btn btn-info btn-sm"} "投稿"))
+   [:p "思ったとおりじゃない時はブラウザの「戻る」で修正後に投稿する。"
+    [:br]
+    "投稿ボタンを押さない限り、QA には反映しない。"]))

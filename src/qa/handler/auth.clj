@@ -1,30 +1,50 @@
 (ns qa.handler.auth
   (:require
-   [ataraxy.response :as response]
+   #_[ataraxy.response :as response]
    [buddy.hashers :as hashers]
+   [environ.core :refer [env]]
+   [hato.client :as hc]
    [integrant.core :as ig]
-   [qa.boundary.users :refer [find-user-by-login]]
+   #_[qa.boundary.users :refer [find-user-by-login]]
    [qa.view.page :refer [index-page]]
    [ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre]))
+
+(comment
+  (env :qa-dev)
+  :rcf)
 
 (defmethod ig/init-key :qa.handler.auth/login [_ _]
   (fn [req]
     (index-page req)))
 
-(defn auth? [db login password]
-  (let [user (find-user-by-login db login)]
-    (timbre/debug "auth?" user)
-    (and (some? user) (hashers/check password (:password user)))))
+;; changed 2.0.0 2022-09-26
+;; (defn auth? [db login password]
+;;   (let [user (find-user-by-login db login)]
+;;     (timbre/debug "auth?" user)
+;;     (and (some? user) (hashers/check password (:password user)))))
 
-(defmethod ig/init-key :qa.handler.auth/login-post [_ {:keys [db]}]
+(def l22 "https://l22.melt.kyutech.ac.jp")
+
+(defn auth? [login password]
+  (if (env :qa-dev)
+    true
+    (let [ep (str l22 "/api/user/" login)
+          user (:body (hc/get ep {:as :json}))]
+      (timbre/debug "auth?" user)
+      (and (some? user) (hashers/check password (:password user))))))
+
+(defmethod ig/init-key :qa.handler.auth/login-post [_ _]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]
-    ;;(timbre/debug "login-post" login password)
-    (if (and (seq login) (auth? db login password))
-      (-> (redirect "/qs")
-          (assoc-in [:session :identity] (keyword login))) ; keyword の必要性
-      (-> (redirect "/")
-          (assoc :flash "login failure")))))
+    (if (and (seq login) (auth? login password))
+      (do
+        (timbre/info "login success")
+        (-> (redirect "/qs")
+            (assoc-in [:session :identity] (keyword login))))
+      (do
+        (timbre/info "login failure")
+        (-> (redirect "/")
+            (assoc :flash "login failure"))))))
 
 (defmethod ig/init-key :qa.handler.auth/logout [_ _]
   (fn [_]

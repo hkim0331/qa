@@ -6,7 +6,8 @@ After=network.target
 WorkingDirectory=/home/ubuntu/qa
 Environment=PORT=3003
 Environment=DATABASE_URL=jdbc:postgresql://db/l22?user=postgres&password=password
-ExecStart=/usr/bin/java -jar /home/ubuntu/qa/qa.jar
+ExecStart=/bin/sh start.sh
+ExecStop=/bin/sh stop.sh
 StandardOutput=append:/home/ubuntu/qa/log/qa.log
 StandardError=append:/home/ubuntu/qa/log/qa.log
 User=ubuntu

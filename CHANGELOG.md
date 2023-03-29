@@ -1,19 +1,72 @@
 # Question and Answers
 
 ## Unreleased
+- firefox で qa にログインできない
+  nginx 通さないダイレクト通信だとログインできる
+  問題は nginx にあるとみた方がいい
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
-- いいねにアラートつけるか。
-```
+- いいねにアラートつけるか
+```clojure
 [:a {:href (str "/good/" (:id q) "/" (:id a))
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
 ```
 - admin-page 等、行方不明。不要か？
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
-- 質問を出したユーザは質問をクローズできる。
+- 質問を出したユーザは質問をクローズできる
+- code block
+
+
+## 2.2.6 - 2023-03-29
+readers を重複をなくした名前順ではなく、読んだ順にした。長すぎる時はやめよう。
+- boundary.readers/fetch-readers で distinct をやめ、
+- view.page/readers-page に dedupe を挟んだ。連続するものは一つに。
+  => 一度だけ現れるってのは？
+
+## 2.2.5-SNAPSHOT
+- added Makefile
+
+  % make deploy
+
+## 2.2.4 - 2023-03-21
+- bump vesion up
+- preview before submission
+- no auth when dev mode
+- use env-var? `config` usage in duct
+- ommit login auth by export QA_DEV=true
+- `:duct.server.http/jetty {:port 3003}` this is same with qa.melt
+  changed start.sh and stop.sh simultaneously.
+
+## 2.1.3 - 2023-03-05
+- update libraries
+
+## 2.0.5 - 2022-10-15
+
+## 2.0.3 - 2022-10-13
+- keyword をやめてみた。効果なし。2.0.2 に戻す。
+
+## 2.0.2 - 2022-10-13
+- firefox でログインできない？そんな馬鹿な？
+  家 Mac で再現できた。なぜだ？ 理由がわからん。py99 へは firefox ログインできる。
+  proxy 通さない直 qa はこれまたログインできる。
+  proxy が問題？そんなことあるかなあ？
+  duct か？ py99 は luminus.
+
+## 2.0.1 - 2022-10-13
+- 昨年のまま、l22 データベースを使っていた。qa データベースに以降。
+  一般人にはわかるまい。成功したみたいだ。
+
+## 2.0.0 - 2022-09-26
+- login を db から api に変更した。
+
+## 1.9.0 - 2022-08-09
+- resources/db/grading.sqlite3
+
+## 1.8.0 - 2022-08-08
+- announce
 
 ## 1.7.9 - 2022-08-06
 - DRY! `/since` redirects `/since/"today"`.
