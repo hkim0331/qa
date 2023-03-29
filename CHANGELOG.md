@@ -15,7 +15,7 @@
     goods]
 ```
 - admin-page 等、行方不明。不要か？
-- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
+[label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできる
 - code block
 
