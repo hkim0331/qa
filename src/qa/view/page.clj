@@ -12,7 +12,7 @@
    [taoensso.timbre :as timbre]))
 
 
-(def version "2.2.6")
+(def version "2.2.7")
 
 ;; 2022-07-23
 (def wrap-at 80)
@@ -242,7 +242,9 @@
    [:p "ほんと、みんな、QA 読まないんだな。点数稼ぎの 👍 は心が冷えるよ。"]
    [:p (->> (mapv :login readers)
             ;; 2.2.5, 2023-03-29
-            dedupe
+            ;; dedupe
+            ;; 2.2.6, 2023-04-10
+            distinct
             (interpose " ")
             (apply str))
     "(合計 " (count readers) ")"]))
