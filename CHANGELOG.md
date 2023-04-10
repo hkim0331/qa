@@ -19,6 +19,9 @@
 - 質問を出したユーザは質問をクローズできる
 - code block
 
+## 2.2.7 - 2023-04-10
+### Changed
+- view.page/readers-page の dedupe を distinct に変更
 
 ## 2.2.6 - 2023-03-29
 readers を重複をなくした名前順ではなく、読んだ順にした。長すぎる時はやめよう。
