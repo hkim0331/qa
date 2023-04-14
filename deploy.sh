@@ -3,6 +3,7 @@ if [ -z "$1" ]; then
 	echo usage: $0 target/file.jar
 	exit 1
 fi
+
 BN=`basename $1`
 scp $1 app.melt:qa/ && \
 ssh app.melt "(cd qa && ln -sf ${BN} qa.jar)" && \
