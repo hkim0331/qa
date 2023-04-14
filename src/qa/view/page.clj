@@ -12,7 +12,7 @@
    [taoensso.timbre :as timbre]))
 
 
-(def version "2.2.7")
+(def version "2.2.8-SNAPSHOT")
 
 ;; 2022-07-23
 (def wrap-at 80)
