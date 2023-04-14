@@ -20,6 +20,36 @@
 - 質問を出したユーザは質問をクローズできる
 - code block
 
+## 2.2.8-SNAPSHOT
+### drop table
+```
+qa=# \d
+                 List of relations
+ Schema |        Name        |   Type   |  Owner   
+--------+--------------------+----------+----------
+ public | answers            | table    | postgres
+ public | answers_id_seq     | sequence | postgres
+ public | goods              | table    | postgres
+ public | goods_id_seq       | sequence | postgres
+ public | questions          | table    | postgres
+ public | questions_id_seq   | sequence | postgres
+ public | ragtime_migrations | table    | postgres
+ public | readers            | table    | postgres
+ public | readers_id_seq     | sequence | postgres
+ public | schema_migrations  | table    | postgres
+(10 rows)
+```
+
+### antq upgrade
+
+|       :file |                             :name | :current | :latest |
+| ----------- | --------------------------------- | -------- | ------- |
+| project.clj | com.github.seancorfield/next.jdbc |  1.3.862 | 1.3.865 |
+|             |                         ring/ring |    1.9.6 |  1.10.0 |
+
+### Removed
+- deploy.sh use `make deploy`
+
 ## 2.2.7 - 2023-04-10
 ### Changed
 - view.page/readers-page の dedupe を distinct に変更
