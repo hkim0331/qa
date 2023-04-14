@@ -4,6 +4,7 @@
 - firefox で qa にログインできない
   nginx 通さないダイレクト通信だとログインできる
   問題は nginx にあるとみた方がいい
+- safari ではどうか？ typing-ex ng な safari でも qa はいける
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
@@ -18,6 +19,36 @@
 [label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできる
 - code block
+
+## 2.2.8 - 2023-04-14
+### drop table
+```
+qa=# \d
+                 List of relations
+ Schema |        Name        |   Type   |  Owner   
+--------+--------------------+----------+----------
+ public | answers            | table    | postgres
+ public | answers_id_seq     | sequence | postgres
+ public | goods              | table    | postgres
+ public | goods_id_seq       | sequence | postgres
+ public | questions          | table    | postgres
+ public | questions_id_seq   | sequence | postgres
+ public | ragtime_migrations | table    | postgres
+ public | readers            | table    | postgres
+ public | readers_id_seq     | sequence | postgres
+ public | schema_migrations  | table    | postgres
+(10 rows)
+```
+
+### antq upgrade
+
+|       :file |                             :name | :current | :latest |
+| ----------- | --------------------------------- | -------- | ------- |
+| project.clj | com.github.seancorfield/next.jdbc |  1.3.862 | 1.3.865 |
+|             |                         ring/ring |    1.9.6 |  1.10.0 |
+
+### Removed
+- deploy.sh use `make deploy`
 
 ## 2.2.7 - 2023-04-10
 ### Changed
