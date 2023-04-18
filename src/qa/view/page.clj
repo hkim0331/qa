@@ -128,7 +128,7 @@
     "&nbsp;"
     [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]
     "&nbsp;"
-    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown"]]
+    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]]
    [:p [:a {:href "/readers/qs/0"} "readers"]]
    (for [q qs]
      [:p
