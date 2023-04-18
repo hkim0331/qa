@@ -12,7 +12,7 @@
    [taoensso.timbre :as timbre]))
 
 
-(def version "2.2.8")
+(def version "2.2.9")
 
 ;; 2022-07-23
 (def wrap-at 80)
@@ -94,7 +94,8 @@
      [:li "回答しやすい質問をする練習と、回答できる質問には回答する練習。"]
      [:li "質問はテキスト、回答は Markdown で。"]
      [:li "「👍」は一回答に一回だけです。"]
-     [:li "「👍」付いた回答にはちょびっとボーナス。"]]]))
+     [:li "「👍」付いた回答にはちょびっとボーナス。"]
+     [:li "firefox がログインに失敗する。firefox 以外で。2023-04-18"]]]))
 
 (defn question-new-page []
   (page
@@ -128,7 +129,7 @@
     "&nbsp;"
     [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]
     "&nbsp;"
-    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown"]]
+    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]]
    [:p [:a {:href "/readers/qs/0"} "readers"]]
    (for [q qs]
      [:p
