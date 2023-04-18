@@ -5,6 +5,7 @@
   nginx 通さないダイレクト通信だとログインできる
   問題は nginx にあるとみた方がいい
   safari ではどうか？ typing-ex ng な safari でも qa はいける
+  kali の firefox は大丈夫。
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
@@ -21,8 +22,7 @@
 - code block
 
 ## 2.2.9 - 2023-04-18
-### FIXED
-
+- メニューを markdown から markdown 道場へ
 
 ## 2.2.8 - 2023-04-14
 ### drop table
