@@ -21,6 +21,10 @@
 - 質問を出したユーザは質問をクローズできる
 - code block
 
+## 2.2.10 - 2023-05-16
+- Q を 2023-04-01 以降のものに絞る
+- preview の意味を短く表示
+
 ## 2.2.9 - 2023-04-18
 - メニューを markdown から markdown 道場へ
 
@@ -29,7 +33,7 @@
 ```
 qa=# \d
                  List of relations
- Schema |        Name        |   Type   |  Owner   
+ Schema |        Name        |   Type   |  Owner
 --------+--------------------+----------+----------
  public | answers            | table    | postgres
  public | answers_id_seq     | sequence | postgres

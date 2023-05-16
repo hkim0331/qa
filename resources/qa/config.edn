@@ -7,53 +7,31 @@
 
    :routes
    {[:get "/"] [:qa.handler.core/index]
-
     [:get "/login"] [:qa.handler.auth/login]
-
-    [:post "/login" {params :form-params}]
-    [:qa.handler.auth/login-post params]
-
+    [:post "/login" {params :form-params}] [:qa.handler.auth/login-post params]
     [:get "/logout"] [:qa.handler.auth/logout]
-
+    ;; questions
     [:get  "/q"] ^:auth [:qa.handler.core/question-new]
-
-    [:post "/q" {params :multipart-params}]
-    [:qa.handler.core/question-create params]
-
+    [:post "/q" {params :multipart-params}] [:qa.handler.core/question-create params]
     [:get  "/qs"] ^:auth [:qa.handler.core/questions]
     [:get  "/qs-all"] ^:auth [:qa.handler.core/questions-all]
-
-    ;; 2023-03-21
-    [:post "/markdown-preview" {params :form-params}]
-    [:qa.handler.core/markdown-preview params]
-
-    [:post "/a" {params :multipart-params}]
-    [:qa.handler.core/answer-create params]
-
+    ;; markdown preview
+    [:post "/markdown-preview" {params :form-params}] [:qa.handler.core/markdown-preview params]
+    ;; answers
+    [:post "/a" {params :multipart-params}] [:qa.handler.core/answer-create params]
     [:get  "/as/" n] ^:auth [:qa.handler.core/answers ^int n]
-
-    [:get "/good/" q-id "/" a-id] ^:auth
-    [:qa.handler.core/good ^int q-id ^int a-id]
-
+    ;; goods
+    [:get "/good/" q-id "/" a-id] ^:auth [:qa.handler.core/good ^int q-id ^int a-id]
     [:get "/goods"] ^:auth [:qa.handler.core/goods]
-
     [:get "/my-goods/" nick] ^:auth [:qa.handler.core/my-goods nick]
-
     [:get "/recents"] ^:auth [:qa.handler.core/recents]
-
     [:get "/who-goods/" n] ^:auth [:qa.handler.core/who-goods n]
-
+    ;; admin
     [:get "/admin"] ^:auth [:qa.handler.core/admin]
-
-    [:post "/admin/goods" {params :form-params}]
-    [:qa.handler.core/admin-goods params]
-
-    [:get "/readers/" path "/" n] ^:auth
-    [:qa.handler.core/readers path ^int n]
-
+    [:post "/admin/goods" {params :form-params}] [:qa.handler.core/admin-goods params]
+    [:get "/readers/" path "/" n] ^:auth [:qa.handler.core/readers path ^int n]
     [:get  "/md"] ^:auth [:qa.handler.core/md]
     [:post "/md" {params :form-params}] [:qa.handler.core/md-post params]
-
     [:get "/points"] ^:auth [:qa.handler.core/points]
 
     ;; post?
@@ -76,7 +54,6 @@
   :qa.handler.core/questions       {:db #ig/ref :duct.database/sql}
   :qa.handler.core/questions-all   {:db #ig/ref :duct.database/sql}
 
-  ;;2023-03-21
   :qa.handler.core/markdown-preview {}
 
   :qa.handler.core/answer-create {:db #ig/ref :duct.database/sql}
