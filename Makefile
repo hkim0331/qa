@@ -12,4 +12,4 @@ deploy: clean uberjar
 	ssh ${DEST} 'systemctl status qa'
 
 clean:
-	${RM} -rf target
+	${RM} -r target

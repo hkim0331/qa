@@ -3,19 +3,19 @@
    [ataraxy.response :as response]
    [clojure.string :as str]
    [hiccup.page :refer [html5]]
-   [hiccup.form :refer [form-to text-field password-field submit-button
-                        text-area hidden-field]]
+   [hiccup.form
+    :refer
+    [form-to text-field password-field submit-button text-area hidden-field]]
    [hiccup.util :refer [escape-html]]
    ;;[qa.handler.core :refer [goods]]
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
-   [taoensso.timbre :as timbre]))
+   ;;[taoensso.timbre :as timbre]
+   ))
 
+(def ^:private version "2.2.10")
 
-(def version "2.2.9")
-
-;; 2022-07-23
-(def wrap-at 80)
+(def ^:private wrap-at 80)
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -29,13 +29,13 @@
   [n s]
   (str/join "\n" (map (partial wrap-aux n) (str/split-lines s))))
 
-(defn ss
+(defn- ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
    文字列長さが n に満たない時はそのまま。"
   [n s]
   (subs s 0 (min n (count s))))
 
-(defn date-time
+(defn- date-time
   "timestamp 文字列から YYYY/MM/DD hh:mm:ss を抜き出す"
   [tm]
   (subs (str tm) 0 19))
@@ -48,8 +48,10 @@
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
     [:link
      {:rel "stylesheet"
-      :href "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      :integrity "sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      :href "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      :integrity "sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      ;; :href "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      ;; :integrity "sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       :crossorigin "anonymous"}]
     [:link
      {:rel "stylesheet"
@@ -144,7 +146,7 @@
        (str " 👉" (answer-count cs (:id q)))]])
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
-(defn goods
+(defn- goods
   [n]
   (repeat n "👍"))
 
@@ -153,7 +155,6 @@
 (defn- my-escape-html [s]
   (-> (str/replace s #"<br>" "")
       escape-html))
-
 
 (defn answers-page [q answers nick]
   (page
@@ -289,7 +290,7 @@
      [:p (str item)])))
 
 (defn preview-page [{:strs [q_id answer] :as req}]
-  (timbre/debug "preview-page q_id" q_id "answer" answer)
+  ;; (timbre/debug "preview-page q_id" q_id "answer" answer)
   ;; (timbre/debug "req" req)
   (page
    [:h2 "Check Your Markdown"]
