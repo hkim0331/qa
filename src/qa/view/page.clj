@@ -136,7 +136,7 @@
     "&nbsp;"
     [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]]
    [:p [:a.link-underline-light
-        {:href "/readers/qs/0"}
+        {:href "/readers/qs/0"}
         "readers"]]
    (for [q qs]
      [:p
@@ -184,7 +184,8 @@
              {:href (str "/good/" (:id q) "/" (:id a))}
              goods]
          (when (= nick "hkimura")
-           [:a {:href (str "/who-goods/" (:id a)) :class "red"}
+           [:a.link-underline-light
+            {:href (str "/who-goods/" (:id a))}
             " &nbsp; "])]]))
    [:p
     ;; form の内側に [:a] で道場をリンクしている。submit 先で分岐できれば、

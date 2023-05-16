@@ -21,6 +21,9 @@
 - 質問を出したユーザは質問をクローズできる
 - code block
 
+## 2.2.12-SNAPSHOT
+- let good anchors for admin only transparent
+
 ## 2.2.11 - 2023-05-16
 - bootstrap@5.3.0-alpha3
 - link-underline-light で見かけを軽くした。
