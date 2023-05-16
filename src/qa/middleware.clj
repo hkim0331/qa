@@ -32,7 +32,7 @@
 (defmethod ig/init-key :qa.middleware/auth [_ _]
   (fn [handler]
     (-> handler
-        probe
+        ;; probe
         (restrict {:handler authenticated?})
         (wrap-authorization  auth-backend)
         (wrap-authentication auth-backend))))
