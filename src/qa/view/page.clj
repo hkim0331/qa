@@ -13,7 +13,7 @@
    ;;[taoensso.timbre :as timbre]
    ))
 
-(def ^:private version "2.2.10")
+(def ^:private version "2.2.11")
 
 (def ^:private wrap-at 80)
 
