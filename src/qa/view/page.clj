@@ -176,19 +176,21 @@
    [:p
     ;; form の内側に [:a] で道場をリンクしている。submit 先で分岐できれば、
     ;; タイプしたメッセージをプレビューできるか？
-    (form-to ;;{:enctype "multipart/form-data"
-             ;; :onsubmit "return confirm('その回答で OK ですか？')"}
-             ;;[:post "/a"]
-             [:post "/markdown-preview"]
-             (anti-forgery-field)
-             (hidden-field "q_id" (:id q))
-             (text-area {:id "answer"
-                         :placeholder "markdown OK"}
-                        "answer")
-             [:br]
-             [:a {:href "/md" :class "btn btn-info btn-sm"} "Markdown 道場"]
-             "&nbsp;"
-             (submit-button {:class "btn btn-primary btn-sm"} "preview"))]
+    (form-to
+     ;;{:enctype "multipart/form-data"
+     ;; :onsubmit "return confirm('その回答で OK ですか？')"}
+     ;;[:post "/a"]
+     [:post "/markdown-preview"]
+     (anti-forgery-field)
+     (hidden-field "q_id" (:id q))
+     (text-area {:id "answer"
+                 :placeholder "markdown OK"}
+                "answer")
+     [:br]
+     [:a {:href "/md" :class "btn btn-info btn-sm"} "Markdown 道場"]
+     "&nbsp;"
+     (submit-button {:class "btn btn-primary btn-sm"} "preview")
+     [:p "自分のマークダウンを preview で確認して投稿する"])]
    [:p]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
 
