@@ -18,8 +18,11 @@
 ```
 - admin-page 等、行方不明。不要か？
 [label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
-- 質問を出したユーザは質問をクローズできる
+- 質問を出したユーザは質問をクローズできる（残しておいた方がいい）
 - code block
+- ログ。デバッグ用のログと、運用上のログ。
+- 判定が正しくできない時が。
+
 
 ## 2.2.12-SNAPSHOT
 - let good anchors for admin only transparent
