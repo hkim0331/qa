@@ -7,13 +7,10 @@
     :refer
     [form-to text-field password-field submit-button text-area hidden-field]]
    [hiccup.util :refer [escape-html]]
-   ;;[qa.handler.core :refer [goods]]
    [markdown.core :refer [md-to-html-string]]
-   [ring.util.anti-forgery :refer [anti-forgery-field]]
-   ;;[taoensso.timbre :as timbre]
-   ))
+   [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "2.2.11")
+(def ^:private version "2.3.0")
 
 (def ^:private wrap-at 80)
 
@@ -99,8 +96,7 @@
      [:li "回答しやすい質問をする練習と、回答できる質問には回答する練習。"]
      [:li "質問はテキスト、回答は Markdown で。"]
      [:li "「👍」は一回答に一回だけです。"]
-     [:li "「👍」付いた回答にはちょびっとボーナス。"]
-     [:li "firefox がログインに失敗する。firefox 以外で。2023-04-18"]]]))
+     [:li "「👍」付いた回答にはちょびっとボーナス。"]]]))
 
 (defn question-new-page []
   (page
