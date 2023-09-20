@@ -1,9 +1,6 @@
 # Question and Answers
 
 ## Unreleased
-- firefox で qa にログインできない
-  nginx 通さないダイレクト通信だとログインできる
-  問題は nginx にあるとみた方がいい
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
@@ -15,10 +12,65 @@
     goods]
 ```
 - admin-page 等、行方不明。不要か？
-[label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
-- 質問を出したユーザは質問をクローズできる
+[label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ ---
+  ログよりもデータベースに入れる方がいいか？
+- 質問を出したユーザは質問をクローズできるのは？ -> 他の人が不幸になりそう。
 - code block
 
+## 2.3.0 - 2023-09-20
+- firefox(117.0) で qa にログインできる。
+  nginx 通さないダイレクト通信だとログインできるので、問題は nginx にあったとみた方がいい。
+  kali の firefox は大丈夫だった。
+
+## 2.2.12-SNAPSHOT
+- let good anchors for admin only transparent
+
+## 2.2.11 - 2023-05-16
+- bootstrap@5.3.0-alpha3
+- link-underline-light で見かけを軽くした。
+
+## 2.2.10 - 2023-05-16
+- Q を 2023-04-01 以降のものに絞る
+- preview の意味を短く表示
+- (def ^:private version ...)
+- bootstrap 4.5.0 -> 5.2.3
+
+## 2.2.9 - 2023-04-18
+- メニューを markdown から markdown 道場へ
+
+## 2.2.8 - 2023-04-14
+### drop table
+```
+qa=# \d
+                 List of relations
+ Schema |        Name        |   Type   |  Owner
+--------+--------------------+----------+----------
+ public | answers            | table    | postgres
+ public | answers_id_seq     | sequence | postgres
+ public | goods              | table    | postgres
+ public | goods_id_seq       | sequence | postgres
+ public | questions          | table    | postgres
+ public | questions_id_seq   | sequence | postgres
+ public | ragtime_migrations | table    | postgres
+ public | readers            | table    | postgres
+ public | readers_id_seq     | sequence | postgres
+ public | schema_migrations  | table    | postgres
+(10 rows)
+```
+
+### antq upgrade
+
+|       :file |                             :name | :current | :latest |
+| ----------- | --------------------------------- | -------- | ------- |
+| project.clj | com.github.seancorfield/next.jdbc |  1.3.862 | 1.3.865 |
+|             |                         ring/ring |    1.9.6 |  1.10.0 |
+
+### Removed
+- deploy.sh use `make deploy`
+
+## 2.2.7 - 2023-04-10
+### Changed
+- view.page/readers-page の dedupe を distinct に変更
 
 ## 2.2.6 - 2023-03-29
 readers を重複をなくした名前順ではなく、読んだ順にした。長すぎる時はやめよう。

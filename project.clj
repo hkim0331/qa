@@ -1,4 +1,4 @@
-(defproject qa "2.2.6"
+(defproject qa "2.3.0"
   :description "qa system for my literacy classes"
   :url "https://qa.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -7,7 +7,7 @@
   [[buddy/buddy-auth "3.0.323"]
    [buddy/buddy-hashers "1.8.158"]
    [clojure.java-time "1.2.0"] ;; 2023-03-05
-   [com.github.seancorfield/next.jdbc "1.3.862"]
+   [com.github.seancorfield/next.jdbc "1.3.865"]
    [com.fasterxml.jackson.core/jackson-core "2.14.2"] ;; 2023-03-05
    [duct/core "0.8.0"]
    [duct/module.ataraxy "0.3.0"]
@@ -22,7 +22,7 @@
    ;;
    [cheshire/cheshire "5.11.0"]
    [hato/hato "0.9.0"]
-   [ring "1.9.6"]]
+   [ring "1.10.0"]]
 
   :plugins [[duct/lein-duct "0.12.3"]]
   :main ^:skip-aot qa.main

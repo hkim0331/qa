@@ -5,7 +5,7 @@
 
 docker が楽か、データベースの共有なんかをしない限り。
 
-## Developing
+## Developing (obsolete)
 
 lein repl の前に、.env の内容を確認し、忘れずに、
 

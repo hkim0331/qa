@@ -6,10 +6,10 @@ DEST="ubuntu@app.melt.kyutech.ac.jp"
 uberjar:
 	lein uberjar
 
-deploy: uberjar
+deploy: clean uberjar
 	scp target/qa-*-standalone.jar ${DEST}:qa/qa.jar && \
 	ssh ${DEST} 'sudo systemctl restart qa' && \
 	ssh ${DEST} 'systemctl status qa'
 
 clean:
-	${RM} -rf target
+	${RM} -r target

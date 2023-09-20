@@ -3,19 +3,16 @@
    [ataraxy.response :as response]
    [clojure.string :as str]
    [hiccup.page :refer [html5]]
-   [hiccup.form :refer [form-to text-field password-field submit-button
-                        text-area hidden-field]]
+   [hiccup.form
+    :refer
+    [form-to text-field password-field submit-button text-area hidden-field]]
    [hiccup.util :refer [escape-html]]
-   ;;[qa.handler.core :refer [goods]]
    [markdown.core :refer [md-to-html-string]]
-   [ring.util.anti-forgery :refer [anti-forgery-field]]
-   [taoensso.timbre :as timbre]))
+   [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
+(def ^:private version "2.3.0")
 
-(def version "2.2.6")
-
-;; 2022-07-23
-(def wrap-at 80)
+(def ^:private wrap-at 80)
 
 ;; from r99c.route.home/wrap
 (defn- wrap-aux
@@ -29,13 +26,13 @@
   [n s]
   (str/join "\n" (map (partial wrap-aux n) (str/split-lines s))))
 
-(defn ss
+(defn- ss
   "文字列 s の n 文字以降を切り詰めた文字列を返す。
    文字列長さが n に満たない時はそのまま。"
   [n s]
   (subs s 0 (min n (count s))))
 
-(defn date-time
+(defn- date-time
   "timestamp 文字列から YYYY/MM/DD hh:mm:ss を抜き出す"
   [tm]
   (subs (str tm) 0 19))
@@ -48,9 +45,14 @@
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
     [:link
      {:rel "stylesheet"
-      :href "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      :integrity "sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-      :crossorigin "anonymous"}]
+      :crossorigin "anonymous"
+      :href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      :integrity "sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      ;; :href "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      ;; :integrity "sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      ;; :href "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      ;; :integrity "sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      }]
     [:link
      {:rel "stylesheet"
       :type "text/css"
@@ -122,14 +124,16 @@
    [:h2 "QA: Questions"]
    [:p "すべての QA に目を通すのがルール。"]
    [:p "👉 のクリックで回答ページへ。"
-    [:a {:href "/recents" :class "btn btn-success btn-sm"} "最近の回答"]
+    [:a {:href "/recents" :class "btn btn-success btn-sm"} "最近の投稿"]
     "&nbsp;"
     [:a {:href "/goods" :class "btn btn-warning btn-sm"} "最近のいいね"]
     "&nbsp;"
     [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]
     "&nbsp;"
-    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown"]]
-   [:p [:a {:href "/readers/qs/0"} "readers"]]
+    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]]
+   [:p [:a.link-underline-light
+        {:href "/readers/qs/0"}
+        "readers"]]
    (for [q qs]
      [:p
       (:id q)
@@ -137,13 +141,16 @@
       (escape-html (-> (:q q) str/split-lines first))
            ;;(escape-html (ss 30 (:q q)))
       "&nbsp;"
-      [:a {:href (str "/my-goods/" (:nick q))} "[" (:nick q) "]"]
+      [:a.link-underline-light
+       {:href (str "/my-goods/" (:nick q))}
+       (:nick q)]
       "&nbsp;"
-      [:a {:href (str "/as/" (:id q))}
-       (str " 👉" (answer-count cs (:id q)))]])
+      [:a.link-underline-light
+       {:href (str "/as/" (:id q))}
+       (str " 👉 " (answer-count cs (:id q)))]])
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
-(defn goods
+(defn- goods
   [n]
   (repeat n "👍"))
 
@@ -153,14 +160,15 @@
   (-> (str/replace s #"<br>" "")
       escape-html))
 
-
 (defn answers-page [q answers nick]
   (page
    [:h2 "QA: Answers"]
    [:div [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
    [:h4 (:id q) ", " (:nick q) "さんの質問 " (date-time (:ts q)) ","]
    [:pre {:class "question"} (my-escape-html (wrap wrap-at (:q q)))]
-   [:p [:a {:href (str "/readers/as/" (:id q))} "readers"]]
+   [:p [:a.link-underline-light
+        {:href (str "/readers/as/" (:id q))}
+        "readers"]]
    [:hr]
    [:h4 "Answers"]
    (for [a answers]
@@ -168,26 +176,31 @@
        [:div
         [:p [:span {:class "nick"} (:nick a)] "'s answer " (date-time (:ts a)) ","]
         (md-to-html-string (:a a))
-        [:p [:a {:href (str "/good/" (:id q) "/" (:id a))} goods]
+        [:p [:a.link-underline-light
+             {:href (str "/good/" (:id q) "/" (:id a))}
+             goods]
          (when (= nick "hkimura")
-           [:a {:href (str "/who-goods/" (:id a)) :class "red"}
+           [:a.link-underline-light
+            {:href (str "/who-goods/" (:id a))}
             " &nbsp; "])]]))
    [:p
     ;; form の内側に [:a] で道場をリンクしている。submit 先で分岐できれば、
     ;; タイプしたメッセージをプレビューできるか？
-    (form-to ;;{:enctype "multipart/form-data"
-             ;; :onsubmit "return confirm('その回答で OK ですか？')"}
-             ;;[:post "/a"]
-             [:post "/markdown-preview"]
-             (anti-forgery-field)
-             (hidden-field "q_id" (:id q))
-             (text-area {:id "answer"
-                         :placeholder "markdown OK"}
-                        "answer")
-             [:br]
-             [:a {:href "/md" :class "btn btn-info btn-sm"} "Markdown 道場"]
-             "&nbsp;"
-             (submit-button {:class "btn btn-primary btn-sm"} "preview"))]
+    (form-to
+     ;;{:enctype "multipart/form-data"
+     ;; :onsubmit "return confirm('その回答で OK ですか？')"}
+     ;;[:post "/a"]
+     [:post "/markdown-preview"]
+     (anti-forgery-field)
+     (hidden-field "q_id" (:id q))
+     (text-area {:id "answer"
+                 :placeholder "markdown OK"}
+                "answer")
+     [:br]
+     [:a {:href "/md" :class "btn btn-info btn-sm"} "Markdown 道場"]
+     "&nbsp;"
+     (submit-button {:class "btn btn-primary btn-sm"} "preview")
+     [:p "自分のマークダウンを preview で確認して投稿する"])]
    [:p]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
 
@@ -217,11 +230,13 @@
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
    [:ol
     (for [a answers]
-      [:li (:nick a)
+      [:li
+       (date-time (:ts a))
        " "
-       [:a {:href (str "/as/" (:q_id a))} (escape-html (ss 20 (:a a)))]
-       " "
-       (date-time (:ts a))])]
+       [:a.link-underline-light
+        {:href (str "/as/" (:q_id a))}
+        (escape-html (ss 28 (:a a)))]
+       "..." (:nick a)])]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
 
 (defn recent-goods-page [answers]
@@ -234,7 +249,9 @@
       [:li
        (date-time (:ts a))
        " "
-       [:a {:href  (str "/as/" (:q_id a))} (ss 28 (:q a))]]))))
+       [:a.link-underline-light
+        {:href  (str "/as/" (:q_id a))}
+        (ss 28 (:q a)) "..."]]))))
 
 (defn readers-page [readers since]
   (page
@@ -242,7 +259,9 @@
    [:p "ほんと、みんな、QA 読まないんだな。点数稼ぎの 👍 は心が冷えるよ。"]
    [:p (->> (mapv :login readers)
             ;; 2.2.5, 2023-03-29
-            dedupe
+            ;; dedupe
+            ;; 2.2.6, 2023-04-10
+            distinct
             (interpose " ")
             (apply str))
     "(合計 " (count readers) ")"]))
@@ -284,7 +303,7 @@
      [:p (str item)])))
 
 (defn preview-page [{:strs [q_id answer] :as req}]
-  (timbre/debug "preview-page q_id" q_id "answer" answer)
+  ;; (timbre/debug "preview-page q_id" q_id "answer" answer)
   ;; (timbre/debug "req" req)
   (page
    [:h2 "Check Your Markdown"]
