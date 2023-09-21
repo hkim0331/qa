@@ -15,6 +15,8 @@
 [label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ ---
   ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできるのは？ -> 他の人が不幸になりそう。
+[label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
+- 質問を出したユーザは質問をクローズできる（残しておいた方がいい）
 - code block
 
 
