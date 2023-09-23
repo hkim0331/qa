@@ -124,7 +124,7 @@
    [:h2 "QA: Questions"]
    [:p "すべての QA に目を通すのがルール。"]
    [:p "👉 のクリックで回答ページへ。"
-    [:a {:href "/recents" :class "btn btn-success btn-sm"} "最近の投稿"]
+    [:a {:href "/recents" :class "btn btn-success btn-sm"} "最近の投稿"]
     "&nbsp;"
     [:a {:href "/goods" :class "btn btn-warning btn-sm"} "最近のいいね"]
     "&nbsp;"
@@ -278,9 +278,9 @@
     [:post "/md"]
     (anti-forgery-field)
     (text-area {:id "md"
-                :placeholder (str login
-                                  "さん専用マークダウン練習ページ。"
-                                  "練習しないとできるようにならないよ。")}
+                :placeholder
+                (str login "さん専用マークダウン練習ページ。"
+                     "練習しないとできるようにならないよ。")}
                "md")
     (submit-button {:class "btn btn-info btn-sm"} "preview"))))
 
