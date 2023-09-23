@@ -19,6 +19,23 @@
 - 質問を出したユーザは質問をクローズできる（残しておいた方がいい）
 - code block
 
+
+## 2.4.x-snapshot
+  m24 でメークした jar が app.melt で動かない。
+  同じソースを nuc.local でメークしたものは動くのだが。
+  docker でメークははどうか？
+
+## 2.4.13-snapshot
+- 2.2.11
+- 2.3.0 に戻してもだめ。
+- 2.3.12 は deploy 後エラー。
+```
+ubuntu@app:~/qa$ ./start.sh
+...
+Exception in thread "main" java.lang.NoClassDefFoundError: java/util/SequencedCollection
+...
+```
+
 ## 2.3.12 - 2023-09-23
 - /about ページ。
 - /my-goods/:login 大きなフォント、改行入れてインフォーマティブに。
