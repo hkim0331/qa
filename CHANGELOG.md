@@ -20,8 +20,13 @@
 - code block
 
 
-## 2.4.16-snapshot
-- antq upgrade
+## 2.4.16 - 2023-09-23
+### Fixme
+m24 で作った uberjar は app.melt で動かない。
+devcontainer で uberjar 作りは長い時間がかかる。app.melt では動く。
+
+### Changed
+antq upgrade
 ```shell
 | buddy/buddy-hashers                     | 1.8.158  | 2.0.167 |
 | cheshire/cheshire                       | 5.11.0   | 5.12.0  |
