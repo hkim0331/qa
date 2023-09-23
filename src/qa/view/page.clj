@@ -10,7 +10,7 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "2.3.12")
+(def ^:private version "2.3.13")
 
 (def ^:private wrap-at 80)
 
