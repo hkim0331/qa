@@ -12,12 +12,13 @@
     goods]
 ```
 - admin-page 等、行方不明。不要か？
-[label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ ---
-  ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできるのは？ -> 他の人が不幸になりそう。
-[label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
+- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできる（残しておいた方がいい）
 - code block
+- java -jar で動かなくても lein run で動けば良い(cf. biff)
+  ただし、alias か env かで、認証をスキップできる方がいい。
+- https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 
 
 ## 2.4.16 - 2023-09-23

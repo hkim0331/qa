@@ -6,9 +6,9 @@
   :dependencies
   [[buddy/buddy-auth "3.0.323"]
    [buddy/buddy-hashers "2.0.167"]
-   [clojure.java-time "1.3.0"] ;; 2023-03-05
+   [clojure.java-time "1.3.0"]
    [com.github.seancorfield/next.jdbc "1.3.883"]
-   [com.fasterxml.jackson.core/jackson-core "2.15.2"] ;; 2023-03-05
+   [com.fasterxml.jackson.core/jackson-core "2.15.2"]
    [duct/core "0.8.0"]
    [duct/module.ataraxy "0.3.0"]
    [duct/module.logging "0.5.0"]
