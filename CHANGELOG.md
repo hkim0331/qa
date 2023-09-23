@@ -21,7 +21,9 @@
 
 
 ## 2.4.x-snapshot
-  nuc.local では動くのだが。
+  m24 でメークした jar が app.melt で動かない。
+  同じソースを nuc.local でメークしたものは動くのだが。
+  docker でメークははどうか？
 
 ## 2.4.13-snapshot
 - 2.2.11
