@@ -13,7 +13,8 @@
    [qa.boundary.questions :as questions]
    [qa.boundary.readers :as readers]
    [qa.view.page :refer
-    [admin-page
+    [about-page
+     admin-page
      answers-page
      goods-page
      index-page
@@ -37,6 +38,10 @@
     (name (get-in req [:session :identity]))
     (catch Exception e (debug "get-login" (.getMessage e)))
     (finally "nobody")))
+
+(defmethod ig/init-key :qa.handler.core/about [_ _]
+  (fn [_]
+    (about-page "2.3.12")))
 
 (defmethod ig/init-key :qa.handler.core/index [_ _]
   (fn [req]
@@ -145,7 +150,11 @@
           q (questions/count-my-questions db nick)
           a (answers/count-my-answers db nick)]
       [::response/ok
-       (str "<p>" nick ": A/Q = " a "/" q ", recv/sent = " r "/" s "</p>")])))
+       (str "<h2>" nick "</h2>"
+            "<p>Answered : " a "</p>"
+            "<p>Questions: " q "</p>"
+            "<p>Goods(received): " r "</p>"
+            "<p>Goods(sent)    : " s "</p>")])))
 
 (defmethod ig/init-key :qa.handler.core/recents [_ {:keys [db]}]
   (fn [_]
