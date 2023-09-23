@@ -233,7 +233,6 @@ Caused by: java.lang.ClassNotFoundException: java.util.SequencedCollection
 	... 197 more
 ```
 
-## 2.4.13-snapshot
 ### antq upgrade
 ```shell
 | project.clj | buddy/buddy-hashers                     | 1.8.158  | 2.0.167 |
