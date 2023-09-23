@@ -10,7 +10,7 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "2.3.0")
+(def ^:private version "2.3.12")
 
 (def ^:private wrap-at 80)
 
@@ -66,7 +66,15 @@
       [:p]
       [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
       [:hr]
-      "hkimura, " version]])])
+      "programmed by hkimura"]])])
+
+(defn about-page
+  [_]
+  (page
+   [:h2 "QA"]
+   [:p]
+   [:img {:src "/images/odyssey.jpg"}]
+   [:p "version: " version]))
 
 (defn index-page [req]
   (page
@@ -123,12 +131,14 @@
   (page
    [:h2 "QA: Questions"]
    [:p "すべての QA に目を通すのがルール。"]
-   [:p "👉 のクリックで回答ページへ。"
-    [:a {:href "/recents" :class "btn btn-success btn-sm"} "最近の投稿"]
+   [:p
+    [:a {:href "/recents" :class "btn btn-success btn-sm"} "最近の投稿"]
     "&nbsp;"
     [:a {:href "/goods" :class "btn btn-warning btn-sm"} "最近のいいね"]
     "&nbsp;"
     [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]
+    "&nbsp;"
+    [:a {:href "/about" :class "btn btn-primary btn-sm"} "About"]
     "&nbsp;"
     [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]]
    [:p [:a.link-underline-light
@@ -278,9 +288,9 @@
     [:post "/md"]
     (anti-forgery-field)
     (text-area {:id "md"
-                :placeholder (str login
-                                  "さん専用マークダウン練習ページ。"
-                                  "練習しないとできるようにならないよ。")}
+                :placeholder
+                (str login "さん専用マークダウン練習ページ。"
+                     "練習しないとできるようにならないよ。")}
                "md")
     (submit-button {:class "btn btn-info btn-sm"} "preview"))))
 

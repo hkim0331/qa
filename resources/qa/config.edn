@@ -7,6 +7,7 @@
 
    :routes
    {[:get "/"] [:qa.handler.core/index]
+    [:get "/about"] [:qa.handler.core/about]
     [:get "/login"] [:qa.handler.auth/login]
     [:post "/login" {params :form-params}] [:qa.handler.auth/login-post params]
     [:get "/logout"] [:qa.handler.auth/logout]
@@ -48,6 +49,8 @@
   :qa.handler.auth/login {}
   :qa.handler.auth/login-post {:db #ig/ref :duct.database/sql}
   :qa.handler.auth/logout {}
+
+  :qa.handler.core/about {}
 
   :qa.handler.core/question-new {}
   :qa.handler.core/question-create {:db #ig/ref :duct.database/sql}
