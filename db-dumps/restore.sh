@@ -15,8 +15,7 @@ else
     DUMP=$1
 fi
 
-PSQL="psql -h localhost -U postgres"
+PSQL="psql -h db -U postgres"
 ${PSQL} -c "drop database ${DB}"
 ${PSQL} -c "create database ${DB} owner='postgres'"
 ${PSQL} ${DB} < ${DUMP}
-

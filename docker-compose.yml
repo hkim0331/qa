@@ -1,6 +1,6 @@
 version: "3"
 services:
-  qa:
+  app:
     image: hkim0331/duct:0.1.0
     user: vscode
     # ports:

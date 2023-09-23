@@ -1,7 +1,8 @@
 {
-    "name": "qa",
-    "service": "qa",
-    "workspaceFolder": "/usr/app/src",
+    "name": "Q and A",
+    "service": "app",
+    "remoteUser": "vscode",
+    "workspaceFolder": "/usr/src/app",
     "dockerComposeFile": [
         "../docker-compose.yml"
     ],
