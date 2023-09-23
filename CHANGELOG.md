@@ -20,6 +20,19 @@
 - code block
 
 
+## 2.4.16-snapshot
+- antq upgrade
+```shell
+| buddy/buddy-hashers                     | 1.8.158  | 2.0.167 |
+| cheshire/cheshire                       | 5.11.0   | 5.12.0  |
+| clojure.java-time/clojure.java-time     | 1.2.0    | 1.3.0   |
+| com.fasterxml.jackson.core/jackson-core | 2.14.2   | 2.15.2  |
+| com.github.seancorfield/next.jdbc       | 1.3.865  | 1.3.883 |
+| integrant/repl                          | 0.3.2    | 0.3.3   |
+| markdown-clj/markdown-clj               | 1.11.4   | 1.11.5  |
+```
+
+
 ## 2.3.15 - 2023-09-23
 ### Added
 - .devcontainer/devcontainer.json
