@@ -20,16 +20,16 @@
 - code block
 
 
-## 2.4.x-snapshot
-  m24 でメークした jar が app.melt で動かない。
-  同じソースを nuc.local でメークしたものは動くのだが。
-  docker でメークははどうか？
+## 2.3.14 - 2023-09-23
+### Added
+- .devcontainer/devcontainer.json
+- docker-compose.yml
+### No class error
+m24(java 21) でメークした jar が app.melt で動かない。
+同じソースを nuc.local でメークしたものは動くのだが。
+docker コンテナで作った jar は動く。
 
-## 2.4.13-snapshot
-- 2.2.11
-- 2.3.0 に戻してもだめ。
-- 2.3.12 は deploy 後エラー。
-```
+```shell
 ubuntu@app:~/qa$ ./start.sh
 ...
 Exception in thread "main" java.lang.NoClassDefFoundError: java/util/SequencedCollection
