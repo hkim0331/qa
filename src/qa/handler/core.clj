@@ -4,7 +4,7 @@
    [ataraxy.response :as response]
    #_[clojure.java.io :as io]
    [integrant.core :as ig]
-   [java-time :as jt]
+   [java-time.api :as jt]
    [next.jdbc :as jdbc]
    [next.jdbc.sql :as sql]
    [next.jdbc.result-set :as rs]
