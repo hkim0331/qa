@@ -20,6 +20,8 @@
   ただし、alias か env かで、認証をスキップできる方がいい。
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 
+## 2.4.16.1 - 2023-09-24
+- display update-at in `/about` page.
 
 ## 2.4.16 - 2023-09-23
 ### Fixme

@@ -11,6 +11,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
 (def ^:private version "2.4.16")
+(def ^:private updated-at "2023-09-24 11:51:37")
 
 (def ^:private wrap-at 80)
 
@@ -71,10 +72,12 @@
 (defn about-page
   [_]
   (page
-   [:h2 "QA"]
+   [:h2 "QA:About"]
    [:p]
    [:img {:src "/images/odyssey.jpg"}]
-   [:p "version: " version]))
+   [:p "program: hkimura" [:br]
+    "version: " version [:br]
+    "update: " updated-at]))
 
 (defn index-page [req]
   (page
