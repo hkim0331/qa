@@ -23,6 +23,7 @@
 ## 2.4.17 - 2023-10-06
 - start 2023.
 - 2023-10-01 以降の Q だけ表示する。
+
 ```clojure
 ;; qa.handler.core:
 (def ^:private questions-start "2023-10-01")
