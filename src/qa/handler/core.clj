@@ -60,7 +60,8 @@
       [::response/found "/qs"])))
 
 ;; questions-start 以降の q をリストする
-(def ^:private questions-start "2023-04-01")
+(def ^:private questions-start "2023-10-01")
+
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [request]
     (timbre/info "questions")

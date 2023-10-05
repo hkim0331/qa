@@ -20,6 +20,22 @@
   ただし、alias か env かで、認証をスキップできる方がいい。
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 
+## 2.4.17 - 2023-10-06
+- start 2023.
+- 2023-10-01 以降の Q だけ表示する。
+```clojure
+;; qa.handler.core:
+(def ^:private questions-start "2023-10-01")
+```
+
+- antq upgrade
+
+| :file       | :name                             | :current | :latest |
+| ----------- | --------------------------------- | -------- | --------|
+| project.clj | com.github.seancorfield/next.jdbc | 1.3.883  | 1.3.894 |
+|             | markdown-clj/markdown-clj         | 1.11.5   | 1.11.7  |
+
+
 ## 2.4.16.1 - 2023-09-24
 - display update-at in `/about` page.
 
