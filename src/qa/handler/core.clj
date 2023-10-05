@@ -4,7 +4,7 @@
    [ataraxy.response :as response]
    #_[clojure.java.io :as io]
    [integrant.core :as ig]
-   [java-time :as jt]
+   [java-time.api :as jt]
    [next.jdbc :as jdbc]
    [next.jdbc.sql :as sql]
    [next.jdbc.result-set :as rs]
@@ -60,7 +60,8 @@
       [::response/found "/qs"])))
 
 ;; questions-start 以降の q をリストする
-(def ^:private questions-start "2023-04-01")
+(def ^:private questions-start "2023-10-01")
+
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [request]
     (timbre/info "questions")

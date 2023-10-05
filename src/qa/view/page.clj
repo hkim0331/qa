@@ -10,7 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "2.4.16")
+(def ^:private version "2.4.17")
+(def ^:private updated "2023-10-06 00:34:21")
 
 (def ^:private wrap-at 80)
 
@@ -71,10 +72,11 @@
 (defn about-page
   [_]
   (page
-   [:h2 "QA"]
+   [:h2 "QA:About"]
    [:p]
    [:img {:src "/images/odyssey.jpg"}]
-   [:p "version: " version]))
+   [:p "version: " version [:br]
+    "update: " updated]))
 
 (defn index-page [req]
   (page

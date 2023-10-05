@@ -12,13 +12,33 @@
     goods]
 ```
 - admin-page 等、行方不明。不要か？
-[label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ ---
-  ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできるのは？ -> 他の人が不幸になりそう。
-[label](https://qa.melt.kyutech.ac.jp/logout)- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
+- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - 質問を出したユーザは質問をクローズできる（残しておいた方がいい）
 - code block
+- java -jar で動かなくても lein run で動けば良い(cf. biff)
+  ただし、alias か env かで、認証をスキップできる方がいい。
+- https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 
+## 2.4.17 - 2023-10-06
+- start 2023.
+- 2023-10-01 以降の Q だけ表示する。
+
+```clojure
+;; qa.handler.core:
+(def ^:private questions-start "2023-10-01")
+```
+
+- antq upgrade
+
+| :file       | :name                             | :current | :latest |
+| ----------- | --------------------------------- | -------- | --------|
+| project.clj | com.github.seancorfield/next.jdbc | 1.3.883  | 1.3.894 |
+|             | markdown-clj/markdown-clj         | 1.11.5   | 1.11.7  |
+
+
+## 2.4.16.1 - 2023-09-24
+- display update-at in `/about` page.
 
 ## 2.4.16 - 2023-09-23
 ### Fixme
