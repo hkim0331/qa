@@ -19,6 +19,8 @@
 - java -jar で動かなくても lein run で動けば良い(cf. biff)
   ただし、alias か env かで、認証をスキップできる方がいい。
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
+- base.html から logout ボタン削った方が良くないか？
+
 
 ## 2.4.17 - 2023-10-06
 - start 2023.
