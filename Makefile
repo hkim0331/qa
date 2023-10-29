@@ -1,5 +1,5 @@
 DEST="ubuntu@app.melt.kyutech.ac.jp"
-TAG=hkim0331/qa:0.1.0
+TAG=hkim0331/duct:0.1.0
 
 build:
 	docker build -t ${TAG} .

@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "2.4.17")
-(def ^:private updated "2023-10-06 00:34:21")
+(def ^:private version "2.4.18")
+(def ^:private updated "2023-10-29 10:43:47")
 
 (def ^:private wrap-at 80)
 
@@ -65,7 +65,7 @@
      [:div {:class "container"}
       contents
       [:p]
-      [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
+      ;; [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
       [:hr]
       "programmed by hkimura"]])])
 
@@ -142,7 +142,9 @@
     "&nbsp;"
     [:a {:href "/about" :class "btn btn-primary btn-sm"} "About"]
     "&nbsp;"
-    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]]
+    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]
+    "&nbsp;"
+    [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
    [:p [:a.link-underline-light
         {:href "/readers/qs/0"}
         "readers"]]
