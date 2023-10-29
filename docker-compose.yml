@@ -5,6 +5,9 @@ services:
     user: vscode
     volumes:
       - .:/usr/src/app
+      # docker desktop, slow volume mount?
+      # no. docker desktop itself is slow to make uberjar.
+      # from when? v4.24.2
       - m2:/home/vscode/.m2
     working_dir: /usr/src/app
     entrypoint:

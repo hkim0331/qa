@@ -1,9 +1,12 @@
 # QA reborn
 
+Using `duct`.
+
 元は情報リテラシー 2021 用質疑応答システムだったが、
 2021 情報応用の QA システムに切り替える。
 
 docker が楽か、データベースの共有なんかをしない限り。
+
 
 ## Developing (obsolete)
 
