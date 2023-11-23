@@ -7,6 +7,17 @@ Using `duct`.
 
 docker が楽か、データベースの共有なんかをしない限り。
 
+## make uberjar
+
+```
+docker-container$ make uberjar
+real    3m19.119s
+user    0m31.096s
+sys     0m36.466s
+
+m24% make uberjar
+make uberjar  29.29s user 4.12s system 229% cpu 14.531 total
+```
 
 ## Developing (obsolete)
 
