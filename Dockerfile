@@ -3,8 +3,6 @@ FROM clojure:lein
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DEBCONF_NOWARNINGS=yes
 
-# error to install postgresql-client-14
-# changed to postgresql-client
 RUN set -ex ; \
     apt-get -y update; \
     apt-get -y upgrade; \
