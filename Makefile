@@ -1,6 +1,7 @@
 # security -v unlock-keychain ~/Library/Keychains/login.keychain-db
 
 TAG=hkim0331/duct:0.2.1
+DEST="ubuntu@app.melt.kyutech.ac.jp"
 
 all:
 	@echo make build
@@ -31,4 +32,10 @@ amd64:
 arm64:
 	docker buildx build --platform linux/$@ --push -t ${TAG}-$@ .
 
+uberjar:
+	lein uberjar
 
+deploy: uberjar
+	scp target/qa-*-standalone.jar ${DEST}:qa/qa.jar && \
+	ssh ${DEST} 'sudo systemctl restart qa' && \
+	ssh ${DEST} 'systemctl status qa'
