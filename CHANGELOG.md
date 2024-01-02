@@ -24,6 +24,8 @@
   その後、code 起動して、REPL、(dev) (go) でエラー。
   lein clean 後、REPL, (dev) (go) で復活。
 
+## 2.4.19-SNAPSHOT
+- /goods li じゃなく、id を表示する。
 
 ## 2.4.18 - 2023-10-29
 - logout ボタンを page から questions-page に移動。
