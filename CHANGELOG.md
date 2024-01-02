@@ -26,6 +26,11 @@
 
 ## 2.4.19 - 2024-01-02
 - /goods li じゃなく、id を表示する。
+- FIXED: Makefile
+  docker/duct/duct.zip で Makefile を上書きしたか、
+  make uberjar
+  make deploy
+  のエントリーがなくなっていた。
 
 ## 2.4.18 - 2023-10-29
 - logout ボタンを page から questions-page に移動。
