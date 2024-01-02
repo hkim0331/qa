@@ -20,6 +20,12 @@
   ただし、alias か env かで、認証をスキップできる方がいい。
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 - base.html から logout ボタン削った方が良くないか？
+- 2023-12-22, lein run から間違いコマンド (start)で起動せず。
+  その後、code 起動して、REPL、(dev) (go) でエラー。
+  lein clean 後、REPL, (dev) (go) で復活。
+
+## 2.4.19 - 2024-01-02
+- /goods li じゃなく、id を表示する。
 
 ## 2.4.18 - 2023-10-29
 - logout ボタンを page から questions-page に移動。

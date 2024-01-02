@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "2.4.18")
-(def ^:private updated "2023-10-29 10:43:47")
+(def ^:private version "2.4.19")
+(def ^:private updated "2024-01-02 20:51:42")
 
 (def ^:private wrap-at 80)
 
@@ -164,6 +164,8 @@
        (str " 👉 " (answer-count cs (:id q)))]])
    [:p [:a {:href "/q" :class "btn btn-primary btn-sm"} "new question"]]))
 
+;;👁️🚀✔️☑️➰➿⚯☞⍇⍈
+
 (defn- goods
   [n]
   (repeat n "👍"))
@@ -238,34 +240,64 @@
        [:td (:nick g)]
        [:td (date-time (:ts g))]])]))
 
+;; (defn recents-page [answers]
+;;   (page
+;;    [:h2 "QA: recent answers"]
+;;    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
+;;    [:ol
+;;     (for [a answers]
+;;       [:li
+;;        (date-time (:ts a))
+;;        " "
+;;        [:a.link-underline-light
+;;         {:href (str "/as/" (:q_id a))}
+;;         (escape-html (ss 28 (:a a)))]
+;;        "..." (:nick a)])]
+;;    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
+
 (defn recents-page [answers]
   (page
    [:h2 "QA: recent answers"]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
-   [:ol
-    (for [a answers]
-      [:li
-       (date-time (:ts a))
-       " "
-       [:a.link-underline-light
-        {:href (str "/as/" (:q_id a))}
-        (escape-html (ss 28 (:a a)))]
-       "..." (:nick a)])]
+   (for [a answers]
+     [:p
+      (:q_id a)
+      ", "
+      (date-time (:ts a))
+      " "
+      [:a.link-underline-light
+       {:href (str "/as/" (:q_id a))}
+       (escape-html (ss 28 (:a a)))]
+      "..." (:nick a)])
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
+
+;; (defn recent-goods-page [answers]
+;;   (page
+;;    [:h2 "QA: recent goods"]
+;;    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
+;;    (into
+;;     [:ol]
+;;     (for [a answers]
+;;       [:li
+;;        (date-time (:ts a))
+;;        " "
+;;        [:a.link-underline-light
+;;         {:href  (str "/as/" (:q_id a))}
+;;         (ss 28 (:q a)) "..."]]))))
 
 (defn recent-goods-page [answers]
   (page
    [:h2 "QA: recent goods"]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
-   (into
-    [:ol]
-    (for [a answers]
-      [:li
-       (date-time (:ts a))
-       " "
-       [:a.link-underline-light
-        {:href  (str "/as/" (:q_id a))}
-        (ss 28 (:q a)) "..."]]))))
+   (for [a answers]
+     [:p
+      (:q_id a)
+      ", "
+      (date-time (:ts a))
+      " "
+      [:a.link-underline-light
+       {:href  (str "/as/" (:q_id a))}
+       (ss 28 (:q a)) "..."]])))
 
 (defn readers-page [readers since]
   (page
