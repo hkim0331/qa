@@ -4,11 +4,22 @@ if [ -z "$1" ]; then
     exit
 fi
 
-SED="/bin/sed"
 if [ -x "${HOMEBREW_PREFIX}/bin/gsed" ]; then
-    SED=${HOMEBREW_PREFIX}/bin/gsed
+    SED="${HOMEBREW_PREFIX}/bin/gsed -E -i"
+else
+    SED="/usr/bin/sed -E -i"
 fi
 
-${SED} -E -i "s/^\(defproject (.+) .+/(defproject \1 \"$1\"/" project.clj
+set -eu
 
-${SED} -E -i "s/^\(def \^:private version .*/(def ^:private version \"$1\")/" src/qa/view/page.clj
+${SED} "s|^(\(defproject .+) .+|\1 \"$1\"|" project.clj
+
+now=`date '+%F %T'`
+${SED} -e "s|(\(def \^:private version).*|\1 \"$1\")|" \
+       -e "s|(\(def \^:private updated).*|\1 \"$now\")|"  src/qa/view/page.clj
+
+# CHANGELOG.md
+VER=$1
+TODAY=`date +%F`
+${SED} -i -e "/SNAPSHOT/c\
+## ${VER} / ${TODAY}" CHANGELOG.md
