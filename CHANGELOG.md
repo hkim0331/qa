@@ -11,20 +11,22 @@
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
 ```
-- admin-page 等、行方不明。不要か？
 - 質問を出したユーザは質問をクローズできるのは？ -> 他の人が不幸になりそう。
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
-- 質問を出したユーザは質問をクローズできる（残しておいた方がいい）
-- code block
-- java -jar で動かなくても lein run で動けば良い(cf. biff)
-  ただし、alias か env かで、認証をスキップできる方がいい。
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 - base.html から logout ボタン削った方が良くないか？
 - 2023-12-22, lein run から間違いコマンド (start)で起動せず。
   その後、code 起動して、REPL、(dev) (go) でエラー。
   lein clean 後、REPL, (dev) (go) で復活。
+- markdown 道場の切り替え。オフラインをダウンロードさせるか、WIL のをコピーするか。
 
-## v2.5-SNAPSHOT
+
+
+## v2.5.681 / 2024-04-16
+- core/question-start を環境変数 QA_STARTで。
+- lein clean
+
+- clj -Tantq outdated
 
 | :file       | :name                                   | :current | :latest |
 | ----------- | --------------------------------------- | -------- | ------- |
@@ -39,6 +41,7 @@
 |             | ring/ring                               | 1.10.0   | 1.12.1  |
 
 - ring をアップデートすると jetty その他もアップデート必要になる。
+  1.10.0 に止めよう。
 
 ```
 [ring "1.10.0"]
@@ -157,7 +160,7 @@ Exception in thread "main" java.lang.NoClassDefFoundError: java/util/SequencedCo
   nginx 通さないダイレクト通信だとログインできるので、問題は nginx にあったとみた方がいい。
   kali の firefox は大丈夫だった。
 
-## 2.2.12-SNAPSHOT
+## v2.5.681 / 2024-04-16
 - let good anchors for admin only transparent
 
 ## 2.2.11 - 2023-05-16
@@ -213,7 +216,7 @@ readers を重複をなくした名前順ではなく、読んだ順にした。
 - view.page/readers-page に dedupe を挟んだ。連続するものは一つに。
   => 一度だけ現れるってのは？
 
-## 2.2.5-SNAPSHOT
+## v2.5.681 / 2024-04-16
 - added Makefile
 
   % make deploy
@@ -318,7 +321,7 @@ StandardOutput=append:/home/ubuntu/qa/log/qa.log
 StandardError=append:/home/ubuntu/qa/log/qa.log
 ```
 
-## 1.6.0-SNAPSHOT
+## v2.5.681 / 2024-04-16
 ### Changed
 - q/a のテキストエリアの高さを 2 倍、200px
 - /since を hkimura オンリーに
@@ -347,7 +350,7 @@ StandardError=append:/home/ubuntu/qa/log/qa.log
 ### Changed
 - replace ok() with confirm('message')
 
-## 1.4.0-SNAPSHOT
+## v2.5.681 / 2024-04-16
 
 clj -Tantq outdated
 
@@ -386,7 +389,7 @@ clj -Tantq outdated
 - 最近のいいねで internal server error
   builder-fn 問題。
 
-## 1.3.4-SNAPSHOT
+## v2.5.681 / 2024-04-16
 - debug ログを精選する
 - リファクタリング
 
@@ -534,7 +537,7 @@ qa.melt でスタートしない。
  answers テーブルにコラム g が欠落していた。
  教訓：古いマイグレーションコード（動作を確認できないやつ）を残すな、信じるな。
 
-## 0.6.2-SNAPSHOT
+## v2.5.681 / 2024-04-16
 まだ本番サーバーで回答ができない。開発PC ではできたはずだが？
 - hotfix 0.6.2 start
 
@@ -684,6 +687,6 @@ qa.melt でスタートしない。
 - table 定義(sql)
 - question form ("/q")
 
-## 0.1.0-SNAPSHOT - 2021-06-17
+## v2.5.681 / 2024-04-16
 - 開発スタート
 - git flow init

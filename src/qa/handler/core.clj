@@ -31,7 +31,8 @@
    [taoensso.timbre :as timbre :refer [debug]]))
 
 ;; questions-start 以降の q をリストする
-(def ^:private questions-start "2024-03-05")
+(def ^:private questions-start
+  (or (System/getenv "QA_START") "2023-03-05"))
 
 (defn get-login
   "request ヘッダの id 情報を文字列で返す。
