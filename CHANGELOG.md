@@ -24,6 +24,14 @@
   その後、code 起動して、REPL、(dev) (go) でエラー。
   lein clean 後、REPL, (dev) (go) で復活。
 
+## v2.5-SNAPSHOT
+```
+dev=> (go)
+Execution error (ClassNotFoundException) at
+jdk.internal.loader.BuiltinClassLoader/loadClass (BuiltinClassLoader.java:641).
+java.util.SequencedCollection
+```
+
 ## 2.4.19 - 2024-01-02
 - /goods li じゃなく、id を表示する。
 - FIXED: Makefile
