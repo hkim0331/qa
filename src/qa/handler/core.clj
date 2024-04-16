@@ -30,6 +30,9 @@
    #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
+;; questions-start 以降の q をリストする
+(def ^:private questions-start "2024-03-05")
+
 (defn get-login
   "request ヘッダの id 情報を文字列で返す。
    FIXME: develop ではエラーでも nobody を返したいが。"
@@ -41,7 +44,7 @@
 
 (defmethod ig/init-key :qa.handler.core/about [_ _]
   (fn [_]
-    (about-page "2.3.12")))
+    (about-page)))
 
 (defmethod ig/init-key :qa.handler.core/index [_ _]
   (fn [req]
@@ -59,8 +62,7 @@
       (questions/create db nick question)
       [::response/found "/qs"])))
 
-;; questions-start 以降の q をリストする
-(def ^:private questions-start "2024-03-05")
+
 
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [request]

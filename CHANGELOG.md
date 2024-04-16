@@ -25,6 +25,50 @@
   lein clean 後、REPL, (dev) (go) で復活。
 
 ## v2.5-SNAPSHOT
+
+| :file       | :name                                   | :current | :latest |
+| ----------- | --------------------------------------- | -------- | ------- |
+| project.clj | cheshire/cheshire                       | 5.12.0   | 5.13.0  |
+|             | clojure.java-time/clojure.java-time     | 1.3.0    | 1.4.2   |
+|             | com.fasterxml.jackson.core/jackson-core | 2.15.2   | 2.17.0  |
+|             | com.github.seancorfield/next.jdbc       | 1.3.894  | 1.3.925 |
+|             | duct/core                               | 0.8.0    | 0.8.1   |
+|             | markdown-clj/markdown-clj               | 1.11.7   | 1.12.1  |
+|             | org.clojure/clojure                     | 1.11.1   | 1.11.2  |
+|             | org.postgresql/postgresql               | 42.6.0   | 42.7.3  |
+|             | ring/ring                               | 1.10.0   | 1.12.1  |
+
+- ring をアップデートすると jetty その他もアップデート必要になる。
+
+```
+[ring "1.10.0"]
+  [ring/ring-jetty-adapter "1.10.0"]
+    [org.eclipse.jetty/jetty-server "9.4.51.v20230217"]
+      [org.eclipse.jetty/jetty-http "9.4.51.v20230217"]
+        [org.eclipse.jetty/jetty-util "9.4.51.v20230217"]
+      [org.eclipse.jetty/jetty-io "9.4.51.v20230217"]
+  [ring/ring-servlet "1.10.0"]
+
+[ring "1.12.1"]
+  [org.ring-clojure/ring-jakarta-servlet "1.12.1"]
+  [ring/ring-jetty-adapter "1.12.1"]
+    [org.eclipse.jetty.websocket/websocket-jetty-server "11.0.20"]
+      [org.eclipse.jetty.websocket/websocket-jetty-api "11.0.20"]
+      [org.eclipse.jetty.websocket/websocket-jetty-common "11.0.20"]
+        [org.eclipse.jetty.websocket/websocket-core-common "11.0.20"]
+      [org.eclipse.jetty.websocket/websocket-servlet "11.0.20"]
+        [org.eclipse.jetty.websocket/websocket-core-server "11.0.20"]
+      [org.eclipse.jetty/jetty-servlet "11.0.20"]
+        [org.eclipse.jetty/jetty-security "11.0.20"]
+      [org.eclipse.jetty/jetty-webapp "11.0.20"]
+        [org.eclipse.jetty/jetty-xml "11.0.20"]
+    [org.eclipse.jetty/jetty-server "11.0.20"]
+      [org.eclipse.jetty.toolchain/jetty-jakarta-servlet-api "5.0.2"]
+      [org.eclipse.jetty/jetty-http "11.0.20"]
+        [org.eclipse.jetty/jetty-util "11.0.20"]
+      [org.eclipse.jetty/jetty-io "11.0.20"]
+```
+
 ```
 dev=> (go)
 Execution error (ClassNotFoundException) at
@@ -135,7 +179,7 @@ Exception in thread "main" java.lang.NoClassDefFoundError: java/util/SequencedCo
 qa=# \d
                  List of relations
  Schema |        Name        |   Type   |  Owner
---------+--------------------+----------+----------
+------- | ------------------ | -------- | ---------
  public | answers            | table    | postgres
  public | answers_id_seq     | sequence | postgres
  public | goods              | table    | postgres

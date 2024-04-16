@@ -70,7 +70,7 @@
       "programmed by hkimura"]])])
 
 (defn about-page
-  [_]
+  []
   (page
    [:h2 "QA:About"]
    [:p]
