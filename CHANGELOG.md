@@ -21,7 +21,7 @@
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 - base.html から logout ボタン削った方が良くないか？
 
-## v2.5-SNAPSHOT
+## v2.5.680 / 2024-04-20
 - docker-compose.yml: image: postgres:14.11
   ```
     environment:
@@ -29,6 +29,7 @@
       - docker user root, not vscode.
   ```
 - bind mount /root/.m2, not /home/vscode/.m2
+- updated bump-version.sh, updating CHANGELOG.md.
 
 ## 2.4.19 - 2024-01-02
 - /goods li じゃなく、id を表示する。
@@ -111,7 +112,7 @@ Exception in thread "main" java.lang.NoClassDefFoundError: java/util/SequencedCo
   nginx 通さないダイレクト通信だとログインできるので、問題は nginx にあったとみた方がいい。
   kali の firefox は大丈夫だった。
 
-## 2.2.12-SNAPSHOT
+## v2.5.680 / 2024-04-20
 - let good anchors for admin only transparent
 
 ## 2.2.11 - 2023-05-16
@@ -167,7 +168,7 @@ readers を重複をなくした名前順ではなく、読んだ順にした。
 - view.page/readers-page に dedupe を挟んだ。連続するものは一つに。
   => 一度だけ現れるってのは？
 
-## 2.2.5-SNAPSHOT
+## v2.5.680 / 2024-04-20
 - added Makefile
 
   % make deploy
@@ -272,7 +273,7 @@ StandardOutput=append:/home/ubuntu/qa/log/qa.log
 StandardError=append:/home/ubuntu/qa/log/qa.log
 ```
 
-## 1.6.0-SNAPSHOT
+## v2.5.680 / 2024-04-20
 ### Changed
 - q/a のテキストエリアの高さを 2 倍、200px
 - /since を hkimura オンリーに
@@ -301,7 +302,7 @@ StandardError=append:/home/ubuntu/qa/log/qa.log
 ### Changed
 - replace ok() with confirm('message')
 
-## 1.4.0-SNAPSHOT
+## v2.5.680 / 2024-04-20
 
 clj -Tantq outdated
 
@@ -340,7 +341,7 @@ clj -Tantq outdated
 - 最近のいいねで internal server error
   builder-fn 問題。
 
-## 1.3.4-SNAPSHOT
+## v2.5.680 / 2024-04-20
 - debug ログを精選する
 - リファクタリング
 
@@ -488,7 +489,7 @@ qa.melt でスタートしない。
  answers テーブルにコラム g が欠落していた。
  教訓：古いマイグレーションコード（動作を確認できないやつ）を残すな、信じるな。
 
-## 0.6.2-SNAPSHOT
+## v2.5.680 / 2024-04-20
 まだ本番サーバーで回答ができない。開発PC ではできたはずだが？
 - hotfix 0.6.2 start
 
@@ -638,6 +639,6 @@ qa.melt でスタートしない。
 - table 定義(sql)
 - question form ("/q")
 
-## 0.1.0-SNAPSHOT - 2021-06-17
+## v2.5.680 / 2024-04-20
 - 開発スタート
 - git flow init
