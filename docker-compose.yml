@@ -1,21 +1,22 @@
-version: "3"
 services:
-  app:
-    image: hkim0331/duct:0.2.1
-    user: vscode
+  qa:
+    image: hkim0331/qa:0.3.0
+    # user: vscode
     volumes:
       - .:/usr/src/app
       # docker desktop, slow volume mount?
       # no. docker desktop itself is slow to make uberjar.
       # from when? v4.24.2
-      - m2:/home/vscode/.m2
+      - m2:/root/.m2
     working_dir: /usr/src/app
+    environment:
+      QA_DEV: true
     entrypoint:
       - sleep
       - infinity
 
   db:
-    image: postgres:14.10
+    image: postgres:14.11
     environment:
       POSTGRES_DB: qa
       POSTGRES_HOST_AUTH_METHOD: trust

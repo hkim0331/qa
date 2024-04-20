@@ -20,9 +20,15 @@
   ただし、alias か env かで、認証をスキップできる方がいい。
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 - base.html から logout ボタン削った方が良くないか？
-- 2023-12-22, lein run から間違いコマンド (start)で起動せず。
-  その後、code 起動して、REPL、(dev) (go) でエラー。
-  lein clean 後、REPL, (dev) (go) で復活。
+
+## v2.5-SNAPSHOT
+- docker-compose.yml: image: postgres:14.11
+  ```
+    environment:
+      QA_DEV: true
+      - docker user root, not vscode.
+  ```
+- bind mount /root/.m2, not /home/vscode/.m2
 
 ## 2.4.19 - 2024-01-02
 - /goods li じゃなく、id を表示する。
