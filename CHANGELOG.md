@@ -21,14 +21,20 @@
 - markdown 道場の切り替え。オフラインをダウンロードさせるか、WIL のをコピーするか。
 
 
-## v2.6.692 / 2024-04-20
+## v2.6.693 / 2024-04-20
 - マージミス。
-
+- docker-compose.yml: image: postgres:14.11
+  ```
+    environment:
+      QA_DEV: true
+      - docker user root, not vscode.
+  ```
+- bind mount /root/.m2, not /home/vscode/.m2
+- updated bump-version.sh, updating CHANGELOG.md.
 
 ## v2.5.681 / 2024-04-16
 - core/question-start を環境変数 QA_STARTで。
 - lein clean
-
 - clj -Tantq outdated
 
 | :file       | :name                                   | :current | :latest |
