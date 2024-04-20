@@ -21,6 +21,9 @@
 - markdown 道場の切り替え。オフラインをダウンロードさせるか、WIL のをコピーするか。
 
 
+## v2.6.697 / 2024-04-20
+- markdown 道場の切り替え。mp.melt にリンクする。
+
 ## v2.6.693 / 2024-04-20
 - マージミス。
 - docker-compose.yml: image: postgres:14.11
