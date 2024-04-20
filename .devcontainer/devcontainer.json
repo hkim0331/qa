@@ -1,20 +1,17 @@
 {
     "name": "Q and A",
-    "service": "app",
-    "remoteUser": "vscode",
+    "service": "qa",
     "workspaceFolder": "/usr/src/app",
     "dockerComposeFile": [
         "../docker-compose.yml"
     ],
     "customizations": {
         "vscode": {
-            "settings": {
-            },
+            "settings": {},
             "extensions": [
                 "betterthantomorrow.calva",
                 "jsynowiec.vscode-insertdatestring"
-                // "borkdude.clj-kondo",
-                // "lfs.vscode-emacs-friendly"
-                // "mosapride.zenkaku",
-                // "ybaumes.highlight-trailing-white-spaces"
-            ]}}}
+            ]
+        }
+    }
+}
