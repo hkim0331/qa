@@ -17,3 +17,9 @@ ${SED} "s|^(\(defproject .+) .+|\1 \"$1\"|" project.clj
 now=`date '+%F %T'`
 ${SED} -e "s|(\(def \^:private version).*|\1 \"$1\")|" \
        -e "s|(\(def \^:private updated).*|\1 \"$now\")|"  src/qa/view/page.clj
+
+# CHANGELOG.md
+VER=$1
+TODAY=`date +%F`
+${SED} -i -e "/SNAPSHOT/c\
+## ${VER} / ${TODAY}" CHANGELOG.md

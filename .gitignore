@@ -17,6 +17,7 @@ pom.xml.asc
 .env
 /start-stop
 /db-dumps/old/
+/db-dumps/2023/
 /db-dumps/*.sql
 /db
 /.clj-kondo/.cache

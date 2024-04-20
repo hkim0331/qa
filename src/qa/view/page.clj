@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "2.4.19")
-(def ^:private updated "2024-01-02 20:51:42")
+(def ^:private version "v2.5.680")
+(def ^:private updated "2024-04-20 16:17:40")
 
 (def ^:private wrap-at 80)
 
@@ -142,8 +142,8 @@
     "&nbsp;"
     [:a {:href "/about" :class "btn btn-primary btn-sm"} "About"]
     "&nbsp;"
-    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]
-    "&nbsp;"
+    ;; [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]
+    ;; "&nbsp;"
     [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
    [:p [:a.link-underline-light
         {:href "/readers/qs/0"}
@@ -200,12 +200,9 @@
             {:href (str "/who-goods/" (:id a))}
             " &nbsp; "])]]))
    [:p
-    ;; form の内側に [:a] で道場をリンクしている。submit 先で分岐できれば、
-    ;; タイプしたメッセージをプレビューできるか？
+    ;; form の内側に [:a] で道場をリンクしている。
+    ;; submit 先で分岐し、タイプしたメッセージをプレビューできる
     (form-to
-     ;;{:enctype "multipart/form-data"
-     ;; :onsubmit "return confirm('その回答で OK ですか？')"}
-     ;;[:post "/a"]
      [:post "/markdown-preview"]
      (anti-forgery-field)
      (hidden-field "q_id" (:id q))
@@ -213,10 +210,13 @@
                  :placeholder "markdown OK"}
                 "answer")
      [:br]
-     [:a {:href "/md" :class "btn btn-info btn-sm"} "Markdown 道場"]
+     [:a {:href "https://mp.melt.kyutech.ac.jp"
+          :class "btn btn-info btn-sm"}
+      "Markdown Preview"]
      "&nbsp;"
      (submit-button {:class "btn btn-primary btn-sm"} "preview")
-     [:p "自分のマークダウンを preview で確認して投稿する"])]
+     [:p "マークダウンを preview で確認して投稿する。"
+      "Markdown Preview で見え方確認したのをコピペしてもいいかも。"])]
    [:p]
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
 
@@ -240,21 +240,6 @@
        [:td (:nick g)]
        [:td (date-time (:ts g))]])]))
 
-;; (defn recents-page [answers]
-;;   (page
-;;    [:h2 "QA: recent answers"]
-;;    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
-;;    [:ol
-;;     (for [a answers]
-;;       [:li
-;;        (date-time (:ts a))
-;;        " "
-;;        [:a.link-underline-light
-;;         {:href (str "/as/" (:q_id a))}
-;;         (escape-html (ss 28 (:a a)))]
-;;        "..." (:nick a)])]
-;;    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
-
 (defn recents-page [answers]
   (page
    [:h2 "QA: recent answers"]
@@ -270,20 +255,6 @@
        (escape-html (ss 28 (:a a)))]
       "..." (:nick a)])
    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
-
-;; (defn recent-goods-page [answers]
-;;   (page
-;;    [:h2 "QA: recent goods"]
-;;    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
-;;    (into
-;;     [:ol]
-;;     (for [a answers]
-;;       [:li
-;;        (date-time (:ts a))
-;;        " "
-;;        [:a.link-underline-light
-;;         {:href  (str "/as/" (:q_id a))}
-;;         (ss 28 (:q a)) "..."]]))))
 
 (defn recent-goods-page [answers]
   (page
