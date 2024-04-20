@@ -21,6 +21,9 @@
 - markdown 道場の切り替え。オフラインをダウンロードさせるか、WIL のをコピーするか。
 
 
+## V2.6-SNAPSHOT
+- マージミス。
+
 
 ## v2.5.681 / 2024-04-16
 - core/question-start を環境変数 QA_STARTで。
