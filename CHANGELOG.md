@@ -15,10 +15,8 @@
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 - base.html から logout ボタン削った方が良くないか？
-- 2023-12-22, lein run から間違いコマンド (start)で起動せず。
-  その後、code 起動して、REPL、(dev) (go) でエラー。
-  lein clean 後、REPL, (dev) (go) で復活。
-- markdown 道場の切り替え。オフラインをダウンロードさせるか、WIL のをコピーするか。
+- mp.melt は need VPN だった。
+- (reset) はエラーでも (halt) (go) はいける。
 
 
 ## v2.6.697 / 2024-04-20
