@@ -17,7 +17,7 @@
    [environ "1.2.0"]
    [hiccup "1.0.5"]
    [markdown-clj "1.12.1"]
-   [org.clojure/clojure "1.11.2"]
+   [org.clojure/clojure "1.11.3"]
    [org.postgresql/postgresql "42.7.3"]
    ;;
    [cheshire/cheshire "5.13.0"]
