@@ -1,6 +1,6 @@
 # security -v unlock-keychain ~/Library/Keychains/login.keychain-db
 
-TAG=hkim0331/duct:0.2.1
+TAG=hkim0331/duct:0.3.0
 DEST="ubuntu@app.melt.kyutech.ac.jp"
 
 all:

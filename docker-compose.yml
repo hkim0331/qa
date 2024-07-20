@@ -1,6 +1,6 @@
 services:
   qa:
-    image: hkim0331/qa:0.3.0
+    image: clojure:temurin-17-jammy
     volumes:
       - .:/usr/src/app
       - m2:/root/.m2
@@ -12,7 +12,7 @@ services:
       - infinity
 
   db:
-    image: postgres:14.11
+    image: postgres:14
     environment:
       POSTGRES_DB: qa
       POSTGRES_HOST_AUTH_METHOD: trust

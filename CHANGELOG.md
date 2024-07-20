@@ -693,10 +693,8 @@ qa.melt でスタートしない。
 - ページのボトムに logout ボタン。
 
 ## 0.1.0 - 2021-06-17
+- 開発スタート
+- git flow init
 - ex-typing のデータで認証する。
 - table 定義(sql)
 - question form ("/q")
-
-## v2.5.681 / 2024-04-16
-- 開発スタート
-- git flow init
