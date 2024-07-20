@@ -1,6 +1,6 @@
 services:
   qa:
-    image: clojure:temurin-17-jammy
+    image: clojure:temurin-17-lein-jammy
     volumes:
       - .:/usr/src/app
       - m2:/root/.m2

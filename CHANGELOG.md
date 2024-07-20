@@ -19,6 +19,21 @@
 - (reset) はエラーでも (halt) (go) はいける。
 
 
+## v2.7-SNAPSHOT
+Compiling with jdk17 instead of preparing docker?
+
+- make uberjar
+```
+uberjar:
+	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home \
+  lein uberjar
+```
+
+- docker-compose.ymml:
+```
+  image: clojure:temurin-17-lein-jammy
+```
+
 ## v2.6.697 / 2024-04-20
 - markdown 道場の切り替え。mp.melt にリンクする。
 
