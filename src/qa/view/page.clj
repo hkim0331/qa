@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "v2.5.681")
-(def ^:private updated "2024-04-16 14:42:37")
+(def ^:private version "v2.7.703")
+(def ^:private updated "2024-08-26 12:47:53")
 
 (def ^:private wrap-at 80)
 
@@ -48,12 +48,7 @@
      {:rel "stylesheet"
       :crossorigin "anonymous"
       :href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-      :integrity "sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-      ;; :href "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      ;; :integrity "sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      ;; :href "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      ;; :integrity "sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-      }]
+      :integrity "sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"}]
     [:link
      {:rel "stylesheet"
       :type "text/css"
@@ -142,8 +137,8 @@
     "&nbsp;"
     [:a {:href "/about" :class "btn btn-primary btn-sm"} "About"]
     "&nbsp;"
-    [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]
-    "&nbsp;"
+    ;; [:a {:href "/md" :class "btn btn-info btn-sm"} "markdown道場"]
+    ;; "&nbsp;"
     [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
    [:p [:a.link-underline-light
         {:href "/readers/qs/0"}
@@ -213,7 +208,9 @@
                  :placeholder "markdown OK"}
                 "answer")
      [:br]
-     [:a {:href "/md" :class "btn btn-info btn-sm"} "Markdown 道場"]
+     ; [:a {:href "https://mp.melt.kyutech.ac.jp"
+     ;      :class "btn btn-info btn-sm"}
+     ;  "Markdown Preview"]
      "&nbsp;"
      (submit-button {:class "btn btn-primary btn-sm"} "preview")
      [:p "自分のマークダウンを preview で確認して投稿する"])]
@@ -239,21 +236,6 @@
       [:tr
        [:td (:nick g)]
        [:td (date-time (:ts g))]])]))
-
-;; (defn recents-page [answers]
-;;   (page
-;;    [:h2 "QA: recent answers"]
-;;    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]
-;;    [:ol
-;;     (for [a answers]
-;;       [:li
-;;        (date-time (:ts a))
-;;        " "
-;;        [:a.link-underline-light
-;;         {:href (str "/as/" (:q_id a))}
-;;         (escape-html (ss 28 (:a a)))]
-;;        "..." (:nick a)])]
-;;    [:p [:a {:href "/qs" :class "btn btn-success btn-sm"} "QA Top"]]))
 
 (defn recents-page [answers]
   (page

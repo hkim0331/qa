@@ -15,17 +15,42 @@
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 - base.html から logout ボタン削った方が良くないか？
-- 2023-12-22, lein run から間違いコマンド (start)で起動せず。
-  その後、code 起動して、REPL、(dev) (go) でエラー。
-  lein clean 後、REPL, (dev) (go) で復活。
-- markdown 道場の切り替え。オフラインをダウンロードさせるか、WIL のをコピーするか。
+- mp.melt は need VPN だった。
+- (reset) はエラーでも (halt) (go) はいける。
 
 
+## v2.7.703 / 2024-08-26
+Compiling with jdk17 instead of preparing docker?
+- Delete `Makrdown Preview` button.
+- make uberjar
+```
+uberjar:
+	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home \
+  lein uberjar
+```
+
+- docker-compose.ymml:
+```
+  image: clojure:temurin-17-lein-jammy
+```
+
+## v2.6.697 / 2024-04-20
+- markdown 道場の切り替え。mp.melt にリンクする。
+
+## v2.6.693 / 2024-04-20
+- マージミス。
+- docker-compose.yml: image: postgres:14.11
+  ```
+    environment:
+      QA_DEV: true
+      - docker user root, not vscode.
+  ```
+- bind mount /root/.m2, not /home/vscode/.m2
+- updated bump-version.sh, updating CHANGELOG.md.
 
 ## v2.5.681 / 2024-04-16
 - core/question-start を環境変数 QA_STARTで。
 - lein clean
-
 - clj -Tantq outdated
 
 | :file       | :name                                   | :current | :latest |
@@ -683,10 +708,8 @@ qa.melt でスタートしない。
 - ページのボトムに logout ボタン。
 
 ## 0.1.0 - 2021-06-17
+- 開発スタート
+- git flow init
 - ex-typing のデータで認証する。
 - table 定義(sql)
 - question form ("/q")
-
-## v2.5.681 / 2024-04-16
-- 開発スタート
-- git flow init

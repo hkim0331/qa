@@ -1,6 +1,6 @@
 # security -v unlock-keychain ~/Library/Keychains/login.keychain-db
 
-TAG=hkim0331/duct:0.2.1
+TAG=hkim0331/duct:0.3.0
 DEST="ubuntu@app.melt.kyutech.ac.jp"
 
 all:
@@ -33,7 +33,8 @@ arm64:
 	docker buildx build --platform linux/$@ --push -t ${TAG}-$@ .
 
 uberjar:
-	lein uberjar
+	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home \
+  lein uberjar
 
 deploy: uberjar
 	scp target/qa-*-standalone.jar ${DEST}:qa/qa.jar && \

@@ -1,4 +1,4 @@
-(defproject qa "v2.5.681"
+(defproject qa "v2.7.703"
   :description "qa system for my literacy classes"
   :url "https://qa.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -17,7 +17,7 @@
    [environ "1.2.0"]
    [hiccup "1.0.5"]
    [markdown-clj "1.12.1"]
-   [org.clojure/clojure "1.11.2"]
+   [org.clojure/clojure "1.11.3"]
    [org.postgresql/postgresql "42.7.3"]
    ;;
    [cheshire/cheshire "5.13.0"]
