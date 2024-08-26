@@ -21,7 +21,7 @@
 
 ## v2.7-SNAPSHOT
 Compiling with jdk17 instead of preparing docker?
-
+- Delete `Makrdown Preview` button.
 - make uberjar
 ```
 uberjar:

@@ -208,9 +208,9 @@
                  :placeholder "markdown OK"}
                 "answer")
      [:br]
-     [:a {:href "https://mp.melt.kyutech.ac.jp"
-          :class "btn btn-info btn-sm"}
-      "Markdown Preview"]
+     ; [:a {:href "https://mp.melt.kyutech.ac.jp"
+     ;      :class "btn btn-info btn-sm"}
+     ;  "Markdown Preview"]
      "&nbsp;"
      (submit-button {:class "btn btn-primary btn-sm"} "preview")
      [:p "自分のマークダウンを preview で確認して投稿する"])]
