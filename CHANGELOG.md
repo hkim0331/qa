@@ -19,7 +19,7 @@
 - (reset) はエラーでも (halt) (go) はいける。
 
 
-## v2.7-SNAPSHOT
+## v2.7.703 / 2024-08-26
 Compiling with jdk17 instead of preparing docker?
 - Delete `Makrdown Preview` button.
 - make uberjar
