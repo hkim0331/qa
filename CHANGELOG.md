@@ -6,7 +6,7 @@
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
 - いいねにアラートつけるか
-```clojure
+```clj
 [:a {:href (str "/good/" (:id q) "/" (:id a))
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
@@ -18,6 +18,18 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
+## v2.7-SNAPSHOT
+
+- color pre code
+
+```css
+pre code {
+  word-wrap: break-word;
+  background-color: #f4f4f4;
+  padding: 5px;
+  font-size: 16px;
+}
+```
 
 ## v2.7.703 / 2024-08-26
 Compiling with jdk17 instead of preparing docker?
@@ -65,8 +77,7 @@ uberjar:
 |             | org.postgresql/postgresql               | 42.6.0   | 42.7.3  |
 |             | ring/ring                               | 1.10.0   | 1.12.1  |
 
-- ring をアップデートすると jetty その他もアップデート必要になる。
-  1.10.0 に止めよう。
+- ring をアップデートすると jetty その他もアップデート必要になる。1.10.0 に止めよう。
 
 ```
 [ring "1.10.0"]

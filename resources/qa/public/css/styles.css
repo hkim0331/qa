@@ -24,3 +24,10 @@ table {
 table, th, td {
   border: 1px solid black;
 }
+
+pre code {
+  word-wrap: break-word;
+  background-color: #f4f4f4;
+  padding: 5px;
+  font-size: 16px;
+}
