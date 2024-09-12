@@ -317,17 +317,14 @@
      [:p (str item)])))
 
 (defn preview-page [{:strs [q_id answer] :as req}]
-  ;; (timbre/debug "preview-page q_id" q_id "answer" answer)
-  ;; (timbre/debug "req" req)
   (page
    [:h2 "Check Your Markdown"]
-   (md-to-html-string answer)
+   [:div {:class "preview"} (md-to-html-string answer)]
    (form-to
     [:post "/a"]
     (anti-forgery-field)
     (hidden-field "q_id" q_id)
     (hidden-field "answer" answer)
     (submit-button {:class "btn btn-info btn-sm"} "投稿"))
-   [:p "思ったとおりじゃない時はブラウザの「戻る」で修正後に投稿する。"
-    [:br]
-    "投稿ボタンを押さない限り、QA には反映しない。"]))
+   [:p "投稿ボタンを押さない限り、QA には反映しない。" [:br]
+    "思ったとおりじゃない時はブラウザの「戻る」で修正後に投稿する。"]))

@@ -1,8 +1,6 @@
 (ns qa.handler.core
   (:require
-   #_[ataraxy.core :as ataraxy]
    [ataraxy.response :as response]
-   #_[clojure.java.io :as io]
    [integrant.core :as ig]
    [java-time.api :as jt]
    [next.jdbc :as jdbc]
@@ -20,14 +18,13 @@
      index-page
      markdown-page
      markdown-preview-page
-     question-new-page #_question-edit-page
+     question-new-page
      questions-page
      recents-page
      recent-goods-page
      readers-page
      points-page
      preview-page]]
-   #_[ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre :refer [debug]]))
 
 ;; questions-start 以降の q をリストする
@@ -63,8 +60,6 @@
       (questions/create db nick question)
       [::response/found "/qs"])))
 
-
-
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [request]
     (timbre/info "questions")
@@ -78,6 +73,7 @@
     (let [ret (questions/fetch-all db)
           counts (answers/count-answers db)]
       (questions-page ret counts))))
+
 ;;;
 ;;; answer/answers
 ;;;
@@ -86,20 +82,12 @@
   (fn [_]
     [::response/ok "answer-new"]))
 
-;; changed 2023-03-21
 (defmethod ig/init-key :qa.handler.core/answer-create [_ {:keys [db]}]
   (fn [{{:keys [q_id answer]} :params :as req}]
     (let [nick (get-login req)]
-      ;;(timbre/debug "req" req)
       (timbre/debug "answer-create: q_id" q_id "nick" nick "answer" answer)
       (answers/create db (Integer/parseInt q_id) nick answer)
       [::response/found (str "/as/" q_id)])))
-
-;; (defmethod ig/init-key :qa.handler.core/answer [_ {:keys [db]}]
-;;   (fn [{[_ n] :ataraxy/result :as req}]
-;;     (debug "answer" n)
-;;     (let [q (questions/fetch db n)]
-;;       (answer-page (get-login req) q))))
 
 ;; /as/3 のように呼ばれる。
 (defmethod ig/init-key :qa.handler.core/answers [_ {:keys [db]}]
@@ -109,10 +97,8 @@
           answers (answers/find-by-keys db n)
           nick (get-login req)]
       (readers/create-reader db nick "as" n)
-      ;;(debug "/as q:" q "nick:" nick "answers:" answers)
       (answers-page q answers nick))))
 
-;; 2023-03-21
 (defmethod ig/init-key :qa.handler.core/markdown-preview [_ _]
   (fn [{[_ req] :ataraxy/result}]
     (debug "makrdown-preview" req)
@@ -124,7 +110,6 @@
     (let [from (get-login req)
           ans (answers/find-one db a-id)
           g (:g ans)]
-      ;;(debug "good" from ans g)
       (when-not (goods/found? db a-id from)
         (answers/update-answer! db {:g (inc g)} a-id)
         (goods/create! db q-id a-id from))
@@ -167,7 +152,6 @@
 (defmethod ig/init-key :qa.handler.core/goods [_ {:keys [db]}]
   (fn [_]
     (let [ret (goods/recents db)]
-      ;;(debug "goods ret" ret)
       (recent-goods-page ret))))
 
 (def since (atom (->> (jt/zoned-date-time)
@@ -185,7 +169,6 @@
         [::response/found "/qs"])
       [::response/forbidden "forbidden"])))
 
-;; DRY!
 (defmethod ig/init-key :qa.handler.core/set-since [_ _]
   (fn [_]
     [::response/found (str "/since/" (jt/local-date))]))
@@ -199,7 +182,6 @@
     (readers/create-reader db (get-login request) "md" 0)
     (markdown-preview-page md)))
 
-;;(def ^:private grading "jdbc:sqlite:db/grading.sqlite3")
 (def grading
   (-> (jdbc/get-datasource
        {:dbtype "sqlite"
@@ -213,7 +195,6 @@
           ret (sql/query
                grading
                ["select * from grading where login=?" login])]
-      ;;(println "first ret" (first ret))
       (if (empty? ret)
         [::response/ok "no data"]
         (let [ret (first ret)]

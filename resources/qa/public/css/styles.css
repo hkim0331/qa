@@ -17,7 +17,6 @@ span.nick  {font-weight: bold;}
 .sm      {font-size: small;}
 .skyblue {color: royalblue;}
 
-/* 2022-03-25 */
 table {
   border-collapse: collapse;
 }
@@ -41,3 +40,8 @@ pre code {
   background-color: lightgray;
   padding: 5px;
 } */
+
+div.preview {
+  border: solid 1pt dimgray;
+  padding: 5px;
+}
