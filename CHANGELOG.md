@@ -18,7 +18,7 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
-## v2.7-SNAPSHOT
+## v2.7.719 / 2024-09-12
 
 - gave up to clearing up the last page contents after preview-> submit.
   instead, introduce dev.preview class and provide css. 
