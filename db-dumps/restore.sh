@@ -1,7 +1,7 @@
 #!/bin/sh
 # 2022-05-07 --last option
 
-DB=l22
+DB=qa
 
 if [ -z "$1" ]; then
     echo "usage: $0 yyyy-mm-dd.sql"
@@ -15,8 +15,7 @@ else
     DUMP=$1
 fi
 
-PSQL="psql -h localhost -U postgres"
+PSQL="psql -h db -U postgres"
 ${PSQL} -c "drop database ${DB}"
 ${PSQL} -c "create database ${DB} owner='postgres'"
 ${PSQL} ${DB} < ${DUMP}
-

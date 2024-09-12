@@ -5,15 +5,299 @@
 - qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
-- いいねにアラートつけるか。
-```
+- いいねにアラートつけるか
+```clj
 [:a {:href (str "/good/" (:id q) "/" (:id a))
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
 ```
-- admin-page 等、行方不明。不要か？
+- 質問を出したユーザは質問をクローズできるのは？ -> 他の人が不幸になりそう。
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
-- 質問を出したユーザは質問をクローズできる。
+- https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
+- base.html から logout ボタン削った方が良くないか？
+- mp.melt は need VPN だった。
+- (reset) はエラーでも (halt) (go) はいける。
+
+## v2.7.719 / 2024-09-12
+
+- gave up to clearing up the last page contents after preview-> submit.
+  instead, introduce dev.preview class and provide css. 
+
+## v2.7.710 / 2024-09-12
+
+- color pre code
+
+```css
+pre code {
+  word-wrap: break-word;
+  background-color: #f4f4f4;
+  padding: 5px;
+  font-size: 16px;
+}
+```
+
+## v2.7.703 / 2024-08-26
+Compiling with jdk17 instead of preparing docker?
+- Delete `Makrdown Preview` button.
+- make uberjar
+```
+uberjar:
+	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home \
+  lein uberjar
+```
+
+- docker-compose.ymml:
+```
+  image: clojure:temurin-17-lein-jammy
+```
+
+## v2.6.697 / 2024-04-20
+- markdown 道場の切り替え。mp.melt にリンクする。
+
+## v2.6.693 / 2024-04-20
+- マージミス。
+- docker-compose.yml: image: postgres:14.11
+  ```
+    environment:
+      QA_DEV: true
+      - docker user root, not vscode.
+  ```
+- bind mount /root/.m2, not /home/vscode/.m2
+- updated bump-version.sh, updating CHANGELOG.md.
+
+## v2.5.681 / 2024-04-16
+- core/question-start を環境変数 QA_STARTで。
+- lein clean
+- clj -Tantq outdated
+
+| :file       | :name                                   | :current | :latest |
+| ----------- | --------------------------------------- | -------- | ------- |
+| project.clj | cheshire/cheshire                       | 5.12.0   | 5.13.0  |
+|             | clojure.java-time/clojure.java-time     | 1.3.0    | 1.4.2   |
+|             | com.fasterxml.jackson.core/jackson-core | 2.15.2   | 2.17.0  |
+|             | com.github.seancorfield/next.jdbc       | 1.3.894  | 1.3.925 |
+|             | duct/core                               | 0.8.0    | 0.8.1   |
+|             | markdown-clj/markdown-clj               | 1.11.7   | 1.12.1  |
+|             | org.clojure/clojure                     | 1.11.1   | 1.11.2  |
+|             | org.postgresql/postgresql               | 42.6.0   | 42.7.3  |
+|             | ring/ring                               | 1.10.0   | 1.12.1  |
+
+- ring をアップデートすると jetty その他もアップデート必要になる。1.10.0 に止めよう。
+
+```
+[ring "1.10.0"]
+  [ring/ring-jetty-adapter "1.10.0"]
+    [org.eclipse.jetty/jetty-server "9.4.51.v20230217"]
+      [org.eclipse.jetty/jetty-http "9.4.51.v20230217"]
+        [org.eclipse.jetty/jetty-util "9.4.51.v20230217"]
+      [org.eclipse.jetty/jetty-io "9.4.51.v20230217"]
+  [ring/ring-servlet "1.10.0"]
+
+[ring "1.12.1"]
+  [org.ring-clojure/ring-jakarta-servlet "1.12.1"]
+  [ring/ring-jetty-adapter "1.12.1"]
+    [org.eclipse.jetty.websocket/websocket-jetty-server "11.0.20"]
+      [org.eclipse.jetty.websocket/websocket-jetty-api "11.0.20"]
+      [org.eclipse.jetty.websocket/websocket-jetty-common "11.0.20"]
+        [org.eclipse.jetty.websocket/websocket-core-common "11.0.20"]
+      [org.eclipse.jetty.websocket/websocket-servlet "11.0.20"]
+        [org.eclipse.jetty.websocket/websocket-core-server "11.0.20"]
+      [org.eclipse.jetty/jetty-servlet "11.0.20"]
+        [org.eclipse.jetty/jetty-security "11.0.20"]
+      [org.eclipse.jetty/jetty-webapp "11.0.20"]
+        [org.eclipse.jetty/jetty-xml "11.0.20"]
+    [org.eclipse.jetty/jetty-server "11.0.20"]
+      [org.eclipse.jetty.toolchain/jetty-jakarta-servlet-api "5.0.2"]
+      [org.eclipse.jetty/jetty-http "11.0.20"]
+        [org.eclipse.jetty/jetty-util "11.0.20"]
+      [org.eclipse.jetty/jetty-io "11.0.20"]
+```
+
+```
+dev=> (go)
+Execution error (ClassNotFoundException) at
+jdk.internal.loader.BuiltinClassLoader/loadClass (BuiltinClassLoader.java:641).
+java.util.SequencedCollection
+```
+
+## 2.4.19 - 2024-01-02
+- /goods li じゃなく、id を表示する。
+- FIXED: Makefile
+  docker/duct/duct.zip で Makefile を上書きしたか、
+  make uberjar
+  make deploy
+  のエントリーがなくなっていた。
+
+## 2.4.18 - 2023-10-29
+- logout ボタンを page から questions-page に移動。
+- make uberjar が遅いのは docker のボリュームマウントではなかった。
+  ボリュームマウントをやめても変わらずに遅い。
+  - ローカルを jvm17 でいく。
+  - サーバーを jvm17 にする。
+  - uberjar 作るのは時代遅れか？
+
+## 2.4.17 - 2023-10-06
+- start 2023.
+- 2023-10-01 以降の Q だけ表示する。
+
+```clojure
+;; qa.handler.core:
+(def ^:private questions-start "2023-10-01")
+```
+
+- antq upgrade
+
+| :file       | :name                             | :current | :latest |
+| ----------- | --------------------------------- | -------- | --------|
+| project.clj | com.github.seancorfield/next.jdbc | 1.3.883  | 1.3.894 |
+|             | markdown-clj/markdown-clj         | 1.11.5   | 1.11.7  |
+
+
+## 2.4.16.1 - 2023-09-24
+- display update-at in `/about` page.
+
+## 2.4.16 - 2023-09-23
+### Fixme
+m24 で作った uberjar は app.melt で動かない。
+devcontainer で uberjar 作りは長い時間がかかる。app.melt では動く。
+
+### Changed
+antq upgrade
+```shell
+| buddy/buddy-hashers                     | 1.8.158  | 2.0.167 |
+| cheshire/cheshire                       | 5.11.0   | 5.12.0  |
+| clojure.java-time/clojure.java-time     | 1.2.0    | 1.3.0   |
+| com.fasterxml.jackson.core/jackson-core | 2.14.2   | 2.15.2  |
+| com.github.seancorfield/next.jdbc       | 1.3.865  | 1.3.883 |
+| integrant/repl                          | 0.3.2    | 0.3.3   |
+| markdown-clj/markdown-clj               | 1.11.4   | 1.11.5  |
+```
+
+
+## 2.3.15 - 2023-09-23
+### Added
+- .devcontainer/devcontainer.json
+- docker-compose.yml
+### No class error
+m24(java 21) でメークした jar が app.melt で動かない。
+同じソースを nuc.local でメークしたものは動くのだが。
+docker コンテナで作った jar は動く。
+
+```shell
+ubuntu@app:~/qa$ ./start.sh
+...
+Exception in thread "main" java.lang.NoClassDefFoundError: java/util/SequencedCollection
+...
+```
+
+## 2.3.12 - 2023-09-23
+- /about ページ。
+- /my-goods/:login 大きなフォント、改行入れてインフォーマティブに。
+- 「👍のクリックで回答表示」は about メニューに幅を確保のために削除。
+- fix typo in "最近の投稿^C"
+
+## 2.3.0 - 2023-09-20
+- firefox(117.0) で qa にログインできる。
+  nginx 通さないダイレクト通信だとログインできるので、問題は nginx にあったとみた方がいい。
+  kali の firefox は大丈夫だった。
+
+## v2.5.681 / 2024-04-16
+- let good anchors for admin only transparent
+
+## 2.2.11 - 2023-05-16
+- bootstrap@5.3.0-alpha3
+- link-underline-light で見かけを軽くした。
+
+## 2.2.10 - 2023-05-16
+- Q を 2023-04-01 以降のものに絞る
+- preview の意味を短く表示
+- (def ^:private version ...)
+- bootstrap 4.5.0 -> 5.2.3
+
+## 2.2.9 - 2023-04-18
+- メニューを markdown から markdown 道場へ
+
+## 2.2.8 - 2023-04-14
+### drop table
+```
+qa=# \d
+                 List of relations
+ Schema |        Name        |   Type   |  Owner
+------- | ------------------ | -------- | ---------
+ public | answers            | table    | postgres
+ public | answers_id_seq     | sequence | postgres
+ public | goods              | table    | postgres
+ public | goods_id_seq       | sequence | postgres
+ public | questions          | table    | postgres
+ public | questions_id_seq   | sequence | postgres
+ public | ragtime_migrations | table    | postgres
+ public | readers            | table    | postgres
+ public | readers_id_seq     | sequence | postgres
+ public | schema_migrations  | table    | postgres
+(10 rows)
+```
+
+### antq upgrade
+
+|       :file |                             :name | :current | :latest |
+| ----------- | --------------------------------- | -------- | ------- |
+| project.clj | com.github.seancorfield/next.jdbc |  1.3.862 | 1.3.865 |
+|             |                         ring/ring |    1.9.6 |  1.10.0 |
+
+### Removed
+- deploy.sh use `make deploy`
+
+## 2.2.7 - 2023-04-10
+### Changed
+- view.page/readers-page の dedupe を distinct に変更
+
+## 2.2.6 - 2023-03-29
+readers を重複をなくした名前順ではなく、読んだ順にした。長すぎる時はやめよう。
+- boundary.readers/fetch-readers で distinct をやめ、
+- view.page/readers-page に dedupe を挟んだ。連続するものは一つに。
+  => 一度だけ現れるってのは？
+
+## v2.5.681 / 2024-04-16
+- added Makefile
+
+  % make deploy
+
+## 2.2.4 - 2023-03-21
+- bump vesion up
+- preview before submission
+- no auth when dev mode
+- use env-var? `config` usage in duct
+- ommit login auth by export QA_DEV=true
+- `:duct.server.http/jetty {:port 3003}` this is same with qa.melt
+  changed start.sh and stop.sh simultaneously.
+
+## 2.1.3 - 2023-03-05
+- update libraries
+
+## 2.0.5 - 2022-10-15
+
+## 2.0.3 - 2022-10-13
+- keyword をやめてみた。効果なし。2.0.2 に戻す。
+
+## 2.0.2 - 2022-10-13
+- firefox でログインできない？そんな馬鹿な？
+  家 Mac で再現できた。なぜだ？ 理由がわからん。py99 へは firefox ログインできる。
+  proxy 通さない直 qa はこれまたログインできる。
+  proxy が問題？そんなことあるかなあ？
+  duct か？ py99 は luminus.
+
+## 2.0.1 - 2022-10-13
+- 昨年のまま、l22 データベースを使っていた。qa データベースに以降。
+  一般人にはわかるまい。成功したみたいだ。
+
+## 2.0.0 - 2022-09-26
+- login を db から api に変更した。
+
+## 1.9.0 - 2022-08-09
+- resources/db/grading.sqlite3
+
+## 1.8.0 - 2022-08-08
+- announce
 
 ## 1.7.9 - 2022-08-06
 - DRY! `/since` redirects `/since/"today"`.
@@ -78,7 +362,7 @@ StandardOutput=append:/home/ubuntu/qa/log/qa.log
 StandardError=append:/home/ubuntu/qa/log/qa.log
 ```
 
-## 1.6.0-SNAPSHOT
+## v2.5.681 / 2024-04-16
 ### Changed
 - q/a のテキストエリアの高さを 2 倍、200px
 - /since を hkimura オンリーに
@@ -107,7 +391,7 @@ StandardError=append:/home/ubuntu/qa/log/qa.log
 ### Changed
 - replace ok() with confirm('message')
 
-## 1.4.0-SNAPSHOT
+## v2.5.681 / 2024-04-16
 
 clj -Tantq outdated
 
@@ -146,7 +430,7 @@ clj -Tantq outdated
 - 最近のいいねで internal server error
   builder-fn 問題。
 
-## 1.3.4-SNAPSHOT
+## v2.5.681 / 2024-04-16
 - debug ログを精選する
 - リファクタリング
 
@@ -294,7 +578,7 @@ qa.melt でスタートしない。
  answers テーブルにコラム g が欠落していた。
  教訓：古いマイグレーションコード（動作を確認できないやつ）を残すな、信じるな。
 
-## 0.6.2-SNAPSHOT
+## v2.5.681 / 2024-04-16
 まだ本番サーバーで回答ができない。開発PC ではできたはずだが？
 - hotfix 0.6.2 start
 
@@ -440,10 +724,8 @@ qa.melt でスタートしない。
 - ページのボトムに logout ボタン。
 
 ## 0.1.0 - 2021-06-17
+- 開発スタート
+- git flow init
 - ex-typing のデータで認証する。
 - table 定義(sql)
 - question form ("/q")
-
-## 0.1.0-SNAPSHOT - 2021-06-17
-- 開発スタート
-- git flow init

@@ -16,5 +16,9 @@ pom.xml.asc
 #
 .env
 /start-stop
+/db-dumps/old/
 /db-dumps/*.sql
-
+/db
+/.clj-kondo/.cache
+/.lsp/.cache
+/.calva/output-window
