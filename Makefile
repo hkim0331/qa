@@ -33,8 +33,8 @@ arm64:
 	docker buildx build --platform linux/$@ --push -t ${TAG}-$@ .
 
 uberjar:
-	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home \
-  lein uberjar
+#	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home lein uberjar
+	lein uberjar
 
 deploy: uberjar
 	scp target/qa-*-standalone.jar ${DEST}:qa/qa.jar && \
