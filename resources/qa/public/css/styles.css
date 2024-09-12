@@ -24,3 +24,20 @@ table {
 table, th, td {
   border: 1px solid black;
 }
+
+pre code {
+  font-family: 'Courier New', Courier, monospace;
+  word-wrap: break-word;
+  background-color: #f4f4f4;
+  padding: 5px;
+  font-size: 16px;
+}
+
+/* pre code {
+  font-family: 'Courier New', Courier, monospace;
+  color: black;
+  font-weight: normal;
+  font-size: normal;
+  background-color: lightgray;
+  padding: 5px;
+} */

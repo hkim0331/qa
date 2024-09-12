@@ -6,7 +6,7 @@
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
 - いいねにアラートつけるか
-```clojure
+```clj
 [:a {:href (str "/good/" (:id q) "/" (:id a))
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
@@ -18,6 +18,33 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
+## v2.7.710 / 2024-09-12
+
+- color pre code
+
+```css
+pre code {
+  word-wrap: break-word;
+  background-color: #f4f4f4;
+  padding: 5px;
+  font-size: 16px;
+}
+```
+
+## v2.7.703 / 2024-08-26
+Compiling with jdk17 instead of preparing docker?
+- Delete `Makrdown Preview` button.
+- make uberjar
+```
+uberjar:
+	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home \
+  lein uberjar
+```
+
+- docker-compose.ymml:
+```
+  image: clojure:temurin-17-lein-jammy
+```
 
 ## v2.6.697 / 2024-04-20
 - markdown 道場の切り替え。mp.melt にリンクする。
@@ -50,8 +77,7 @@
 |             | org.postgresql/postgresql               | 42.6.0   | 42.7.3  |
 |             | ring/ring                               | 1.10.0   | 1.12.1  |
 
-- ring をアップデートすると jetty その他もアップデート必要になる。
-  1.10.0 に止めよう。
+- ring をアップデートすると jetty その他もアップデート必要になる。1.10.0 に止めよう。
 
 ```
 [ring "1.10.0"]
@@ -693,10 +719,8 @@ qa.melt でスタートしない。
 - ページのボトムに logout ボタン。
 
 ## 0.1.0 - 2021-06-17
+- 開発スタート
+- git flow init
 - ex-typing のデータで認証する。
 - table 定義(sql)
 - question form ("/q")
-
-## v2.5.681 / 2024-04-16
-- 開発スタート
-- git flow init

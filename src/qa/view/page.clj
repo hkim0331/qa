@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "v2.6.697")
-(def ^:private updated "2024-04-20 17:07:45")
+(def ^:private version "v2.7.710")
+(def ^:private updated "2024-09-12 12:12:41")
 
 (def ^:private wrap-at 80)
 
@@ -208,9 +208,9 @@
                  :placeholder "markdown OK"}
                 "answer")
      [:br]
-     [:a {:href "https://mp.melt.kyutech.ac.jp"
-          :class "btn btn-info btn-sm"}
-      "Markdown Preview"]
+     ; [:a {:href "https://mp.melt.kyutech.ac.jp"
+     ;      :class "btn btn-info btn-sm"}
+     ;  "Markdown Preview"]
      "&nbsp;"
      (submit-button {:class "btn btn-primary btn-sm"} "preview")
      [:p "自分のマークダウンを preview で確認して投稿する"])]
