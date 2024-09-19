@@ -1,6 +1,7 @@
 (ns qa.handler.auth
   (:require
    [buddy.hashers :as hashers]
+   [clojure.string :as str]
    [environ.core :refer [env]]
    [hato.client :as hc]
    [integrant.core :as ig]
@@ -19,7 +20,7 @@
     (index-page req)))
 
 (defn auth? [login password]
-  (debug "auth?" login password)
+  (debug "auth?" login (str/replace password #"." "#"))
   (or (env :qa-dev)
       (let [ep (str l22 "/api/user/" login)
             user (:body (hc/get ep {:as :json}))]
@@ -28,11 +29,11 @@
 (defmethod ig/init-key :qa.handler.auth/login-post [_ _]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]
     (if (and (seq login) (auth? login password))
-      (do
+      (let [ret (-> (resp/redirect "/qs")
+                    (assoc-in [:session :identity] login))]; was (keyword login)
         (info "login success" login)
-        ;; in safari, session :identity becomes nil. why?
-        (-> (resp/redirect "/qs")
-            (assoc-in [:session :identity] login))) ; was (keyword login)
+        (debug "ret" ret)
+        ret)
       (do
         (info "login failure")
         (-> (resp/redirect "/")

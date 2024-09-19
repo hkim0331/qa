@@ -18,7 +18,7 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
-## v2.8-SNAPSHOT-3 / 2024-09-20
+## v2.8-SNAPSHOT-4 / 2024-09-20
 
 - npm install bootstrap@5.3.3
 
