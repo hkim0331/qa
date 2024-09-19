@@ -18,7 +18,16 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
-## v2.8-SNAPSHOT
+## v2.8-SNAPSHOT / 2024-09-20
+
+- qa.middleware で飛ばされている。
+
+```log
+24-09-19 20:01:12 app INFO [qa.handler.auth:41] - login success
+24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/qs", :query-string nil}
+24-09-19 20:01:12 app INFO [qa.middleware:20] - unauthorized-handler: unauthenticated
+24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/login", :query-string nil}
+```
 
 - updated libraries
 
