@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "v2.7.719")
-(def ^:private updated "2024-09-12 22:46:43")
+(def ^:private version "v2.8-SNAPSHOT-4")
+(def ^:private updated "2024-09-20 07:20:58")
 
 (def ^:private wrap-at 80)
 
@@ -44,11 +44,15 @@
     [:head
      [:meta {:charset "utf-8"}]
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
+    #_[:link
+       {:rel "stylesheet"
+        :type "text/css"
+        :href "/css/bootstrap.min.css"}]
     [:link
-     {:rel "stylesheet"
-      :crossorigin "anonymous"
-      :href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-      :integrity "sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"}]
+     {:href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      :rel  "stylesheet"
+      :integrity "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      :crossorigin "anonymous"}]
     [:link
      {:rel "stylesheet"
       :type "text/css"

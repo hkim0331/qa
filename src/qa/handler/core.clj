@@ -25,7 +25,7 @@
      readers-page
      points-page
      preview-page]]
-   [taoensso.timbre :as timbre :refer [debug]]))
+   [taoensso.timbre :refer [info debug] :as timbre]))
 
 ;; questions-start 以降の q をリストする
 (def ^:private questions-start
@@ -62,7 +62,7 @@
 
 (defmethod ig/init-key :qa.handler.core/questions [_ {:keys [db]}]
   (fn [request]
-    (timbre/info "questions")
+    (info "questions")
     (let [ret (questions/fetch-after db questions-start)
           counts (answers/count-answers db)]
       (readers/create-reader db (get-login request) "qs" 0)
@@ -85,7 +85,7 @@
 (defmethod ig/init-key :qa.handler.core/answer-create [_ {:keys [db]}]
   (fn [{{:keys [q_id answer]} :params :as req}]
     (let [nick (get-login req)]
-      (timbre/debug "answer-create: q_id" q_id "nick" nick "answer" answer)
+      (debug "answer-create: q_id" q_id "nick" nick "answer" answer)
       (answers/create db (Integer/parseInt q_id) nick answer)
       [::response/found (str "/as/" q_id)])))
 
