@@ -18,10 +18,39 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
+## v2.8-SNAPSHOT
+
+- updated libraries
+
+| :file       | :name                                   | :current | :latest |
+|------------ | --------------------------------------- | -------- | --------|
+| project.clj | com.fasterxml.jackson.core/jackson-core | 2.17.0   | 2.17.2  |
+|             | com.github.seancorfield/next.jdbc       | 1.3.925  | 1.3.939 |
+|             | hato/hato                               | 0.9.0    | 1.0.0   |
+|             | org.clojure/clojure                     | 1.11.3   | 1.12.0  |
+|             | org.postgresql/postgresql               | 42.7.3   | 42.7.4  |
+|             | ring/ring                               | 1.10.0   | 1.12.2  |
+
+- errored
+
+```sh
+; Execution error (FileNotFoundException) at ring.adapter.jetty/eval18634$loading (jetty.clj:1).
+; Could not locate ring/websocket__init.class, ring/websocket.clj or ring/websocket.cljc on classpath.
+```
+- fixed
+
+```clj
+   ;; [ring "1.12.2"] ;; was 1.10.0
+   [ring/ring-anti-forgery "1.3.1"]
+   [ring/ring-core "1.12.2"]
+   [ring/ring-defaults "0.5.0"]
+   [ring/ring-jetty-adapter "1.12.2"]
+```
+
 ## v2.7.719 / 2024-09-12
 
 - gave up to clearing up the last page contents after preview-> submit.
-  instead, introduce dev.preview class and provide css. 
+  instead, introduce dev.preview class and provide css.
 
 ## v2.7.710 / 2024-09-12
 
