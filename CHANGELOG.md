@@ -18,6 +18,66 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
+## v2.8.728 / 2024-09-20
+
+- nginx の websocket 関連のコードを nginx.conf に置くのをやめてみた。
+
+```
+#        map $http_upgrade $connection_upgrade {
+#            default upgrade;
+#            ''      close;
+#        }
+```
+
+- session identity: nil がおかしい。
+
+```log
+24-09-19 20:45:14 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/qs", :query-string nil}
+24-09-19 20:45:14 app DEBUG [qa.middleware:30] - probe session identity: nil
+Producer@1ac76d00 eof=false"], :multipart-params {}, :scheme :http, :request-method :get, :session {}}
+```
+
+- qa.middleware で飛ばされている。
+
+```log
+24-09-19 20:01:12 app INFO [qa.handler.auth:41] - login success
+24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/qs", :query-string nil}
+24-09-19 20:01:12 app INFO [qa.middleware:20] - unauthorized-handler: unauthenticated
+24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/login", :query-string nil}
+```
+
+- updated libraries
+
+| :file       | :name                                   | :current | :latest |
+|------------ | --------------------------------------- | -------- | --------|
+| project.clj | com.fasterxml.jackson.core/jackson-core | 2.17.0   | 2.17.2  |
+|             | com.github.seancorfield/next.jdbc       | 1.3.925  | 1.3.939 |
+|             | hato/hato                               | 0.9.0    | 1.0.0   |
+|             | org.clojure/clojure                     | 1.11.3   | 1.12.0  |
+|             | org.postgresql/postgresql               | 42.7.3   | 42.7.4  |
+|             | ring/ring                               | 1.10.0   | 1.12.2  |
+
+- errored
+
+```sh
+; Execution error (FileNotFoundException) at ring.adapter.jetty/eval18634$loading (jetty.clj:1).
+; Could not locate ring/websocket__init.class, ring/websocket.clj or ring/websocket.cljc on classpath.
+```
+- fixed
+
+```clj
+   ;; [ring "1.12.2"] ;; was 1.10.0
+   [ring/ring-anti-forgery "1.3.1"]
+   [ring/ring-core "1.12.2"]
+   [ring/ring-defaults "0.5.0"]
+   [ring/ring-jetty-adapter "1.12.2"]
+```
+
+## v2.7.719 / 2024-09-12
+
+- gave up to clearing up the last page contents after preview-> submit.
+  instead, introduce dev.preview class and provide css.
+
 ## v2.7.710 / 2024-09-12
 
 - color pre code

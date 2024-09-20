@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "v2.7.710")
-(def ^:private updated "2024-09-12 12:12:41")
+(def ^:private version "v2.8.728")
+(def ^:private updated "2024-09-20 15:06:40")
 
 (def ^:private wrap-at 80)
 
@@ -44,11 +44,15 @@
     [:head
      [:meta {:charset "utf-8"}]
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
+    #_[:link
+       {:rel "stylesheet"
+        :type "text/css"
+        :href "/css/bootstrap.min.css"}]
     [:link
-     {:rel "stylesheet"
-      :crossorigin "anonymous"
-      :href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-      :integrity "sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"}]
+     {:href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      :rel  "stylesheet"
+      :integrity "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      :crossorigin "anonymous"}]
     [:link
      {:rel "stylesheet"
       :type "text/css"
@@ -317,17 +321,14 @@
      [:p (str item)])))
 
 (defn preview-page [{:strs [q_id answer] :as req}]
-  ;; (timbre/debug "preview-page q_id" q_id "answer" answer)
-  ;; (timbre/debug "req" req)
   (page
    [:h2 "Check Your Markdown"]
-   (md-to-html-string answer)
+   [:div {:class "preview"} (md-to-html-string answer)]
    (form-to
     [:post "/a"]
     (anti-forgery-field)
     (hidden-field "q_id" q_id)
     (hidden-field "answer" answer)
     (submit-button {:class "btn btn-info btn-sm"} "投稿"))
-   [:p "思ったとおりじゃない時はブラウザの「戻る」で修正後に投稿する。"
-    [:br]
-    "投稿ボタンを押さない限り、QA には反映しない。"]))
+   [:p "投稿ボタンを押さない限り、QA には反映しない。" [:br]
+    "思ったとおりじゃない時はブラウザの「戻る」で修正後に投稿する。"]))
