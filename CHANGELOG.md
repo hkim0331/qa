@@ -19,8 +19,14 @@
 - (reset) はエラーでも (halt) (go) はいける。
 
 ## v2.8-SNAPSHOT-4 / 2024-09-20
+- nginx の websocket 関連のコードを nginx.conf に置くのをやめてみた。
 
-- npm install bootstrap@5.3.3
+```
+#        map $http_upgrade $connection_upgrade {
+#            default upgrade;
+#            ''      close;
+#        }
+```
 
 - session identity: nil がおかしい。
 
