@@ -18,14 +18,23 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
-## v2.8.732 / 2024-09-22
+## v2.8.728 / 2024-09-20
 
-- npm install bootstrap@5.3.3
+- nginx の websocket 関連のコードを nginx.conf に置くのをやめてみた。
+
+```
+#        map $http_upgrade $connection_upgrade {
+#            default upgrade;
+#            ''      close;
+#        }
+```
+
 - session identity: nil がおかしい。
 
 ```log
 24-09-19 20:45:14 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/qs", :query-string nil}
 24-09-19 20:45:14 app DEBUG [qa.middleware:30] - probe session identity: nil
+Producer@1ac76d00 eof=false"], :multipart-params {}, :scheme :http, :request-method :get, :session {}}
 ```
 - qa.middleware で飛ばされている。
 
