@@ -80,6 +80,7 @@
 (defn index-page [req]
   (page
    [:h2 "QA"]
+   [:p "Safari でログインできない事件が発生中です。"]
    [:div.text-danger (:flash req)]
    (form-to
     [:post "/login"]
