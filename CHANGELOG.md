@@ -18,7 +18,7 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
-## v2.8-SNAPSHOT
+## v2.8.732 / 2024-09-22
 
 - npm install bootstrap@5.3.3
 - session identity: nil がおかしい。
