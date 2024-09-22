@@ -6,7 +6,7 @@
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
 - いいねにアラートつけるか
-```clojure
+```clj
 [:a {:href (str "/good/" (:id q) "/" (:id a))
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
@@ -15,11 +15,88 @@
 - /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 - base.html から logout ボタン削った方が良くないか？
-- 2023-12-22, lein run から間違いコマンド (start)で起動せず。
-  その後、code 起動して、REPL、(dev) (go) でエラー。
-  lein clean 後、REPL, (dev) (go) で復活。
-- markdown 道場の切り替え。オフラインをダウンロードさせるか、WIL のをコピーするか。
+- mp.melt は need VPN だった。
+- (reset) はエラーでも (halt) (go) はいける。
 
+## v2.8.732 / 2024-09-22
+
+- npm install bootstrap@5.3.3
+- session identity: nil がおかしい。
+
+```log
+24-09-19 20:45:14 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/qs", :query-string nil}
+24-09-19 20:45:14 app DEBUG [qa.middleware:30] - probe session identity: nil
+```
+- qa.middleware で飛ばされている。
+
+```log
+24-09-19 20:01:12 app INFO [qa.handler.auth:41] - login success
+24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/qs", :query-string nil}
+24-09-19 20:01:12 app INFO [qa.middleware:20] - unauthorized-handler: unauthenticated
+24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/login", :query-string nil}
+```
+
+- fixed: nginx.conf の半端な websocket 設定を削除した。
+
+- updated libraries
+
+| :file       | :name                                   | :current | :latest |
+|------------ | --------------------------------------- | -------- | --------|
+| project.clj | com.fasterxml.jackson.core/jackson-core | 2.17.0   | 2.17.2  |
+|             | com.github.seancorfield/next.jdbc       | 1.3.925  | 1.3.939 |
+|             | hato/hato                               | 0.9.0    | 1.0.0   |
+|             | org.clojure/clojure                     | 1.11.3   | 1.12.0  |
+|             | org.postgresql/postgresql               | 42.7.3   | 42.7.4  |
+|             | ring/ring                               | 1.10.0   | 1.12.2  |
+
+- errored
+
+```sh
+; Execution error (FileNotFoundException) at ring.adapter.jetty/eval18634$loading (jetty.clj:1).
+; Could not locate ring/websocket__init.class, ring/websocket.clj or ring/websocket.cljc on classpath.
+```
+- fixed
+
+```clj
+   ;; [ring "1.12.2"] ;; was 1.10.0
+   [ring/ring-anti-forgery "1.3.1"]
+   [ring/ring-core "1.12.2"]
+   [ring/ring-defaults "0.5.0"]
+   [ring/ring-jetty-adapter "1.12.2"]
+```
+
+## v2.7.719 / 2024-09-12
+
+- gave up to clearing up the last page contents after preview-> submit.
+  instead, introduce dev.preview class and provide css.
+
+## v2.7.710 / 2024-09-12
+
+- color pre code
+
+```css
+pre code {
+  word-wrap: break-word;
+  background-color: #f4f4f4;
+  padding: 5px;
+  font-size: 16px;
+}
+```
+
+## v2.7.703 / 2024-08-26
+Compiling with jdk17 instead of preparing docker?
+- Delete `Makrdown Preview` button.
+- make uberjar
+```
+uberjar:
+	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home \
+  lein uberjar
+```
+
+- docker-compose.ymml:
+```
+  image: clojure:temurin-17-lein-jammy
+```
 
 ## v2.6.697 / 2024-04-20
 - markdown 道場の切り替え。mp.melt にリンクする。
@@ -52,8 +129,7 @@
 |             | org.postgresql/postgresql               | 42.6.0   | 42.7.3  |
 |             | ring/ring                               | 1.10.0   | 1.12.1  |
 
-- ring をアップデートすると jetty その他もアップデート必要になる。
-  1.10.0 に止めよう。
+- ring をアップデートすると jetty その他もアップデート必要になる。1.10.0 に止めよう。
 
 ```
 [ring "1.10.0"]
@@ -695,10 +771,8 @@ qa.melt でスタートしない。
 - ページのボトムに logout ボタン。
 
 ## 0.1.0 - 2021-06-17
+- 開発スタート
+- git flow init
 - ex-typing のデータで認証する。
 - table 定義(sql)
 - question form ("/q")
-
-## v2.5.681 / 2024-04-16
-- 開発スタート
-- git flow init

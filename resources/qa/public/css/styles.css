@@ -17,10 +17,31 @@ span.nick  {font-weight: bold;}
 .sm      {font-size: small;}
 .skyblue {color: royalblue;}
 
-/* 2022-03-25 */
 table {
   border-collapse: collapse;
 }
 table, th, td {
   border: 1px solid black;
+}
+
+pre code {
+  font-family: 'Courier New', Courier, monospace;
+  word-wrap: break-word;
+  background-color: #f4f4f4;
+  padding: 5px;
+  font-size: 16px;
+}
+
+/* pre code {
+  font-family: 'Courier New', Courier, monospace;
+  color: black;
+  font-weight: normal;
+  font-size: normal;
+  background-color: lightgray;
+  padding: 5px;
+} */
+
+div.preview {
+  border: solid 1pt dimgray;
+  padding: 5px;
 }

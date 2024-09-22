@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "v2.6.697")
-(def ^:private updated "2024-04-20 17:07:45")
+(def ^:private version "v2.8.732")
+(def ^:private updated "2024-09-22 10:06:55")
 
 (def ^:private wrap-at 80)
 
@@ -44,11 +44,15 @@
     [:head
      [:meta {:charset "utf-8"}]
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
+    #_[:link
+       {:rel "stylesheet"
+        :type "text/css"
+        :href "/css/bootstrap.min.css"}]
     [:link
-     {:rel "stylesheet"
-      :crossorigin "anonymous"
-      :href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-      :integrity "sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"}]
+     {:href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      :rel  "stylesheet"
+      :integrity "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      :crossorigin "anonymous"}]
     [:link
      {:rel "stylesheet"
       :type "text/css"
@@ -76,6 +80,9 @@
 (defn index-page [req]
   (page
    [:h2 "QA"]
+   [:p "昨年度リテラシー、情報処理応用受講者は"
+    [:a {:href "https://l22.melt.kyutech.ac.jp/register"}
+     "アカウントを作り直し"] "してください。(need VPN)"]
    [:div.text-danger (:flash req)]
    (form-to
     [:post "/login"]
@@ -208,9 +215,9 @@
                  :placeholder "markdown OK"}
                 "answer")
      [:br]
-     [:a {:href "https://mp.melt.kyutech.ac.jp"
-          :class "btn btn-info btn-sm"}
-      "Markdown Preview"]
+     ; [:a {:href "https://mp.melt.kyutech.ac.jp"
+     ;      :class "btn btn-info btn-sm"}
+     ;  "Markdown Preview"]
      "&nbsp;"
      (submit-button {:class "btn btn-primary btn-sm"} "preview")
      [:p "自分のマークダウンを preview で確認して投稿する"])]
@@ -317,17 +324,14 @@
      [:p (str item)])))
 
 (defn preview-page [{:strs [q_id answer] :as req}]
-  ;; (timbre/debug "preview-page q_id" q_id "answer" answer)
-  ;; (timbre/debug "req" req)
   (page
    [:h2 "Check Your Markdown"]
-   (md-to-html-string answer)
+   [:div {:class "preview"} (md-to-html-string answer)]
    (form-to
     [:post "/a"]
     (anti-forgery-field)
     (hidden-field "q_id" q_id)
     (hidden-field "answer" answer)
     (submit-button {:class "btn btn-info btn-sm"} "投稿"))
-   [:p "思ったとおりじゃない時はブラウザの「戻る」で修正後に投稿する。"
-    [:br]
-    "投稿ボタンを押さない限り、QA には反映しない。"]))
+   [:p "投稿ボタンを押さない限り、QA には反映しない。" [:br]
+    "思ったとおりじゃない時はブラウザの「戻る」で修正後に投稿する。"]))
