@@ -18,18 +18,15 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
-## v2.8-SNAPSHOT-4 / 2024-09-20
+## v2.8.732 / 2024-09-22
 
 - npm install bootstrap@5.3.3
-
 - session identity: nil がおかしい。
 
 ```log
 24-09-19 20:45:14 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/qs", :query-string nil}
 24-09-19 20:45:14 app DEBUG [qa.middleware:30] - probe session identity: nil
-24-09-19 20:45:14 app DEBUG [qa.middleware:15] - request {:ssl-client-cert nil, :protocol "HTTP/1.0", :cookies {}, :remote-addr "127.0.0.1", :params {}, :flash nil, :route-params {}, :headers {"sec-fetch-site" "cross-site", "host" "qa.melt.kyutech.ac.jp", "user-agent" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15", "connection" "close", "accept" "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "accept-language" "en-US,en;q=0.9", "sec-fetch-dest" "document", "x-forwarded-for" "150.69.90.34", "accept-encoding" "gzip, deflate, br", "sec-fetch-mode" "navigate", "x-real-ip" "150.69.90.34"}, :server-port 80, :ataraxy/result [:qa.handler.core/questions], :content-length nil, :form-params {}, :session/key nil, :query-params {}, :content-type nil, :character-encoding nil, :uri "/qs", :server-name "qa.melt.kyutech.ac.jp", :anti-forgery-token "LZak1Xe6V+dZLBN1j7OZvLtNdvpoaYhv8UC+pQ0PVpLf+HwNzZ34H2z2lkNi33XJM3vFECVYMnFuuE//", :query-string nil, :body #object[org.eclipse.jetty.server.HttpInput 0x41c561b7 "HttpInput@1103454647 cs=HttpChannelState@7b4e5085{s=HANDLING rs=BLOCKING os=OPEN is=IDLE awp=false se=false i=true al=0} cp=org.eclipse.jetty.server.BlockingContentProducer@1ac76d00 eof=false"], :multipart-params {}, :scheme :http, :request-method :get, :session {}}
 ```
-
 - qa.middleware で飛ばされている。
 
 ```log
@@ -38,6 +35,8 @@
 24-09-19 20:01:12 app INFO [qa.middleware:20] - unauthorized-handler: unauthenticated
 24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/login", :query-string nil}
 ```
+
+- fixed: nginx.conf の半端な websocket 設定を削除した。
 
 - updated libraries
 
