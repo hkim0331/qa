@@ -18,6 +18,7 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
+
 ## v2.8.728 / 2024-09-20
 
 - nginx の websocket 関連のコードを nginx.conf に置くのをやめてみた。
@@ -44,7 +45,7 @@ Producer@1ac76d00 eof=false"], :multipart-params {}, :scheme :http, :request-met
 24-09-19 20:01:12 app INFO [qa.middleware:20] - unauthorized-handler: unauthenticated
 24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/login", :query-string nil}
 ```
-
+ZZ
 - fixed: nginx.conf の半端な websocket 設定を削除した。
 
 - updated libraries

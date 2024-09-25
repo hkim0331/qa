@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "v2.8.732")
-(def ^:private updated "2024-09-22 10:06:55")
+(def ^:private version "v2.9-SNAPSHOT")
+(def ^:private updated "2024-09-25 12:36:05")
 
 (def ^:private wrap-at 80)
 
@@ -66,7 +66,7 @@
       [:p]
       ;; [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
       [:hr]
-      "programmed by hkimura"]])])
+      "programmed by hkimura. " version]])])
 
 (defn about-page
   []
