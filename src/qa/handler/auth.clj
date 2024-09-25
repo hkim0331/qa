@@ -9,7 +9,8 @@
    [ring.util.response :as resp]
    [taoensso.timbre :refer [info debug] :as timbre]))
 
-(def l22 "https://l22.melt.kyutech.ac.jp")
+;; see definition of `auth?`
+;; (def l22 "https://l22.melt.kyutech.ac.jp")
 
 (comment
   (env :qa-dev)
@@ -21,9 +22,11 @@
 
 (defn auth? [login password]
   (debug "auth?" login (str/replace password #"." "#"))
-  (or (env :qa-dev)
-      (let [ep (str l22 "/api/user/" login)
-            user (:body (hc/get ep {:as :json}))]
+  (if(env :qa-dev)
+    (and (= login "hkimura") true) ; any password
+    (let [l22 "https://l22.melt.kyutech.ac.jp"
+          ep (str l22 "/api/user/" login)
+          user (:body (hc/get ep {:as :json}))]
         (and (some? user) (hashers/check password (:password user))))))
 
 (defmethod ig/init-key :qa.handler.auth/login-post [_ _]

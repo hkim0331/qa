@@ -18,6 +18,9 @@
 - mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。
 
+## v2.9-SNAPSHOT / 2024-09-26
+
+- QA_DEV=true 時の認証は (= login "hkimura") のみ。
 
 ## v2.8.728 / 2024-09-20
 

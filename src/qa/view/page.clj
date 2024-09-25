@@ -11,7 +11,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
 (def ^:private version "v2.9-SNAPSHOT")
-(def ^:private updated "2024-09-25 12:36:05")
+(def ^:private updated "2024-09-26 06:26:09")
 
 (def ^:private wrap-at 80)
 
