@@ -1,5 +1,4 @@
 (ns qa.handler.core
-  #_(:refer-clojure :exclude [abs])
   (:require
    [ataraxy.response :as response]
    [integrant.core :as ig]

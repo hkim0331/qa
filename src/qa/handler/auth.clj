@@ -1,5 +1,4 @@
 (ns qa.handler.auth
-  (:refer-clojure :exclude [abs])
   (:require
    [buddy.hashers :as hashers]
    [clojure.string :as str]
