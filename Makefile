@@ -40,7 +40,7 @@ uberjar:
 	lein uberjar
 
 run: uberjar
-	java -jar target/qa-*-standalone.jar
+	sh start.sh
 
 deploy: uberjar
 	scp target/qa-*-standalone.jar ${DEST}:qa/qa.jar && \
