@@ -7,6 +7,9 @@ all:
 	@echo make build
 	@echo make zip
 	@echo make github
+	@echo make uberjar
+	@echo make run
+	@echo make deploy
 
 build:
 	docker build -t ${TAG} .
@@ -35,6 +38,9 @@ arm64:
 uberjar:
 #	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home lein uberjar
 	lein uberjar
+
+run: uberjar
+	java -jar target/qa-*-standalone.jar
 
 deploy: uberjar
 	scp target/qa-*-standalone.jar ${DEST}:qa/qa.jar && \
