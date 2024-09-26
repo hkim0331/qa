@@ -1,4 +1,5 @@
 (ns qa.handler.auth
+  (:refer-clojure :exclude [abs])
   (:require
    [buddy.hashers :as hashers]
    [clojure.string :as str]
@@ -22,7 +23,7 @@
 
 (defn auth? [login password]
   (debug "auth?" login (str/replace password #"." "#"))
-  (if(env :qa-dev)
+  (if (env :qa-dev)
     (and (= login "hkimura") true) ; any password
     (let [l22 "https://l22.melt.kyutech.ac.jp"
           ep (str l22 "/api/user/" login)
