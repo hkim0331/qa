@@ -21,7 +21,12 @@
 ## v2.9-SNAPSHOT / 2024-09-26
 
 - QA_DEV=true 時の認証は (= login "hkimura") のみ。
+- WARNING: abs already refers to: #'clojure.core/abs in namespace: medley.core が出なくなった。
 
+```
+   [dev.weavejester/medley "1.8.1"]
+   [com.taoensso/timbre "6.5.0"]
+```
 ## v2.8.728 / 2024-09-20
 
 - nginx の websocket 関連のコードを nginx.conf に置くのをやめてみた。
