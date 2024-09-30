@@ -1,6 +1,6 @@
 (ns qa.main
-  (:gen-class)
-  (:require [duct.core :as duct]))
+  (:require [duct.core :as duct])
+  (:gen-class))
 
 (duct/load-hierarchy)
 

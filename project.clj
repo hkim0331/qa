@@ -1,4 +1,4 @@
-(defproject qa "v2.8.728"
+(defproject qa "v2.9-SNAPSHOT"
   :description "qa system for my literacy classes"
   :url "https://qa.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -28,6 +28,9 @@
    [ring/ring-core "1.12.2"]
    [ring/ring-defaults "0.5.0"]
    [ring/ring-jetty-adapter "1.12.2"]
+   ;;
+   [dev.weavejester/medley "1.8.1"]
+   [com.taoensso/timbre "6.5.0"]
    ]
 
   :plugins [[duct/lein-duct "0.12.3"]]

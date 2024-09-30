@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "v2.8.728")
-(def ^:private updated "2024-09-20 15:06:40")
+(def ^:private version "v2.9-SNAPSHOT")
+(def ^:private updated "2024-09-26 06:26:09")
 
 (def ^:private wrap-at 80)
 
@@ -66,7 +66,7 @@
       [:p]
       ;; [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
       [:hr]
-      "programmed by hkimura"]])])
+      "programmed by hkimura. " version]])])
 
 (defn about-page
   []
@@ -80,6 +80,9 @@
 (defn index-page [req]
   (page
    [:h2 "QA"]
+   [:p "昨年度リテラシー、情報処理応用受講者は"
+    [:a {:href "https://l22.melt.kyutech.ac.jp/register"}
+     "アカウントを作り直し"] "してください。(need VPN)"]
    [:div.text-danger (:flash req)]
    (form-to
     [:post "/login"]
