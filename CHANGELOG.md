@@ -16,7 +16,10 @@
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 - base.html から logout ボタン削った方が良くないか？
 - mp.melt は need VPN だった。
-- (reset) はエラーでも (halt) (go) はいける。
+- (reset) はエラーでも (halt) (go) はいける。=> *ns* を確認。
+- filter の初期値を環境変数でもつ。admin がコントロールできる。
+  filter から self を抜いて適用する。
+
 
 ## v2.9-SNAPSHOT / 2024-09-26
 
