@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "v2.8.732")
-(def ^:private updated "2024-09-22 10:06:55")
+(def ^:private version "v2.9.762")
+(def ^:private updated "2024-10-05 02:17:10")
 
 (def ^:private wrap-at 80)
 
@@ -66,7 +66,7 @@
       [:p]
       ;; [:p [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
       [:hr]
-      "programmed by hkimura"]])])
+      "programmed by hkimura. " version]])])
 
 (defn about-page
   []
@@ -105,10 +105,10 @@
             :controls "controls"}]
    [:div
     [:ul
-     [:li "回答しやすい質問をする練習と、回答できる質問には回答する練習。"]
+     [:li "回答しやすい質問をする。回答できる質問には回答する。"]
      [:li "質問はテキスト、回答は Markdown で。"]
-     [:li "「👍」は一回答に一回だけです。"]
-     [:li "「👍」付いた回答にはちょびっとボーナス。"]]]))
+     [:li "「いいね 👍」は一回答にひとり一回だけです。"]
+     [:li "ログイン時の Invalid anti-forgery token は認証切れ。再読み込みで。"]]]))
 
 (defn question-new-page []
   (page

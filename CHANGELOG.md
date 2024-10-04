@@ -16,8 +16,21 @@
 - https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 - base.html から logout ボタン削った方が良くないか？
 - mp.melt は need VPN だった。
-- (reset) はエラーでも (halt) (go) はいける。
+- (reset) はエラーでも (halt) (go) はいける。=> *ns* を確認。
+- filter の初期値を環境変数でもつ。admin がコントロールできる。
+  filter から self を抜いて適用する。
 
+
+## v2.9.72 / 2024-10-05
+
+- css for pre.code.
+- QA_DEV=true 時の認証は (= login "hkimura") のみ。
+- WARNING: abs already refers to: #'clojure.core/abs in namespace: medley.core が出なくなった。
+
+```
+   [dev.weavejester/medley "1.8.1"]
+   [com.taoensso/timbre "6.5.0"]
+```
 ## v2.8.728 / 2024-09-20
 
 - nginx の websocket 関連のコードを nginx.conf に置くのをやめてみた。
@@ -44,7 +57,7 @@ Producer@1ac76d00 eof=false"], :multipart-params {}, :scheme :http, :request-met
 24-09-19 20:01:12 app INFO [qa.middleware:20] - unauthorized-handler: unauthenticated
 24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/login", :query-string nil}
 ```
-
+ZZ
 - fixed: nginx.conf の半端な websocket 設定を削除した。
 
 - updated libraries
