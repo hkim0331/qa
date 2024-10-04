@@ -4,13 +4,11 @@ textarea#md       {width: 100%; height: 400px; background: #cfc;}
 
 img#odyssey {width: 100%;}
 
-p.question {font-size: larger;}
+p.question {font-size: medium;}
 p.answer   {margin-left: 1em;}
 p.good     {margin-left: 1em;}
 
-pre.question {font-size: medium;}
 pre.answer   {margin-left: 1em;}
-
 span.nick  {font-weight: bold;}
 
 .red     {color: red;}
@@ -24,22 +22,23 @@ table, th, td {
   border: 1px solid black;
 }
 
-pre code {
-  font-family: 'Courier New', Courier, monospace;
-  word-wrap: break-word;
-  background-color: #f4f4f4;
-  padding: 5px;
-  font-size: 16px;
+/* use as question header */
+pre.question {
+  font-size: medium;
+  background-color:white;
+  color: black;
 }
 
-/* pre code {
+/* use inside triple back quotes */
+pre {
+  background-color:black;
+  color: white;
+}
+code {
   font-family: 'Courier New', Courier, monospace;
-  color: black;
-  font-weight: normal;
-  font-size: normal;
-  background-color: lightgray;
-  padding: 5px;
-} */
+  word-wrap: break-word;
+  font-size: 16px;
+}
 
 div.preview {
   border: solid 1pt dimgray;
