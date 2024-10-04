@@ -21,8 +21,9 @@
   filter から self を抜いて適用する。
 
 
-## v2.9-SNAPSHOT / 2024-09-26
+## v2.9.72 / 2024-10-05
 
+- css for pre.code.
 - QA_DEV=true 時の認証は (= login "hkimura") のみ。
 - WARNING: abs already refers to: #'clojure.core/abs in namespace: medley.core が出なくなった。
 
