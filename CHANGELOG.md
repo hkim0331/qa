@@ -12,16 +12,17 @@
     goods]
 ```
 - 質問を出したユーザは質問をクローズできるのは？ -> 他の人が不幸になりそう。
-- /md 来た人をログ --- ログよりもデータベースに入れる方がいいか？
-- https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb を入れるか。
 - base.html から logout ボタン削った方が良くないか？
-- mp.melt は need VPN だった。
 - (reset) はエラーでも (halt) (go) はいける。=> *ns* を確認。
 - filter の初期値を環境変数でもつ。admin がコントロールできる。
   filter から self を抜いて適用する。
 
 
-## v2.9.72 / 2024-10-05
+## v2.10.767 / 2024-10-06
+
+- readers にユニークなリーダーの数を追加表示。
+
+## v2.9.762 / 2024-10-05
 
 - css for pre.code.
 - QA_DEV=true 時の認証は (= login "hkimura") のみ。
