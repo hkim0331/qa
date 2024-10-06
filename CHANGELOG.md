@@ -2,7 +2,6 @@
 
 ## Unreleased
 - 全文検索（投稿や回答があったときにデータベースをアップデートする仕組み）
-- qa, qa-all で ol の自動番号の代わりにテーブルの id にしたらどうか？
 - (reset) で毎回、クラッシュ。lein repl だとクラッシュは減る。
   duct じゃなく、VScode の REPL がダメか？
 - いいねにアラートつけるか
@@ -11,9 +10,6 @@
      :onclick "alert('いいと思うところは何？ Markdown で書けないか'); return true;"}
     goods]
 ```
-- 質問を出したユーザは質問をクローズできるのは？ -> 他の人が不幸になりそう。
-- base.html から logout ボタン削った方が良くないか？
-- (reset) はエラーでも (halt) (go) はいける。=> *ns* を確認。
 - filter の初期値を環境変数でもつ。admin がコントロールできる。
   filter から self を抜いて適用する。
 
@@ -32,9 +28,22 @@
    [dev.weavejester/medley "1.8.1"]
    [com.taoensso/timbre "6.5.0"]
 ```
+
 ## v2.8.728 / 2024-09-20
 
-- nginx の websocket 関連のコードを nginx.conf に置くのをやめてみた。
+
+
+- session identity: nil がおかしい。
+  qa.middleware で飛ばされている。
+
+```log
+24-09-19 20:01:12 app INFO [qa.handler.auth:41] - login success
+24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/qs", :query-string nil}
+24-09-19 20:01:12 app INFO [qa.middleware:20] - unauthorized-handler: unauthenticated
+24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/login", :query-string nil}
+```
+
+- nginx の websocket 関連のコードを nginx.conf に置くのをやめてみた。(これじゃない)
 
 ```
 #        map $http_upgrade $connection_upgrade {
@@ -43,23 +52,6 @@
 #        }
 ```
 
-- session identity: nil がおかしい。
-
-```log
-24-09-19 20:45:14 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/qs", :query-string nil}
-24-09-19 20:45:14 app DEBUG [qa.middleware:30] - probe session identity: nil
-Producer@1ac76d00 eof=false"], :multipart-params {}, :scheme :http, :request-method :get, :session {}}
-```
-- qa.middleware で飛ばされている。
-
-```log
-24-09-19 20:01:12 app INFO [qa.handler.auth:41] - login success
-24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/qs", :query-string nil}
-24-09-19 20:01:12 app INFO [qa.middleware:20] - unauthorized-handler: unauthenticated
-24-09-19 20:01:12 app INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/login", :query-string nil}
-```
-ZZ
-- fixed: nginx.conf の半端な websocket 設定を削除した。
 
 - updated libraries
 
