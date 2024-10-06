@@ -1,4 +1,4 @@
-(defproject qa "v2.9.762"
+(defproject qa "v2.10.767"
   :description "qa system for my literacy classes"
   :url "https://qa.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
