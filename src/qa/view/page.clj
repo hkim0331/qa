@@ -275,17 +275,15 @@
        (ss 28 (:q a)) "..."]])))
 
 (defn readers-page [readers since]
-  (page
-   [:h2 "QA: Who read since " since]
-   [:p "ほんと、みんな、QA 読まないんだな。点数稼ぎの 👍 は心が冷えるよ。"]
-   [:p (->> (mapv :login readers)
-            ;; 2.2.5, 2023-03-29
-            ;; dedupe
-            ;; 2.2.6, 2023-04-10
-            distinct
-            (interpose " ")
-            (apply str))
-    "(合計 " (count readers) ")"]))
+  (let [uniq-readers (->> (mapv :login readers)
+                          distinct)]
+    (page
+     [:h2 "QA: Who read since " since]
+     [:p "ほんと、みんな、QA 読まないんだな。点数稼ぎの 👍 は心が冷えるよ。"]
+     [:p (->> uniq-readers
+              (interpose " ")
+              (apply str))
+      "(合計 " (count readers) "回、" (count uniq-readers) "人)"])))
 
 (def ^:private markdown-clj-url "https://github.com/yogthos/markdown-clj")
 
