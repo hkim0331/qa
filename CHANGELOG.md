@@ -14,6 +14,21 @@
   filter から self を抜いて適用する。
 
 
+## v2.10-SNAPSHOT
+
+- fixed bug: goods の表示順が並んでいない。
+
+```
+  (find-goods
+   [db a-id]
+   (let [ret (sql/find-by-keys
+              (ds-opt db)
+              :goods
+              {:a_id a-id}
+              {:order-by [:id]})] ;; this
+     ret))
+```
+
 ## v2.10.767 / 2024-10-06
 
 - readers にユニークなリーダーの数を追加表示。

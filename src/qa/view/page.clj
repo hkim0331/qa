@@ -188,6 +188,7 @@
    [:h4 "Answers"]
    (for [a answers]
      (let [goods (goods (:g a))]
+      ;;  (println "goods" goods)
        [:div
         [:p [:span {:class "nick"} (:nick a)] "'s answer " (date-time (:ts a)) ","]
         (md-to-html-string (:a a))
