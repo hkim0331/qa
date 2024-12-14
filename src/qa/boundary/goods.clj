@@ -34,7 +34,9 @@
    [db a-id]
    (let [ret (sql/find-by-keys
               (ds-opt db)
-              :goods {:a_id a-id})]
+              :goods
+              {:a_id a-id}
+              {:order-by [:id]})]
      ret))
 
   (count-sent
