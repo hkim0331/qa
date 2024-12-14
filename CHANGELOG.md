@@ -14,7 +14,7 @@
   filter から self を抜いて適用する。
 
 
-## v2.10-SNAPSHOT
+## v2.10.773 / 2024-12-14
 
 - fixed bug: goods の表示順が並んでいない。
 
