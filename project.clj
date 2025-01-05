@@ -6,17 +6,17 @@
   :dependencies
   [[buddy/buddy-auth "3.0.323"]
    [buddy/buddy-hashers "2.0.167"]
-   [clojure.java-time "1.4.2"]
-   [com.github.seancorfield/next.jdbc "1.3.939"]
-   [com.fasterxml.jackson.core/jackson-core "2.17.2"]
+   [clojure.java-time "1.4.3"]
+   [com.github.seancorfield/next.jdbc "1.3.981"]
+   [com.fasterxml.jackson.core/jackson-core "2.18.2"]
    [duct/core "0.8.1"]
    [duct/module.ataraxy "0.3.0"]
    [duct/module.logging "0.5.0"]
    [duct/module.sql "0.6.1"]
-   [duct/module.web "0.7.3"]
+   [duct/module.web "0.7.4"]
    [environ "1.2.0"]
    [hiccup "1.0.5"]
-   [markdown-clj "1.12.1"]
+   [markdown-clj "1.12.2"]
    [org.clojure/clojure "1.12.0"]
    [org.postgresql/postgresql "42.7.4"]
    ;;
@@ -25,12 +25,12 @@
    ;; [ring "1.12.2"] ;; no 1.12.1
    ;; feature/safari, 2024-09-20
    [ring/ring-anti-forgery "1.3.1"]
-   [ring/ring-core "1.12.2"]
+   [ring/ring-core "1.13.0"]
    [ring/ring-defaults "0.5.0"]
-   [ring/ring-jetty-adapter "1.12.2"]
+   [ring/ring-jetty-adapter "1.13.0"]
    ;;
    [dev.weavejester/medley "1.8.1"]
-   [com.taoensso/timbre "6.5.0"]
+   [com.taoensso/timbre "6.6.1"]
    ]
 
   :plugins [[duct/lein-duct "0.12.3"]]
@@ -46,7 +46,7 @@
    :profiles/dev {}
    :project/dev  {:source-paths   ["dev/src"]
                   :resource-paths ["dev/resources"]
-                  :dependencies   [[integrant/repl "0.3.3"]
+                  :dependencies   [[integrant/repl "0.4.0"]
                                    [hawk "0.2.11"]
                                    [eftest "0.6.0"]
                                    [kerodon "0.9.1"]]}})
