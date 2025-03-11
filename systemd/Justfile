@@ -1,0 +1,15 @@
+install:
+        sudo cp qa.service /lib/systemd/systemd
+        sudo systemctl daemon-reload
+
+start:
+        sudo systemctl start qa.service
+
+enable:
+        sudo systemctl enable qa.service
+
+stop:
+        sudo systemctl stop qa.service
+
+disable:
+        sudo systemctl disable qa.service

@@ -1,4 +1,4 @@
 #!/bin/sh
-PID=`/usr/bin/lsof -i:3003 -t`
+PID=`/usr/bin/lsof -i:8530 -t`
 kill ${PID}
-echo killed PID ${PID} 
+echo killed PID ${PID}
