@@ -10,8 +10,8 @@
    [markdown.core :refer [md-to-html-string]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-(def ^:private version "v2.9-SNAPSHOT")
-(def ^:private updated "2024-09-26 06:26:09")
+(def ^:private version "v2.10.773")
+(def ^:private updated "2024-12-14 21:51:31")
 
 (def ^:private wrap-at 80)
 
@@ -80,9 +80,6 @@
 (defn index-page [req]
   (page
    [:h2 "QA"]
-   #_[:p "昨年度リテラシー、情報処理応用受講者は"
-    [:a {:href "https://l22.melt.kyutech.ac.jp/register"}
-     "アカウントを作り直し"] "してください。(need VPN)"]
    [:div.text-danger (:flash req)]
    (form-to
     [:post "/login"]
@@ -191,6 +188,7 @@
    [:h4 "Answers"]
    (for [a answers]
      (let [goods (goods (:g a))]
+      ;;  (println "goods" goods)
        [:div
         [:p [:span {:class "nick"} (:nick a)] "'s answer " (date-time (:ts a)) ","]
         (md-to-html-string (:a a))
@@ -275,17 +273,15 @@
        (ss 28 (:q a)) "..."]])))
 
 (defn readers-page [readers since]
-  (page
-   [:h2 "QA: Who read since " since]
-   [:p "ほんと、みんな、QA 読まないんだな。点数稼ぎの 👍 は心が冷えるよ。"]
-   [:p (->> (mapv :login readers)
-            ;; 2.2.5, 2023-03-29
-            ;; dedupe
-            ;; 2.2.6, 2023-04-10
-            distinct
-            (interpose " ")
-            (apply str))
-    "(合計 " (count readers) ")"]))
+  (let [uniq-readers (->> (mapv :login readers)
+                          distinct)]
+    (page
+     [:h2 "QA: Who read since " since]
+     [:p "ほんと、みんな、QA 読まないんだな。点数稼ぎの 👍 は心が冷えるよ。"]
+     [:p (->> uniq-readers
+              (interpose " ")
+              (apply str))
+      "(合計 " (count readers) "回、" (count uniq-readers) "人)"])))
 
 (def ^:private markdown-clj-url "https://github.com/yogthos/markdown-clj")
 
